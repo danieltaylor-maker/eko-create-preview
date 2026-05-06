@@ -175,39 +175,3 @@ function closeVideo() {
   iframe.src = '';
   document.body.classList.remove('no-scroll');
 }
-
-window.initMap = function initMap() {
-  const el = document.getElementById('map');
-  if (!el || !window.google) return;
-  const eko = { lat: 53.9591, lng: -1.0822 };
-  const map = new google.maps.Map(el, {
-    zoom: 16,
-    center: eko,
-    disableDefaultUI: true,
-    zoomControl: true,
-    styles: [
-      { elementType: 'geometry', stylers: [{ color: '#171a1f' }] },
-      { elementType: 'labels.text.stroke', stylers: [{ color: '#171a1f' }] },
-      { elementType: 'labels.text.fill', stylers: [{ color: '#8f98a3' }] },
-      { featureType: 'administrative', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
-      { featureType: 'poi', stylers: [{ visibility: 'off' }] },
-      { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#252a30' }] },
-      { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#b8b8b8' }] },
-      { featureType: 'transit', stylers: [{ visibility: 'off' }] },
-      { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0a0c0f' }] }
-    ]
-  });
-  new google.maps.Marker({
-    position: eko,
-    map,
-    title: 'Eko Create UK Ltd',
-    icon: {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 10,
-      fillColor: '#079df3',
-      fillOpacity: 1,
-      strokeColor: '#ffffff',
-      strokeWeight: 2
-    }
-  });
-};
