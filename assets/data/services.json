@@ -1,0 +1,8 @@
+{
+  "services": [
+    { "title": "Concept & Planning", "description": "Ideas, messaging and structure to get projects moving quickly." },
+    { "title": "Production", "description": "Video, photography and podcast capture for campaigns, social and internal comms." },
+    { "title": "Post-Production", "description": "Editing, motion graphics and social content shaped for the final audience." },
+    { "title": "Content Delivery", "description": "Formats and outputs ready for teams, platforms and channels." }
+  ]
+}
