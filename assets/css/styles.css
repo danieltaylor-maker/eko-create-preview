@@ -16,3 +16,204 @@
 .social-icons img{width:17px;height:17px;display:block;filter:brightness(0) invert(1);opacity:.76;transition:opacity .25s ease,filter .25s ease;}
 .social-icons a:hover img{opacity:1;filter:none;}
 @media (max-width:980px){.footer-inner{display:flex;align-items:flex-start;flex-direction:column;}.social-icons{justify-content:flex-start;margin-top:8px;}.address-card h2{font-size:20px!important;}.map-card,.map-embed{min-height:320px;}}
+
+
+/* Build 4 refinement pass — retained approved design, added subtle icons/motion polish */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(7,157,243,.08), transparent 32%),
+    radial-gradient(circle at 12% 52%, rgba(7,157,243,.045), transparent 34%);
+  opacity:.9;
+}
+.site-header,main,.site-footer,.video-modal,.mobile-call{position:relative;z-index:1;}
+.hero-title span{
+  display:block;
+  opacity:0;
+  transform:translateY(38px);
+  transition:opacity .95s cubic-bezier(.19,1,.22,1), transform .95s cubic-bezier(.19,1,.22,1);
+}
+.hero-title.in-view span{opacity:1;transform:translateY(0);}
+.hero-title.in-view span:nth-child(2){transition-delay:.14s;}
+.hero-content::before{
+  content:"";
+  position:absolute;
+  left:-12%;
+  top:-16%;
+  width:520px;
+  height:520px;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(7,157,243,.16), transparent 64%);
+  filter:blur(54px);
+  opacity:.48;
+  z-index:-1;
+}
+.section-dark::before,.section-charcoal::before,.reel-section::before,.clients::before{
+  content:"";
+  position:absolute;
+  inset:auto auto 8% -10%;
+  width:420px;
+  height:420px;
+  background:radial-gradient(circle, rgba(7,157,243,.07), transparent 68%);
+  filter:blur(45px);
+  pointer-events:none;
+  opacity:.75;
+}
+.services .section-heading,.process .section-heading{text-align:center;}
+.service-card{position:relative;overflow:hidden;}
+.service-card::after{
+  content:"";
+  position:absolute;
+  inset:auto -18% -28% auto;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:rgba(7,157,243,.08);
+  filter:blur(28px);
+  opacity:0;
+  transition:opacity .35s ease, transform .35s ease;
+}
+.service-card:hover::after{opacity:1;transform:scale(1.12);}
+.service-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  color:var(--eko-blue);
+  margin-bottom:26px;
+  opacity:.92;
+  transition:transform .35s ease, filter .35s ease;
+}
+.service-icon svg{
+  width:42px;
+  height:42px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.service-card:hover .service-icon{transform:translateY(-3px) scale(1.04);filter:drop-shadow(0 0 16px rgba(7,157,243,.32));}
+.service-card span{margin-bottom:24px;opacity:.95;}
+.logo-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:34px 48px;
+  align-items:center;
+  justify-items:center;
+  max-width:1040px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.logo-strip img{
+  width:auto;
+  object-fit:contain;
+  mix-blend-mode:screen;
+}
+.client-placeholder{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  color:rgba(255,255,255,.62);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:999px;
+  padding:12px 18px;
+  background:rgba(255,255,255,.025);
+  transition:opacity .3s ease, transform .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
+}
+.client-placeholder:hover{color:#fff;border-color:rgba(7,157,243,.45);box-shadow:0 0 28px rgba(7,157,243,.1);transform:translateY(-3px);}
+.social-icons a{padding:8px 0;}
+.social-icons img{color:currentColor;}
+@media (max-width:680px){
+  .hero-title span{transform:translateY(24px);}
+  .service-icon,.service-icon svg{width:36px;height:36px;}
+  .logo-strip{grid-template-columns:repeat(2,minmax(110px,1fr));gap:22px 24px;}
+  .client-placeholder{font-size:10px;padding:10px 12px;}
+}
+
+
+/* --- Eko Progress Build 4: actual site refinement pass --- */
+/* Global section title cleanup: labels and headings now share one centre axis */
+.services .section-heading,
+.process .section-heading,
+.clients .container > .section-kicker,
+.clients .container > h2,
+.portfolio .portfolio-head{
+  text-align:center;
+}
+.services .section-heading,
+.process .section-heading,
+.portfolio .portfolio-head{
+  display:block;
+  width:min(880px,100%);
+  margin:0 auto 52px;
+}
+.portfolio .portfolio-head > div:first-child{margin:0 auto;}
+.portfolio .portfolio-head p{margin-left:auto;margin-right:auto;}
+.filters{justify-content:center;margin-top:26px;}
+.clients .container > h2{margin-left:auto;margin-right:auto;max-width:920px;}
+
+/* Very dark parallax-style photographic textures */
+.services,
+.process{overflow:hidden;isolation:isolate;}
+.services::after,
+.process::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  opacity:.10;
+  filter:grayscale(100%) saturate(0%) contrast(95%) brightness(56%) blur(.6px);
+  transform:scale(1.06);
+  mix-blend-mode:screen;
+}
+.services::after{background-image:url('../images/storyboard-bg.jpeg');}
+.process::after{background-image:url('../images/editing-bg.jpeg');opacity:.085;}
+.services::before,
+.process::before{
+  z-index:0;
+  inset:auto auto 5% -8%;
+}
+.services .container,
+.process .container{position:relative;z-index:2;}
+.services .container::before,
+.process .container::before{
+  content:"";
+  position:absolute;
+  inset:-80px -40px;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 84% 18%, rgba(7,157,243,.075), transparent 30%),
+    linear-gradient(180deg, rgba(17,19,21,.82), rgba(17,19,21,.92));
+}
+.process .container::before{
+  background:
+    radial-gradient(circle at 14% 38%, rgba(7,157,243,.055), transparent 32%),
+    linear-gradient(180deg, rgba(24,27,31,.84), rgba(24,27,31,.94));
+}
+
+/* Cards sit above the background image cleanly */
+.service-card,.process-step{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+
+@media (max-width:980px){
+  .services::after,.process::after{background-attachment:scroll;opacity:.075;transform:scale(1.02);}
+  .portfolio .portfolio-head{width:100%;}
+}
+@media (max-width:680px){
+  .services .section-heading,.process .section-heading,.portfolio .portfolio-head{margin-bottom:34px;}
+  .services::after,.process::after{opacity:.055;}
+}
