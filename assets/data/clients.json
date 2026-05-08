@@ -1,3 +1,23 @@
-{
-  "clients": ["Aviva", "Elsevier", "LNER", "Aviva Investors", "Cabinet Office", "Aberdeen", "St Leonard's Hospice", "Your Move", "Citizens Advice", "Deloitte", "Royal Air Force", "RNLI"]
-}
+[
+  "HSBC",
+  "Unilever",
+  "Aviva",
+  "Aviva Investors",
+  "Cabinet Office",
+  "LNER",
+  "Aberdeen",
+  "Elsevier",
+  "CA",
+  "TPT",
+  "Stowe Family Law",
+  "Cafcass",
+  "Pinsent Masons",
+  "Costcutter",
+  "DFDS",
+  "Engie",
+  "Lowell",
+  "Best Western",
+  "William Hill",
+  "Your Move",
+  "Citizens Advice"
+]

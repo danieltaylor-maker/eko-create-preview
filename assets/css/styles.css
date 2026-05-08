@@ -217,3 +217,27 @@ body::before{
   .services .section-heading,.process .section-heading,.portfolio .portfolio-head{margin-bottom:34px;}
   .services::after,.process::after{opacity:.055;}
 }
+
+
+/* --- Eko client wall update: compact sliding logo strip --- */
+.clients{overflow:hidden;text-align:center;isolation:isolate;}
+.clients-intro{position:relative;z-index:3;}
+.client-note{max-width:700px;margin:18px auto 0;color:var(--muted);font-size:16px;}
+.client-marquee{position:relative;z-index:2;width:100%;margin:46px 0 0;display:grid;gap:18px;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:28px 0;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.006));}
+.client-marquee::before,.client-marquee::after{content:"";position:absolute;top:0;bottom:0;width:min(18vw,180px);z-index:5;pointer-events:none;}
+.client-marquee::before{left:0;background:linear-gradient(90deg,var(--bg),rgba(17,19,21,0));}
+.client-marquee::after{right:0;background:linear-gradient(270deg,var(--bg),rgba(17,19,21,0));}
+.client-marquee-row{display:flex;width:100%;overflow:hidden;}
+.client-marquee-track{display:flex;width:max-content;animation:clientMarquee 42s linear infinite;will-change:transform;}
+.client-marquee-row.reverse .client-marquee-track{animation-name:clientMarqueeReverse;animation-duration:52s;}
+.client-marquee:hover .client-marquee-track{animation-play-state:paused;}
+.client-marquee-set{display:flex;align-items:center;gap:18px;padding-right:18px;}
+.client-marquee-item{height:78px;min-width:190px;padding:18px 24px;border:1px solid rgba(255,255,255,.075);border-radius:999px;background:rgba(255,255,255,.024);display:flex;align-items:center;justify-content:center;opacity:.72;transition:opacity .3s ease,transform .3s ease,border-color .3s ease,box-shadow .3s ease,background .3s ease;}
+.client-marquee-item:hover{opacity:1;transform:translateY(-3px);border-color:rgba(7,157,243,.38);box-shadow:0 0 34px rgba(7,157,243,.10);background:rgba(255,255,255,.04);}
+.client-marquee-item img{display:block;max-width:152px;max-height:42px;width:auto;height:auto;object-fit:contain;filter:grayscale(1) brightness(0) invert(1);opacity:.82;transition:opacity .3s ease,filter .3s ease,transform .3s ease;}
+.client-marquee-item:hover img{opacity:1;filter:grayscale(1) brightness(0) invert(1) drop-shadow(0 0 14px rgba(7,157,243,.18));}
+.client-text-logo{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.76);white-space:nowrap;}
+@keyframes clientMarquee{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
+@keyframes clientMarqueeReverse{from{transform:translate3d(-50%,0,0);}to{transform:translate3d(0,0,0);}}
+@media (prefers-reduced-motion:reduce){.client-marquee-track{animation:none;flex-wrap:wrap;justify-content:center;}.client-marquee-set[aria-hidden="true"]{display:none;}}
+@media (max-width:680px){.client-marquee{margin-top:34px;padding:22px 0;gap:14px;}.client-marquee-item{height:64px;min-width:154px;padding:14px 18px;}.client-marquee-item img{max-width:122px;max-height:34px;}.client-text-logo{font-size:10px;}.client-note{font-size:14px;}}
