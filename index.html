@@ -9,7 +9,8 @@
   <meta property="og:title" content="Eko Create - Video Production York">
   <meta property="og:description" content="Video, social and motion content for complex organisations.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/images/hero.jpg">
+  <!-- og:image should be an absolute URL before launch, e.g. https://eko-create.com/assets/images/hero.jpg -->
+  <meta property="og:image" content="https://danieltaylor-maker.github.io/eko-create-preview/assets/images/hero.jpg">
   <link rel="icon" type="image/svg+xml" href="assets/images/eko-logo.svg">
   <link rel="apple-touch-icon" href="assets/images/eko-logo.svg">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -22,7 +23,7 @@
     <a class="brand" href="#top" aria-label="Eko Create home"><img src="assets/images/eko-logo.svg" alt="Eko Create"></a>
     <nav class="main-nav" aria-label="Main navigation">
       <a href="#services">Services</a>
-      <a href="#work">Work</a>
+      <a href="#portfolio">Work</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="top-contact">
@@ -30,7 +31,17 @@
       <span>|</span>
       <a href="mailto:info@eko-create.com">info@eko-create.com</a>
     </div>
+    <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+    <a href="#services">Services</a>
+    <a href="#portfolio">Work</a>
+    <a href="#contact">Contact</a>
+    <a href="tel:+441904500034">01904 500034</a>
+    <a href="mailto:info@eko-create.com">info@eko-create.com</a>
+  </nav>
 
   <main id="top">
     <section class="hero" aria-label="Eko Create hero">
@@ -49,20 +60,19 @@
     </section>
 
     
+
 <section id="reel" class="reel-section section-dark reveal-section eko-vimeo-reel" aria-label="Selected Work Reel">
   <div class="reel-bg-glow" aria-hidden="true"></div>
-
   <div class="container">
     <div class="reel-heading-fixed">
       <p class="section-kicker">SHOWREEL</p>
       <h2>Selected Work Reel</h2>
       <p>Video, social and motion content for complex organisations.</p>
     </div>
-
     <div class="reel-frame reveal-card reel-embed-frame">
       <iframe
         src="https://player.vimeo.com/video/1190711612?title=0&byline=0&portrait=0&badge=0&autopause=0"
-        title="Eko Create Showreel"
+        title="eko showreel highlights"
         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
@@ -70,6 +80,7 @@
     </div>
   </div>
 </section>
+
 
 
     <section class="blue-statement reveal-section" aria-label="From concept to delivery">
@@ -232,85 +243,24 @@
     </section>
 
     
+
 <section id="portfolio" class="portfolio section-dark reveal-section">
   <div class="container">
     <div class="portfolio-head section-heading">
       <p class="section-kicker centered-kicker">PORTFOLIO</p>
       <h2>Selected Work</h2>
+      <div class="filters" role="group" aria-label="Filter portfolio">
+        <button class="filter active" data-filter="all" type="button">All</button>
+        <button class="filter" data-filter="video" type="button">Video</button>
+        <button class="filter" data-filter="motion" type="button">Motion</button>
+        <button class="filter" data-filter="podcast" type="button">Podcast</button>
+        <button class="filter" data-filter="social" type="button">Social</button>
+      </div>
     </div>
-
-    <div class="portfolio-grid">
-      
-      <article class="portfolio-item reveal-card portfolio-video-card" data-category="video">
-        <div class="portfolio-video-thumb">
-          <iframe
-            src="https://player.vimeo.com/video/1190711638?title=0&byline=0&portrait=0&badge=0&autopause=0"
-            title="Eko Showreel Highlights"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            loading="lazy"></iframe>
-        </div>
-        <div class="portfolio-content">
-          <p>FEATURED REEL</p>
-          <h3>Eko Showreel Highlights</h3>
-        </div>
-      </article>
-    
-
-      <article class="portfolio-item reveal-card portfolio-video-card" data-category="video">
-        <div class="portfolio-video-thumb">
-          <iframe
-            src="https://player.vimeo.com/video/1190711615?title=0&byline=0&portrait=0&badge=0&autopause=0"
-            title="Creative Campaign"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            loading="lazy"></iframe>
-        </div>
-        <div class="portfolio-content">
-          <p>PROJECT</p>
-          <h3>Creative Campaign</h3>
-        </div>
-      </article>
-    
-
-      <article class="portfolio-item reveal-card portfolio-video-card" data-category="video">
-        <div class="portfolio-video-thumb">
-          <iframe
-            src="https://player.vimeo.com/video/1190711606?title=0&byline=0&portrait=0&badge=0&autopause=0"
-            title="Motion Storytelling"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            loading="lazy"></iframe>
-        </div>
-        <div class="portfolio-content">
-          <p>PROJECT</p>
-          <h3>Motion Storytelling</h3>
-        </div>
-      </article>
-    
-
-      <article class="portfolio-item reveal-card portfolio-video-card" data-category="video">
-        <div class="portfolio-video-thumb">
-          <iframe
-            src="https://player.vimeo.com/video/1190711570?title=0&byline=0&portrait=0&badge=0&autopause=0"
-            title="Commercial Production"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            loading="lazy"></iframe>
-        </div>
-        <div class="portfolio-content">
-          <p>PROJECT</p>
-          <h3>Commercial Production</h3>
-        </div>
-      </article>
-    
-    </div>
+    <div class="portfolio-grid" id="portfolioGrid" aria-live="polite"></div>
   </div>
 </section>
+
 
 
     <section id="contact" class="contact section-dark reveal-section">
@@ -367,7 +317,7 @@
     <div class="modal-frame"><iframe title="Portfolio video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
   </div>
   <a class="mobile-call" href="tel:+441904500034">Call</a>
+  <script src="https://player.vimeo.com/api/player.js"></script>
   <script src="assets/js/main.js"></script>
-<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
