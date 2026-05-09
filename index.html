@@ -61,8 +61,12 @@
 
     
 
+
 <section id="reel" class="reel-section section-dark reveal-section eko-vimeo-reel" aria-label="Selected Work Reel">
   <div class="reel-bg-glow" aria-hidden="true"></div>
+  <div class="reel-atmosphere" aria-hidden="true">
+    <iframe src="https://player.vimeo.com/video/1190711612?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0" title="" tabindex="-1" loading="lazy"></iframe>
+  </div>
   <div class="container">
     <div class="reel-heading-fixed">
       <p class="section-kicker">SHOWREEL</p>
@@ -70,16 +74,11 @@
       <p>Video, social and motion content for complex organisations.</p>
     </div>
     <div class="reel-frame reveal-card reel-embed-frame">
-      <iframe
-        src="https://player.vimeo.com/video/1190711612?title=0&byline=0&portrait=0&badge=0&autopause=0"
-        title="eko showreel highlights"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"></iframe>
+      <iframe src="https://player.vimeo.com/video/1190711612?title=0&byline=0&portrait=0&badge=0&autopause=0" title="Eko Create Showreel" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
+
 
 
 
@@ -244,22 +243,29 @@
 
     
 
-<section id="portfolio" class="portfolio section-dark reveal-section">
+
+<section id="portfolio" class="portfolio section-dark reveal-section eko-slick-portfolio">
+  <div class="portfolio-ambient" aria-hidden="true"></div>
   <div class="container">
     <div class="portfolio-head section-heading">
       <p class="section-kicker centered-kicker">PORTFOLIO</p>
       <h2>Selected Work</h2>
+      <p class="portfolio-intro">A curated selection of approved website films, motion pieces and social content.</p>
       <div class="filters" role="group" aria-label="Filter portfolio">
         <button class="filter active" data-filter="all" type="button">All</button>
-        <button class="filter" data-filter="video" type="button">Video</button>
+        <button class="filter" data-filter="video" type="button">Film</button>
         <button class="filter" data-filter="motion" type="button">Motion</button>
-        <button class="filter" data-filter="podcast" type="button">Podcast</button>
         <button class="filter" data-filter="social" type="button">Social</button>
+        <button class="filter" data-filter="podcast" type="button">Podcast</button>
       </div>
     </div>
-    <div class="portfolio-grid" id="portfolioGrid" aria-live="polite"></div>
+    <div class="portfolio-grid slick-portfolio-grid" id="portfolioGrid" aria-live="polite"></div>
+    <div class="portfolio-actions">
+      <button class="btn btn-ghost" id="loadMoreWork" type="button">View more work</button>
+    </div>
   </div>
 </section>
+
 
 
 
