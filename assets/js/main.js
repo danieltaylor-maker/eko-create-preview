@@ -175,3 +175,67 @@ function closeVideo() {
   iframe.src = '';
   document.body.classList.remove('no-scroll');
 }
+
+
+// --- Premium motion polish: soft cursor glow + light parallax ---
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  const glow = document.querySelector('.cursor-glow');
+  if (!glow) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let currentX = mouseX;
+  let currentY = mouseY;
+
+  window.addEventListener('pointermove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    glow.style.opacity = '.85';
+  }, { passive:true });
+
+  window.addEventListener('pointerleave', () => {
+    glow.style.opacity = '0';
+  }, { passive:true });
+
+  const tick = () => {
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
+    glow.style.transform = `translate3d(${currentX - 210}px, ${currentY - 210}px, 0)`;
+    requestAnimationFrame(tick);
+  };
+  tick();
+})();
+
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const parallaxSections = document.querySelectorAll('.services, .process, .reel-section, .portfolio');
+  if (!parallaxSections.length) return;
+
+  let ticking = false;
+
+  const update = () => {
+    parallaxSections.forEach((section, index) => {
+      const rect = section.getBoundingClientRect();
+      const windowH = window.innerHeight || 1;
+      const progress = (rect.top - windowH) / (rect.height + windowH);
+      const movement = Math.max(-1, Math.min(1, progress)) * -16;
+      section.style.setProperty('--eko-scroll-shift', `${movement}px`);
+    });
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  };
+
+  update();
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll, { passive:true });
+})();

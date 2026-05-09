@@ -18,3 +18,6 @@ Notes:
 - Replace placeholder portfolio Vimeo IDs in assets/js/main.js or later move them fully into assets/data/videos.json.
 - Add real social URLs in the footer before launch.
 - Leave Google Workspace MX records untouched when switching DNS.
+
+
+Build note: premium motion touches added — grain, ambient glow, cursor light, blur-to-sharp reveals, softer section blending, refined marquee and mobile-safe motion.

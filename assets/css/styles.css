@@ -241,3 +241,491 @@ body::before{
 @keyframes clientMarqueeReverse{from{transform:translate3d(-50%,0,0);}to{transform:translate3d(0,0,0);}}
 @media (prefers-reduced-motion:reduce){.client-marquee-track{animation:none;flex-wrap:wrap;justify-content:center;}.client-marquee-set[aria-hidden="true"]{display:none;}}
 @media (max-width:680px){.client-marquee{margin-top:34px;padding:22px 0;gap:14px;}.client-marquee-item{height:64px;min-width:154px;padding:14px 18px;}.client-marquee-item img{max-width:122px;max-height:34px;}.client-text-logo{font-size:10px;}.client-note{font-size:14px;}}
+
+
+/* --- Premium motion polish pass: subtle modern touches --- */
+
+/* Global cinematic texture */
+.site-grain{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  pointer-events:none;
+  opacity:.045;
+  mix-blend-mode:soft-light;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,.055) 0 1px, transparent 1px);
+  background-size:3px 3px, 5px 5px;
+}
+
+/* Gentle mouse-follow light on desktop */
+.cursor-glow{
+  position:fixed;
+  left:0;
+  top:0;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  z-index:1;
+  pointer-events:none;
+  opacity:.0;
+  transform:translate3d(-50%,-50%,0);
+  background:radial-gradient(circle, rgba(7,157,243,.115), rgba(7,157,243,.035) 34%, transparent 70%);
+  filter:blur(32px);
+  transition:opacity .5s ease;
+  will-change:transform, opacity;
+}
+
+/* Keep actual content above ambient cursor glow */
+.site-header,
+.hero,
+main,
+.site-footer,
+.video-modal{position:relative;}
+.site-header{z-index:50;}
+main,.site-footer{z-index:2;}
+
+/* Soft section blending so blocks do not feel hard-cut */
+section{
+  isolation:isolate;
+  overflow:hidden;
+}
+section::before{
+  content:"";
+  position:absolute;
+  inset:-18% -12%;
+  z-index:0;
+  pointer-events:none;
+  opacity:.0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(7,157,243,.11), transparent 26%),
+    radial-gradient(circle at 82% 78%, rgba(255,255,255,.025), transparent 32%);
+  filter:blur(32px);
+  transform:translate3d(0,0,0);
+}
+section > .container,
+section > .reel-frame,
+section > .client-marquee{
+  position:relative;
+  z-index:2;
+}
+.reel-section::before,
+.intro::before,
+.portfolio::before,
+.contact::before,
+.map-contact::before{
+  opacity:.55;
+}
+.blue-statement::before{
+  opacity:.18;
+  background:radial-gradient(circle at 78% 24%, rgba(255,255,255,.2), transparent 28%);
+}
+
+/* Slow living backgrounds */
+.hero-media{
+  will-change:transform;
+  filter:saturate(.86) contrast(1.06) brightness(.82);
+}
+.services::after,
+.process::after{
+  will-change:transform;
+  animation:ekoBgDrift 22s ease-in-out infinite alternate;
+}
+@keyframes ekoBgDrift{
+  from{transform:scale(1.06) translate3d(-.8%, -.4%, 0);}
+  to{transform:scale(1.1) translate3d(.9%, .8%, 0);}
+}
+
+/* More premium reveal: blur-to-sharp and layered lift */
+[data-animate],
+.reveal-section,
+.reveal-card,
+.reveal-logo,
+.portfolio-item{
+  filter:blur(8px);
+  will-change:opacity, transform, filter;
+  transition:
+    opacity .9s cubic-bezier(.19,1,.22,1),
+    transform .9s cubic-bezier(.19,1,.22,1),
+    filter .9s cubic-bezier(.19,1,.22,1);
+}
+[data-animate].in-view,
+.reveal-section.in-view,
+.reveal-card.in-view,
+.reveal-logo.in-view,
+.portfolio-item.in-view{
+  filter:blur(0);
+}
+
+/* Small, expensive hover movement rather than obvious animation */
+.service-card,
+.process-step,
+.portfolio-item,
+.address-card,
+.map-card,
+.contact-form,
+.client-marquee-item{
+  transform:translate3d(0,0,0);
+  will-change:transform, border-color, box-shadow;
+}
+.service-card:hover,
+.process-step:hover,
+.portfolio-item:hover,
+.address-card:hover,
+.map-card:hover,
+.contact-form:hover{
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.34),
+    0 0 42px rgba(7,157,243,.08);
+}
+
+/* Section heading consistency and cleaner rhythm */
+.section-heading,
+.clients-intro,
+.portfolio-head{
+  text-align:center;
+}
+.portfolio .portfolio-head{
+  display:block;
+  width:min(840px,100%);
+  margin:0 auto 46px;
+}
+.filters{
+  justify-content:center;
+  margin-top:22px;
+}
+.section-kicker{
+  text-shadow:0 0 22px rgba(7,157,243,.18);
+}
+
+/* Client marquee: more compact premium movement */
+.client-marquee{
+  border-radius:0;
+  mask-image:linear-gradient(90deg,transparent 0%,black 12%,black 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 12%,black 88%,transparent 100%);
+}
+.client-marquee-track{
+  animation-timing-function:linear;
+}
+.client-marquee-item{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+/* Reel area: subtle cinematic depth without autoplay video yet */
+.reel-section{
+  background:
+    radial-gradient(circle at 75% 20%, rgba(7,157,243,.09), transparent 30%),
+    linear-gradient(180deg, var(--bg), #0b0d10);
+}
+.reel-frame{
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.48),
+    0 0 90px rgba(7,157,243,.055);
+}
+.reel-frame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:linear-gradient(180deg, rgba(255,255,255,.045), transparent 18%, rgba(7,157,243,.04));
+}
+
+/* Portfolio tiles feel more cinematic */
+.portfolio-thumb::before{
+  background:
+    radial-gradient(circle at 72% 28%,rgba(7,157,243,.34),transparent 34%),
+    linear-gradient(135deg,rgba(255,255,255,.09),transparent),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.24));
+}
+.portfolio-item{
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+/* Buttons and filters get a little polish */
+.btn,
+.filter{
+  will-change:transform;
+}
+.btn:hover,
+.filter:hover{
+  box-shadow:0 18px 48px rgba(7,157,243,.13);
+}
+
+/* Mobile stays clean and safe */
+@media (hover:none), (pointer:coarse), (max-width:980px){
+  .cursor-glow{display:none;}
+  .site-grain{opacity:.028;}
+  [data-animate],
+  .reveal-section,
+  .reveal-card,
+  .reveal-logo,
+  .portfolio-item{filter:none;}
+  .services::after,
+  .process::after{animation:none;}
+  section::before{opacity:.22;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cursor-glow{display:none!important;}
+  .services::after,
+  .process::after{animation:none!important;}
+  [data-animate],
+  .reveal-section,
+  .reveal-card,
+  .reveal-logo,
+  .portfolio-item{filter:none!important;}
+}
+
+
+/* --- Proper reel + portfolio layout fix --- */
+
+.reel-heading-fixed,
+.portfolio-heading-fixed{
+  display:block !important;
+  text-align:center !important;
+  width:min(760px,100%) !important;
+  margin:0 auto 48px !important;
+}
+
+.reel-heading-fixed .section-kicker,
+.portfolio-heading-fixed .section-kicker{
+  display:block !important;
+  text-align:center !important;
+  width:100% !important;
+  margin:0 auto 18px !important;
+  color:var(--eko-blue);
+}
+
+.reel-heading-fixed h2,
+.portfolio-heading-fixed h2{
+  display:block !important;
+  text-align:center !important;
+  margin:0 auto 18px !important;
+  max-width:760px !important;
+  font-size:clamp(38px,5vw,68px);
+  line-height:1;
+  letter-spacing:-.045em;
+}
+
+.reel-heading-fixed p:not(.section-kicker),
+.portfolio-heading-fixed p:not(.section-kicker){
+  display:block !important;
+  text-align:center !important;
+  max-width:620px !important;
+  margin:0 auto !important;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.reel-frame.reel-embed-frame{
+  width:min(1060px,calc(100% - 48px));
+  margin:48px auto 0 !important;
+  aspect-ratio:16 / 9;
+  border-radius:30px;
+  overflow:hidden;
+  background:#05070a;
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.48),
+    0 0 90px rgba(7,157,243,.055);
+}
+
+.reel-frame.reel-embed-frame iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+.eko-vimeo-reel{
+  position:relative;
+  overflow:hidden;
+}
+
+.reel-bg-glow,
+.portfolio-glow{
+  position:absolute;
+  width:900px;
+  height:900px;
+  pointer-events:none;
+  filter:blur(110px);
+  opacity:.7;
+  background:radial-gradient(circle, rgba(7,157,243,.11) 0%, rgba(7,157,243,.035) 34%, transparent 70%);
+}
+
+.reel-bg-glow{
+  right:-260px;
+  top:-260px;
+}
+
+.portfolio-glow{
+  left:-300px;
+  top:-240px;
+}
+
+.portfolio-showcase{
+  position:relative;
+  padding:120px 0;
+  overflow:hidden;
+}
+
+.portfolio-grid.video-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:24px;
+  margin-top:54px;
+  align-items:start;
+}
+
+.portfolio-video{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(7,157,243,.18), transparent 32%),
+    rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.08);
+  transition:all .6s cubic-bezier(.19,1,.22,1);
+  box-shadow:0 30px 90px rgba(0,0,0,.22);
+}
+
+.portfolio-video:hover{
+  transform:translateY(-8px);
+  border-color:rgba(7,157,243,.28);
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.42),
+    0 0 50px rgba(7,157,243,.10);
+}
+
+.portfolio-video.featured{
+  grid-row:span 2;
+}
+
+.vimeo-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  background:#05070a;
+}
+
+.vimeo-wrap iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+.video-caption{
+  padding:22px 24px 26px;
+}
+
+.video-caption span{
+  display:block;
+  letter-spacing:3px;
+  font-size:11px;
+  opacity:.55;
+  margin-bottom:10px;
+}
+
+.video-caption h3{
+  font-size:clamp(1.25rem,1.8vw,2rem);
+  line-height:1.12;
+  margin:0;
+}
+
+@media(max-width:980px){
+  .portfolio-grid.video-grid{
+    grid-template-columns:1fr;
+  }
+
+  .portfolio-video.featured{
+    grid-row:auto;
+  }
+
+  .reel-frame.reel-embed-frame{
+    width:calc(100% - 48px);
+    border-radius:22px;
+  }
+}
+
+@media(max-width:680px){
+  .portfolio-showcase{
+    padding:96px 0;
+  }
+
+  .video-caption{
+    padding:18px 18px 22px;
+  }
+
+  .reel-frame.reel-embed-frame{
+    width:100%;
+  }
+}
+
+
+/* --- Existing portfolio cards now use Vimeo embeds --- */
+
+.centered-kicker{
+  text-align:center !important;
+  width:100%;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.portfolio .portfolio-head,
+.portfolio .section-heading{
+  text-align:center !important;
+  width:min(820px,100%);
+  margin:0 auto 54px;
+}
+
+.portfolio .section-kicker{
+  text-align:center !important;
+}
+
+.portfolio-video-card{
+  overflow:hidden;
+}
+
+.portfolio-video-thumb{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  background:#05070a;
+  border-radius:22px 22px 0 0;
+  overflow:hidden;
+}
+
+.portfolio-video-thumb iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+.portfolio-video-card .portfolio-content{
+  padding:22px 24px 26px;
+}
+
+.portfolio-video-card .portfolio-content p{
+  letter-spacing:3px;
+  font-size:11px;
+  opacity:.55;
+  margin-bottom:10px;
+}
+
+.portfolio-video-card .portfolio-content h3{
+  margin:0;
+}
+
+/* Remove any previous extra video-section spacing if cached classes remain */
+.portfolio-showcase{
+  display:none;
+}
