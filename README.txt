@@ -1,1 +1,1 @@
-Eko slick portfolio build. Adds desktop-only muted Vimeo background reel, portfolio videos in Selected Work cards, filters, View More batching, expanding active cards, mobile-safe fallbacks.
+Eko heading fixed build. All section headings are locked to a centred stacked system.
