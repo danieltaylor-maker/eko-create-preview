@@ -43,11 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initMobileNav();
   initReel();
-  initPortfolio();
   initModal();
-});
-
-function initMobileNav() {
+  ekoInitSlickPortfolio();
+});function initMobileNav() {
   const navToggle = document.querySelector('.nav-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
 
@@ -101,63 +99,16 @@ function initReel() {
   });
 }
 
-const portfolioItems = [];
-
-function vimeoEmbed(id) {
-  return `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&badge=0&autopause=0`;
-}
-
-function initPortfolio() {
-  const grid = document.getElementById('portfolioGrid');
-  if (!grid) return;
-
-  grid.innerHTML = portfolioItems.map((item, index) => `
-    <article class="portfolio-item portfolio-video-card reveal-card" data-category="${item.category}" style="transition-delay:${index * 70}ms">
-      <div class="portfolio-video-thumb">
-        <iframe
-          src="${vimeoEmbed(item.vimeo)}"
-          title="${item.title}"
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-          loading="lazy"></iframe>
-      </div>
-      <div class="portfolio-body">
-        <small>${item.client} / ${item.category}</small>
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
-      </div>
-    </article>
-  `).join('');
-
-  observe('.portfolio-item');
-
-  document.querySelectorAll('.filter').forEach(button => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter;
-
-      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
-      button.classList.add('active');
-
-      document.querySelectorAll('.portfolio-item').forEach((item, index) => {
-        const show = filter === 'all' || item.dataset.category === filter;
-        item.style.transitionDelay = `${index * 35}ms`;
-        item.classList.toggle('is-hiding', !show);
-      });
-    });
-  });
-}
 
 function initModal() {
   const modal = document.getElementById('videoModal');
-  const close = document.querySelector('.modal-close');
+  if (!modal) return; // modal not present in this build
 
+  const close = modal.querySelector('.modal-close');
   close?.addEventListener('click', closeVideo);
-
-  modal?.addEventListener('click', event => {
+  modal.addEventListener('click', event => {
     if (event.target === modal) closeVideo();
   });
-
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closeVideo();
   });
@@ -220,7 +171,148 @@ function closeVideo() {
 
 
 /* --- Slick portfolio system: filters, view more, expanding active cards --- */
-const EKO_PORTFOLIO_ITEMS = [{"title": "Eko Showreel Highlights", "client": "Eko Create", "category": "video", "vimeo": "1190711638", "featured": true}, {"title": "Creative Campaign", "client": "Eko Create", "category": "video", "vimeo": "1190711615", "featured": true}, {"title": "Motion Storytelling", "client": "Eko Create", "category": "motion", "vimeo": "1190711606", "featured": true}, {"title": "Commercial Production", "client": "Eko Create", "category": "social", "vimeo": "1190711570", "featured": false}, {"title": "Portfolio Film 05", "client": "Eko Create", "category": "video", "vimeo": "1190718103", "featured": false}, {"title": "Portfolio Film 06", "client": "Eko Create", "category": "motion", "vimeo": "1190718063", "featured": false}, {"title": "Portfolio Film 07", "client": "Eko Create", "category": "video", "vimeo": "1190718082", "featured": false}, {"title": "Portfolio Film 08", "client": "Eko Create", "category": "social", "vimeo": "1190718097", "featured": false}, {"title": "Portfolio Film 09", "client": "Eko Create", "category": "podcast", "vimeo": "1190718049", "featured": false}, {"title": "Portfolio Film 10", "client": "Eko Create", "category": "motion", "vimeo": "1190718003", "featured": false}, {"title": "Portfolio Film 11", "client": "Eko Create", "category": "video", "vimeo": "1190718021", "featured": false}, {"title": "Portfolio Film 12", "client": "Eko Create", "category": "social", "vimeo": "1190717849", "featured": false}, {"title": "Portfolio Film 13", "client": "Eko Create", "category": "video", "vimeo": "1190717821", "featured": false}, {"title": "Portfolio Film 14", "client": "Eko Create", "category": "motion", "vimeo": "1190719360", "featured": false}];
+const EKO_PORTFOLIO_ITEMS = [
+  {
+    "client": "Eko Create",
+    "category": "Showreel",
+    "title": "Eko Showreel Highlights",
+    "description": "A fast-moving overview of film, motion and content work for modern brands.",
+    "distribution": "Website / new business / social",
+    "type": "video",
+    "vimeo": "1190711638",
+    "featured": true
+  },
+  {
+    "client": "Eko Create",
+    "category": "Film",
+    "title": "Creative Campaign",
+    "description": "Campaign-led video content shaped for brand storytelling and audience engagement.",
+    "distribution": "Website / campaign / social",
+    "type": "video",
+    "vimeo": "1190711615",
+    "featured": true
+  },
+  {
+    "client": "Eko Create",
+    "category": "Motion",
+    "title": "Motion Storytelling",
+    "description": "Motion-led content using graphics, pacing and sound to simplify complex messages.",
+    "distribution": "Website / internal comms / presentation",
+    "type": "video",
+    "vimeo": "1190711606",
+    "featured": true
+  },
+  {
+    "client": "Eko Create",
+    "category": "Social",
+    "title": "Commercial Production",
+    "description": "Short-form video created for digital campaigns, brand awareness and social channels.",
+    "distribution": "Social / web / paid media",
+    "type": "video",
+    "vimeo": "1190711570",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Film",
+    "title": "Portfolio Film 05",
+    "description": "A selected production piece showing people, place and brand narrative.",
+    "distribution": "Website / client comms",
+    "type": "video",
+    "vimeo": "1190718103",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Motion",
+    "title": "Portfolio Film 06",
+    "description": "Motion and edit-led content designed to make key information feel clear and engaging.",
+    "distribution": "Internal comms / presentation",
+    "type": "video",
+    "vimeo": "1190718063",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Film",
+    "title": "Portfolio Film 07",
+    "description": "Cinematic film content built around strong visuals and concise storytelling.",
+    "distribution": "Website / launch / events",
+    "type": "video",
+    "vimeo": "1190718082",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Social",
+    "title": "Portfolio Film 08",
+    "description": "Platform-ready content adapted for quick attention and repeat viewing.",
+    "distribution": "LinkedIn / social / campaign",
+    "type": "video",
+    "vimeo": "1190718097",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Podcast",
+    "title": "Portfolio Film 09",
+    "description": "Podcast and interview-led content shaped into polished video assets.",
+    "distribution": "Podcast / YouTube / social clips",
+    "type": "video",
+    "vimeo": "1190718049",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Motion",
+    "title": "Portfolio Film 10",
+    "description": "Graphic-led content that brings structure, rhythm and visual clarity to messaging.",
+    "distribution": "Internal comms / digital campaign",
+    "type": "video",
+    "vimeo": "1190718003",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Film",
+    "title": "Portfolio Film 11",
+    "description": "A concise brand film designed to present people, purpose and message clearly.",
+    "distribution": "Website / new business",
+    "type": "video",
+    "vimeo": "1190718021",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Social",
+    "title": "Portfolio Film 12",
+    "description": "Short-form content produced for digital channels and social delivery.",
+    "distribution": "Social / LinkedIn / web",
+    "type": "video",
+    "vimeo": "1190717849",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Film",
+    "title": "Portfolio Film 13",
+    "description": "Production-led storytelling with a polished, editorial approach.",
+    "distribution": "Website / presentation",
+    "type": "video",
+    "vimeo": "1190717821",
+    "featured": false
+  },
+  {
+    "client": "Eko Create",
+    "category": "Motion",
+    "title": "Portfolio Film 14",
+    "description": "Motion and edit-led work built for clarity, energy and visual impact.",
+    "distribution": "Digital / internal comms",
+    "type": "video",
+    "vimeo": "1190719360",
+    "featured": false
+  }
+];
 const EKO_INITIAL_VISIBLE = 6;
 let ekoVisibleCount = EKO_INITIAL_VISIBLE;
 let ekoCurrentFilter = 'all';
@@ -230,7 +322,7 @@ function ekoVimeoEmbed(id) {
 }
 
 function ekoPortfolioFilteredItems() {
-  return EKO_PORTFOLIO_ITEMS.filter(item => ekoCurrentFilter === 'all' || item.category === ekoCurrentFilter);
+  return EKO_PORTFOLIO_ITEMS.filter(item => ekoCurrentFilter === 'all' || item.category.toLowerCase() === ekoCurrentFilter.toLowerCase());
 }
 
 function ekoRenderPortfolio() {
@@ -300,4 +392,3 @@ function ekoInitSlickPortfolio() {
   ekoRenderPortfolio();
 }
 
-window.addEventListener('DOMContentLoaded', () => setTimeout(ekoInitSlickPortfolio, 0));

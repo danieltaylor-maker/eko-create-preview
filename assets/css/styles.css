@@ -2,7 +2,7 @@
 
 
 /* Footer/map fixes - May 6 */
-.map-card{position:relative;padding:0;overflow:hidden;min-height:380px;background:#0c0e10;}
+.map-card{position:relative;padding:0 !important;overflow:hidden;min-height:380px;background:#0c0e10;}
 .map-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(17,19,21,.15),rgba(17,19,21,.38));mix-blend-mode:multiply;}
 .map-embed{width:100%;height:100%;min-height:380px;border:0;display:block;filter:grayscale(100%) invert(92%) contrast(92%) brightness(70%) saturate(40%);}
 .map-pin{position:absolute;left:50%;top:50%;width:18px;height:18px;border-radius:50%;background:var(--eko-blue);border:3px solid #fff;box-shadow:0 0 0 10px rgba(7,157,243,.18),0 14px 35px rgba(0,0,0,.45);transform:translate(-50%,-50%);z-index:2;pointer-events:none;}
@@ -1089,14 +1089,6 @@ section > .client-marquee{
   margin:48px auto 0 !important;
 }
 
-.portfolio-video-card:hover{
-  transform:none;
-}
-
-.portfolio-video-card.is-active{
-  transform:translateY(-6px) !important;
-}
-
 @media(max-width:720px){
   .section-heading-standard,
   .section-heading,
@@ -1106,4 +1098,586 @@ section > .client-marquee{
     width:100% !important;
     margin-bottom:38px !important;
   }
+}
+
+
+/* --- Reviewed baseline: heading lock reinforcement --- */
+.section-heading-standard,
+.section-heading,
+.reel-heading-fixed,
+.portfolio-head,
+.clients-intro {
+  display:block !important;
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+.section-kicker,
+.section-label,
+.centered-kicker {
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+}
+
+.section-intro,
+.centered-intro,
+.portfolio-intro {
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+
+/* --- Portfolio card copy hierarchy --- */
+.portfolio-video-card .portfolio-body small {
+  color:var(--eko-blue);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:800;
+  font-size:12px;
+}
+
+.portfolio-video-card .portfolio-body h3 {
+  margin-top:12px;
+  margin-bottom:14px;
+  font-size:clamp(24px,2.2vw,38px);
+  line-height:1.05;
+  letter-spacing:-.035em;
+}
+
+.portfolio-video-card .portfolio-body p {
+  color:var(--muted);
+  line-height:1.55;
+  margin-bottom:18px;
+}
+
+.portfolio-distribution {
+  display:block;
+  color:rgba(255,255,255,.48);
+  font-size:13px;
+  letter-spacing:.04em;
+  line-height:1.4;
+}
+
+
+/* --- Next polish build: spacing, hover and footer social refinement --- */
+
+/* Tighten transition from client logos into Portfolio */
+.clients,
+.client-section,
+.logo-section,
+.client-marquee-section{
+  padding-bottom:clamp(56px,7vw,96px) !important;
+}
+
+.portfolio,
+.eko-slick-portfolio{
+  padding-top:clamp(72px,8vw,110px) !important;
+}
+
+.client-marquee,
+.logo-marquee,
+.clients-marquee{
+  margin-bottom:0 !important;
+}
+
+/* Portfolio cards: restrained premium hover enlargement */
+.portfolio-video-card{
+  transform-origin:center center;
+  transition:
+    transform .55s cubic-bezier(.19,1,.22,1),
+    opacity .45s ease,
+    border-color .45s ease,
+    box-shadow .45s ease,
+    filter .45s ease !important;
+}
+
+.portfolio-video-card:hover{
+  transform:scale(1.02) !important;
+  border-color:rgba(7,157,243,.35) !important;
+  box-shadow:
+    0 34px 96px rgba(0,0,0,.42),
+    0 0 52px rgba(7,157,243,.12) !important;
+}
+
+.portfolio-video-card:hover .portfolio-video-thumb{
+  filter:brightness(1.08) saturate(1.04);
+}
+
+.portfolio-video-card.is-active{
+  transform:scale(1.02) translateY(-6px) !important;
+}
+
+@media(max-width:720px){
+  .portfolio-video-card:hover,
+  .portfolio-video-card.is-active{
+    transform:none !important;
+  }
+}
+
+/* Footer social polish */
+.socials a,
+.footer-socials a,
+.footer-links a{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  opacity:.68;
+  transition:
+    opacity .3s ease,
+    transform .3s ease,
+    color .3s ease,
+    text-shadow .3s ease;
+}
+
+.socials a:hover,
+.footer-socials a:hover,
+.footer-links a:hover{
+  opacity:1;
+  transform:translateY(-2px);
+  color:#fff;
+  text-shadow:0 0 20px rgba(7,157,243,.28);
+}
+
+.section-heading-standard,
+.section-heading,
+.reel-heading-fixed,
+.portfolio-head,
+.clients-intro{
+  text-align:center !important;
+}
+
+
+/* --- V2 Build Additions --- */
+
+.hero-established{
+  position:absolute;
+  top:42px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  z-index:4;
+  opacity:.62;
+  pointer-events:none;
+}
+
+.hero-established span{
+  font-size:12px;
+  letter-spacing:.34em;
+  color:rgba(255,255,255,.82);
+  line-height:1;
+}
+
+.about-section{
+  padding:120px 0 90px;
+  position:relative;
+}
+
+.about-section .section-intro{
+  max-width:720px;
+}
+
+.footer-extra-socials{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  padding-top:26px;
+}
+
+.footer-extra-socials a{
+  color:rgba(255,255,255,.62);
+  text-decoration:none;
+  transition:all .3s ease;
+}
+
+.footer-extra-socials a:hover{
+  color:#fff;
+  transform:translateY(-2px);
+  text-shadow:0 0 20px rgba(7,157,243,.28);
+}
+
+@media(max-width:720px){
+  .hero-established{
+    top:28px;
+  }
+
+  .hero-established span{
+    font-size:10px;
+    letter-spacing:.24em;
+  }
+
+  .about-section{
+    padding:90px 0 70px;
+  }
+}
+
+
+/* --- GitHub ready v3 fixes: labels, footer, hero detail, spacing --- */
+
+/* One consistent Eko blue for every small uppercase/kicker label */
+.section-kicker,
+.section-label,
+.centered-kicker,
+.eyebrow,
+.kicker,
+.intro-kicker,
+.hero-kicker,
+.clients .section-kicker,
+.portfolio .section-kicker,
+.reel-section .section-kicker,
+.about-section .section-kicker,
+.process .section-kicker,
+.services .section-kicker,
+.production-partner .section-kicker,
+.production-partner .eyebrow,
+.production-partner .kicker{
+  color:var(--eko-blue) !important;
+}
+
+/* Editorial split-column kicker aligns left with its heading */
+.production-partner .section-kicker,
+.production-partner .eyebrow,
+.production-partner .kicker,
+.intro .section-kicker,
+.intro .eyebrow,
+.intro .kicker{
+  text-align:left !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+
+/* Centred sections stay centred */
+.section-heading .section-kicker,
+.section-heading-standard .section-kicker,
+.reel-heading-fixed .section-kicker,
+.portfolio-head .section-kicker,
+.clients-intro .section-kicker,
+.about-section .section-kicker{
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+/* True hero-centred Established / 2007 detail */
+.hero,
+.hero-section{
+  position:relative;
+}
+
+.hero-established{
+  position:absolute !important;
+  top:calc(var(--header-height, 72px) + 50px) !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:5px !important;
+  z-index:6 !important;
+  opacity:.64 !important;
+  pointer-events:none !important;
+  text-align:center !important;
+}
+
+.hero-established span{
+  display:block !important;
+  font-size:12px !important;
+  letter-spacing:.34em !important;
+  color:rgba(255,255,255,.82) !important;
+  line-height:1 !important;
+  text-align:center !important;
+}
+
+/* Footer socials: one clean row */
+.footer-extra-socials{
+  display:none !important;
+}
+
+.socials{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:26px !important;
+  flex-wrap:wrap !important;
+}
+
+.socials a{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:.48rem !important;
+  color:rgba(255,255,255,.66) !important;
+  text-decoration:none !important;
+  opacity:1 !important;
+  transition:
+    color .3s ease,
+    transform .3s ease,
+    text-shadow .3s ease;
+}
+
+.socials a span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:18px;
+  font-weight:800;
+  color:rgba(255,255,255,.72);
+}
+
+.socials a:hover{
+  color:#fff !important;
+  transform:translateY(-2px);
+  text-shadow:0 0 20px rgba(7,157,243,.30);
+}
+
+/* Tighten logo-to-portfolio spacing */
+.clients,
+.client-section,
+.logo-section,
+.client-marquee-section{
+  padding-bottom:clamp(48px,6vw,88px) !important;
+}
+
+.portfolio,
+.eko-slick-portfolio{
+  padding-top:clamp(62px,7vw,96px) !important;
+}
+
+@media(max-width:720px){
+  .hero-established{
+    top:calc(var(--header-height, 64px) + 28px) !important;
+  }
+
+  .hero-established span{
+    font-size:10px !important;
+    letter-spacing:.24em !important;
+  }
+
+  .socials{
+    gap:18px !important;
+  }
+}
+
+
+/* --- v4 footer/social + Established positioning fix --- */
+
+/* Hide any old accidental footer social rows if cached in markup/classes */
+.footer-extra-socials{
+  display:none !important;
+}
+
+/* Single quieter footer social row */
+.socials.socials-clean{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:22px !important;
+  flex-wrap:wrap !important;
+  width:100% !important;
+  margin:18px auto 0 !important;
+}
+
+.socials.socials-clean a{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:.38rem !important;
+  color:rgba(255,255,255,.58) !important;
+  text-decoration:none !important;
+  font-size:15px !important;
+  line-height:1 !important;
+  opacity:1 !important;
+  transition:
+    color .3s ease,
+    transform .3s ease,
+    text-shadow .3s ease;
+}
+
+.socials.socials-clean a span{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:15px !important;
+  font-size:15px !important;
+  font-weight:700 !important;
+  color:rgba(255,255,255,.64) !important;
+  line-height:1 !important;
+}
+
+.socials.socials-clean a:hover{
+  color:#fff !important;
+  transform:translateY(-2px);
+  text-shadow:0 0 18px rgba(7,157,243,.25);
+}
+
+/* Move Established / 2007 higher and keep it truly centred over hero */
+.hero,
+.hero-section{
+  position:relative;
+}
+
+.hero-established{
+  position:absolute !important;
+  top:calc(var(--header-height, 72px) + 28px) !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  z-index:6 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  gap:5px !important;
+  opacity:.62 !important;
+  pointer-events:none !important;
+  text-align:center !important;
+}
+
+.hero-established span{
+  display:block !important;
+  font-size:11px !important;
+  letter-spacing:.32em !important;
+  line-height:1 !important;
+  color:rgba(255,255,255,.78) !important;
+  text-align:center !important;
+}
+
+@media(max-width:720px){
+  .socials.socials-clean{
+    gap:16px !important;
+    margin-top:16px !important;
+  }
+
+  .socials.socials-clean a{
+    font-size:13px !important;
+  }
+
+  .socials.socials-clean a span{
+    font-size:13px !important;
+    min-width:13px !important;
+  }
+
+  .hero-established{
+    top:calc(var(--header-height, 64px) + 18px) !important;
+  }
+
+  .hero-established span{
+    font-size:9px !important;
+    letter-spacing:.24em !important;
+  }
+}
+
+
+/* --- v5 clean single footer socials row --- */
+
+.socials,
+.footer-socials,
+.footer-extra-socials{
+  display:none !important;
+}
+
+.eko-single-social-row{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.eko-single-social-row a{
+  color:rgba(255,255,255,.58);
+  text-decoration:none;
+  font-size:14px;
+  line-height:1;
+  transition:
+    color .3s ease,
+    transform .3s ease,
+    text-shadow .3s ease;
+}
+
+.eko-single-social-row a:hover{
+  color:#fff;
+  transform:translateY(-2px);
+  text-shadow:0 0 18px rgba(7,157,243,.25);
+}
+
+
+/* --- v6 Instagram social fix --- */
+.eko-single-social-row{
+  display:flex !important;
+}
+
+.eko-single-social-row a{
+  display:inline-flex !important;
+}
+
+/* --- v7 hard footer social fix --- */
+.eko-footer-socials-final{
+  width:100% !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:20px !important;
+  flex-wrap:wrap !important;
+  margin:22px auto 0 !important;
+  padding:0 !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+.eko-footer-socials-final a{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  color:rgba(255,255,255,.62) !important;
+  text-decoration:none !important;
+  font-size:14px !important;
+  line-height:1 !important;
+  transition:color .3s ease, transform .3s ease, text-shadow .3s ease !important;
+}
+
+.eko-footer-socials-final a:hover{
+  color:#fff !important;
+  transform:translateY(-2px) !important;
+  text-shadow:0 0 18px rgba(7,157,243,.25) !important;
+}
+
+
+/* --- v8 final single socials row --- */
+
+.socials{
+  width:100% !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  flex-wrap:wrap !important;
+  gap:18px !important;
+  margin:18px auto 0 !important;
+}
+
+.socials a{
+  color:rgba(255,255,255,.60) !important;
+  text-decoration:none !important;
+  font-size:14px !important;
+  line-height:1 !important;
+  transition:
+    color .3s ease,
+    transform .3s ease,
+    text-shadow .3s ease !important;
+}
+
+.socials a:hover{
+  color:#fff !important;
+  transform:translateY(-2px) !important;
+  text-shadow:0 0 18px rgba(7,157,243,.25) !important;
+}
+
+.footer-extra-socials,
+.eko-footer-socials-final,
+.eko-single-social-row{
+  display:none !important;
 }
