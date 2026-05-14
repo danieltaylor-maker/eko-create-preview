@@ -14,6 +14,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/images/eko-logo.svg">
   <link rel="apple-touch-icon" href="assets/images/eko-logo.svg">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Hero video enhancement: place assets/video/hero-loop.mp4 to enable desktop video background. Existing hero image remains fallback. -->
 </head>
 <body>
   <div class="site-grain" aria-hidden="true"></div>
@@ -45,6 +46,11 @@
 
   <main id="top">
     <section class="hero" aria-label="Eko Create hero">
+
+<video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+  <source src="assets/video/hero-loop.mp4" type="video/mp4">
+</video>
+
 
 <div class="hero-established">
   <span>Established</span>

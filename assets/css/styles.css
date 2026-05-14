@@ -1681,3 +1681,62 @@ section > .client-marquee{
 .eko-single-social-row{
   display:none !important;
 }
+
+
+/* --- Hero background video system --- */
+/* Existing hero image remains underneath as fallback. Desktop gets video; mobile keeps image only. */
+
+.hero,
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-bg-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  opacity:1;
+  transform:scale(1.02);
+  pointer-events:none;
+}
+
+/* Overlay and vignette removed — video is pre-tinted */
+
+/* Static image fallback sits behind the video */
+.hero-media{
+  z-index:0;
+}
+
+/* hero-overlay (the original gradient) sits above video */
+.hero-overlay{
+  z-index:2;
+}
+
+.hero > .container,
+.hero-content,
+.hero-copy,
+.hero-inner,
+.hero-established{
+  position:relative;
+  z-index:5;
+}
+
+.site-grain{
+  z-index:9999;
+}
+
+@media(max-width:980px), (prefers-reduced-motion:reduce){
+  .hero-bg-video{
+    display:none !important;
+  }
+}
+
+@media(max-width:1200px){
+  .hero-bg-video{
+    opacity:1;
+  }
+}

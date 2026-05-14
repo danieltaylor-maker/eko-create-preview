@@ -392,3 +392,45 @@ function ekoInitSlickPortfolio() {
   ekoRenderPortfolio();
 }
 
+
+
+/* --- Hero background video: ensure loop plays reliably --- */
+(function initHeroVideo() {
+  const video = document.querySelector('.hero-bg-video');
+  if (!video) return;
+
+  // Ensure attributes are set programmatically as a belt-and-braces measure
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+
+  const tryPlay = () => {
+    if (video.paused) {
+      video.play().catch(() => {
+        // Autoplay blocked — video stays hidden, fallback image shows through
+      });
+    }
+  };
+
+  // Attempt on load
+  video.addEventListener('canplaythrough', tryPlay, { once: true });
+
+  // If canplaythrough already fired (cached), try immediately
+  if (video.readyState >= 4) tryPlay();
+
+  // Retry on first user interaction if still paused (handles strict autoplay policies)
+  const onInteract = () => {
+    tryPlay();
+    document.removeEventListener('pointerdown', onInteract);
+    document.removeEventListener('keydown', onInteract);
+  };
+  document.addEventListener('pointerdown', onInteract, { passive: true });
+  document.addEventListener('keydown', onInteract);
+
+  // Fade video in once playing to avoid flash
+  video.style.opacity = '0';
+  video.style.transition = 'opacity 1.2s ease';
+  video.addEventListener('playing', () => {
+    video.style.opacity = '';
+  }, { once: true });
+})();

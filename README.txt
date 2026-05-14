@@ -1,3 +1,6 @@
-Eko GitHub ready v4.
+Eko hero video ready build.
 
-Fixes: removed duplicate footer social rows, created one smaller quieter social row, moved Established / 2007 higher and kept it centred over the hero image.
+Base: Claude fixed eko-v9-fixed.zip.
+Added: desktop hero video layer using assets/video/hero-loop.mp4, existing hero image retained as fallback, mobile image-only behaviour, dark overlay, blue glow and vignette.
+
+To use: drop your MP4 into assets/video/ and name it hero-loop.mp4 before uploading to GitHub.
