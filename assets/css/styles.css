@@ -1740,3 +1740,32 @@ section > .client-marquee{
     opacity:1;
   }
 }
+
+
+/* --- Client logo whiteout --- */
+.client-marquee-item img {
+  display: block;
+  max-width: 152px;
+  max-height: 42px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: .72;
+  transition: opacity .3s ease, filter .3s ease;
+}
+.client-marquee-item:hover img {
+  opacity: 1;
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(7,157,243,.22));
+}
+
+/* --- currentColor SVG logos need color:white on the img element ---
+   brightness(0) invert(1) handles raster/coloured SVGs;
+   currentColor SVGs embedded via <img> are rasterised by the browser
+   so the filter approach covers both. No extra CSS needed.
+   
+   However ensure the marquee item itself has color set for any
+   inline SVG usage in future: */
+.client-marquee-item {
+  color: #fff;
+}
