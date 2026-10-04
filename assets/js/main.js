@@ -1,3 +1,22 @@
+// Vimeo privacy hashes are required to embed these unlisted videos.
+const EKO_VIMEO_HASHES = {
+  "1190711612": "6c7e8990a5",
+  "1190711638": "da0169c853",
+  "1190711615": "713fed7178",
+  "1190711606": "9f5bc2a80f",
+  "1190711570": "b2c4f3ce42",
+  "1190718103": "bc33c1fd84",
+  "1190718063": "690519c8ea",
+  "1190718082": "5fa3c7f337",
+  "1190718097": "bdbfcf5a12",
+  "1190718049": "7008b6ed6b",
+  "1190718003": "478d0a9882",
+  "1190718021": "24e81deedf",
+  "1190717849": "7dd68b1524",
+  "1190717821": "5c5263f5c9",
+  "1190719360": "15acc92f7b"
+};
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const observe = (selector, options = {}) => {
@@ -119,7 +138,7 @@ function openVideo(id) {
   const iframe = modal?.querySelector('iframe');
   if (!modal || !iframe || !id) return;
 
-  iframe.src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`;
+  iframe.src = `${ekoVimeoEmbed(id)}&autoplay=1`;
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('no-scroll');
@@ -318,7 +337,9 @@ let ekoVisibleCount = EKO_INITIAL_VISIBLE;
 let ekoCurrentFilter = 'all';
 
 function ekoVimeoEmbed(id) {
-  return `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&badge=0&autopause=0`;
+  const hash = EKO_VIMEO_HASHES[id];
+  const privacy = hash ? `h=${encodeURIComponent(hash)}&` : '';
+  return `https://player.vimeo.com/video/${id}?${privacy}title=0&byline=0&portrait=0&badge=0&autopause=0`;
 }
 
 function ekoPortfolioFilteredItems() {
@@ -433,4 +454,64 @@ function ekoInitSlickPortfolio() {
   video.addEventListener('playing', () => {
     video.style.opacity = '';
   }, { once: true });
+})();
+
+
+/* --- Process card reveal order fix --- */
+(function(){
+  const cards = Array.from(document.querySelectorAll('.process-card, .concept-card, .step-card, .how-card'));
+  cards
+    .sort((a,b) => Number(a.dataset.order || a.dataset.step || 999) - Number(b.dataset.order || b.dataset.step || 999))
+    .forEach((card, index) => {
+      card.style.transitionDelay = `${index * 90}ms`;
+    });
+})();
+
+
+/* ===== EKO ATMOSPHERIC REVEALS ===== */
+(function(){
+  const revealEls = document.querySelectorAll(
+    'section, .portfolio-item, .project-card, .process-card, .concept-card, .client-logo, .reel-section, .showreel-section'
+  );
+
+  revealEls.forEach(el=>{
+    el.classList.add('reveal');
+  });
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold:0.12,
+    rootMargin:'0px 0px -6% 0px'
+  });
+
+  revealEls.forEach(el=>io.observe(el));
+
+  // light sweep assignment
+  document.querySelectorAll('.portfolio-item, .project-card, .reel-section')
+    .forEach(el=>el.classList.add('light-sweep'));
+
+  // ambient mouse glow
+  const glow = document.createElement('div');
+  glow.style.position = 'fixed';
+  glow.style.width = '420px';
+  glow.style.height = '420px';
+  glow.style.borderRadius = '50%';
+  glow.style.pointerEvents = 'none';
+  glow.style.zIndex = '0';
+  glow.style.opacity = '.12';
+  glow.style.filter = 'blur(70px)';
+  glow.style.background = 'radial-gradient(circle, rgba(7,157,243,.35), transparent 70%)';
+  glow.style.transform = 'translate(-50%, -50%)';
+  glow.style.transition = 'left .18s ease-out, top .18s ease-out';
+  document.body.appendChild(glow);
+
+  document.addEventListener('mousemove', (e)=>{
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
 })();
