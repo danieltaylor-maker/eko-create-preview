@@ -20,7 +20,7 @@ const EKO_VIMEO_HASHES = {
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const observe = (selector, options = {}) => {
-  const items = document.querySelectorAll(selector);
+  const items = [...document.querySelectorAll(selector)].filter(item => !item.classList.contains('motion-ready'));
   if (!items.length) return;
 
   if (prefersReducedMotion) {
@@ -38,8 +38,12 @@ const observe = (selector, options = {}) => {
   }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px', ...options });
 
   items.forEach((item, index) => {
-    const delay = item.dataset.delay || (index % 8) * 70;
+    const siblings = [...item.parentElement.children].filter(el => el.matches(selector));
+    const columns = getComputedStyle(item.parentElement).gridTemplateColumns.split(' ').length;
+    const order = item.matches('.portfolio-item') ? siblings.indexOf(item) % Math.max(1, columns) : 0;
+    const delay = item.dataset.delay ?? order * 140;
     item.style.transitionDelay = `${delay}ms`;
+    item.classList.add('motion-ready');
     observer.observe(item);
   });
 };
@@ -51,7 +55,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => el.classList.add('in-view'), 120);
   });
 
-  observe('.reveal-section');
+  observe('.section-heading, .intro-grid > div, .statement-inner, .clients-intro, .contact-copy');
   observe('.reveal-card');
   observe('.reveal-logo');
 
@@ -60,6 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  initScrollMotion();
   initMobileNav();
   initReel();
   initModal();
@@ -155,178 +160,144 @@ function closeVideo() {
   document.body.classList.remove('no-scroll');
 }
 
-// Premium motion polish: soft cursor glow
-(function(){
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-  const glow = document.querySelector('.cursor-glow');
-  if (!glow) return;
-
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let currentX = mouseX;
-  let currentY = mouseY;
-
-  window.addEventListener('pointermove', (event) => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-    glow.style.opacity = '.85';
-  }, { passive:true });
-
-  window.addEventListener('pointerleave', () => {
-    glow.style.opacity = '0';
-  }, { passive:true });
-
-  const tick = () => {
-    currentX += (mouseX - currentX) * 0.08;
-    currentY += (mouseY - currentY) * 0.08;
-    glow.style.transform = `translate3d(${currentX - 210}px, ${currentY - 210}px, 0)`;
-    requestAnimationFrame(tick);
-  };
-
-  tick();
-})();
-
-
 /* --- Slick portfolio system: filters, view more, expanding active cards --- */
 const EKO_PORTFOLIO_ITEMS = [
   {
-    "client": "Eko Create",
-    "category": "Showreel",
-    "title": "Eko Showreel Highlights",
-    "description": "A fast-moving overview of film, motion and content work for modern brands.",
-    "distribution": "Website / new business / social",
+    "client": "UK Government",
+    "category": "Film",
+    "title": "SeaGrown",
+    "description": "A short campaign film featuring SeaGrown, one of the organisations highlighted in this UK Government series.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190711638",
     "featured": true
   },
   {
-    "client": "Eko Create",
+    "client": "UK Government",
     "category": "Film",
-    "title": "Creative Campaign",
-    "description": "Campaign-led video content shaped for brand storytelling and audience engagement.",
-    "distribution": "Website / campaign / social",
+    "title": "Alnwick Garden",
+    "description": "A short campaign film featuring Alnwick Garden, part of the UK Government series.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190711615",
     "featured": true
   },
   {
-    "client": "Eko Create",
+    "client": "Aviva",
     "category": "Motion",
-    "title": "Motion Storytelling",
-    "description": "Motion-led content using graphics, pacing and sound to simplify complex messages.",
-    "distribution": "Website / internal comms / presentation",
+    "title": "Wellbeing",
+    "description": "A film focused on wellbeing, bringing Aviva’s message into a clear video format.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190711606",
     "featured": true
   },
   {
-    "client": "Eko Create",
+    "client": "AIR Studios",
     "category": "Social",
-    "title": "Commercial Production",
-    "description": "Short-form video created for digital campaigns, brand awareness and social channels.",
-    "distribution": "Social / web / paid media",
+    "title": "Yoav Goren",
+    "description": "A short film featuring composer Yoav Goren at AIR Studios.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190711570",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "Stowe Family Law",
     "category": "Film",
-    "title": "Portfolio Film 05",
-    "description": "A selected production piece showing people, place and brand narrative.",
-    "distribution": "Website / client comms",
+    "title": "Stowe Family Law",
+    "description": "An introduction to Stowe Family Law, presenting the firm through video.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718103",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "Naspers",
     "category": "Motion",
-    "title": "Portfolio Film 06",
-    "description": "Motion and edit-led content designed to make key information feel clear and engaging.",
-    "distribution": "Internal comms / presentation",
+    "title": "Naspers",
+    "description": "A longer-form company film introducing Naspers and its story.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718063",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "Rolawn",
     "category": "Film",
-    "title": "Portfolio Film 07",
-    "description": "Cinematic film content built around strong visuals and concise storytelling.",
-    "distribution": "Website / launch / events",
+    "title": "How to look after your lawn",
+    "description": "A practical guide from Rolawn, taking viewers through how to care for their lawn.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718082",
     "featured": false
   },
   {
-    "client": "Eko Create",
-    "category": "Social",
-    "title": "Portfolio Film 08",
-    "description": "Platform-ready content adapted for quick attention and repeat viewing.",
-    "distribution": "LinkedIn / social / campaign",
+    "client": "Stowe Family Law",
+    "category": "Motion",
+    "title": "Stowe Family Law — animation",
+    "description": "An animated introduction to Stowe Family Law, using motion to communicate the firm’s message.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718097",
     "featured": false
   },
   {
-    "client": "Eko Create",
-    "category": "Podcast",
-    "title": "Portfolio Film 09",
-    "description": "Podcast and interview-led content shaped into polished video assets.",
-    "distribution": "Podcast / YouTube / social clips",
+    "client": "Heineken",
+    "category": "Motion",
+    "title": "Induction",
+    "description": "A short induction piece for Heineken, created for an employee audience.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718049",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "BT",
     "category": "Motion",
-    "title": "Portfolio Film 10",
-    "description": "Graphic-led content that brings structure, rhythm and visual clarity to messaging.",
-    "distribution": "Internal comms / digital campaign",
+    "title": "Workplace",
+    "description": "A video introducing BT’s Workplace communication platform.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718003",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "eBay",
     "category": "Film",
-    "title": "Portfolio Film 11",
-    "description": "A concise brand film designed to present people, purpose and message clearly.",
-    "distribution": "Website / new business",
+    "title": "Valentine’s",
+    "description": "A short Valentine’s-themed piece for eBay.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190718021",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "Aviva",
     "category": "Social",
-    "title": "Portfolio Film 12",
-    "description": "Short-form content produced for digital channels and social delivery.",
-    "distribution": "Social / LinkedIn / web",
+    "title": "ESG",
+    "description": "A film focused on environmental, social and governance topics for Aviva.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190717849",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "AA",
     "category": "Film",
-    "title": "Portfolio Film 13",
-    "description": "Production-led storytelling with a polished, editorial approach.",
-    "distribution": "Website / presentation",
+    "title": "MyHR",
+    "description": "A video introducing AA’s MyHR service and its role in employee communications.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190717821",
     "featured": false
   },
   {
-    "client": "Eko Create",
+    "client": "Elsevier",
     "category": "Motion",
-    "title": "Portfolio Film 14",
-    "description": "Motion and edit-led work built for clarity, energy and visual impact.",
-    "distribution": "Digital / internal comms",
+    "title": "Elsevier",
+    "description": "A company film introducing Elsevier and its work in research and information.",
+    "distribution": "",
     "type": "video",
     "vimeo": "1190719360",
     "featured": false
@@ -363,7 +334,7 @@ function ekoRenderPortfolio() {
       <div class="portfolio-body">
         <small>${item.client} / ${item.category}</small>
         <h3>${item.title}</h3>
-        <p>${item.featured ? 'Featured website reel and selected production work.' : 'Approved portfolio video for the Eko Create website.'}</p>
+        <p>${item.description}</p>
       </div>
     </article>
   `).join('');
@@ -457,61 +428,26 @@ function ekoInitSlickPortfolio() {
 })();
 
 
-/* --- Process card reveal order fix --- */
-(function(){
-  const cards = Array.from(document.querySelectorAll('.process-card, .concept-card, .step-card, .how-card'));
-  cards
-    .sort((a,b) => Number(a.dataset.order || a.dataset.step || 999) - Number(b.dataset.order || b.dataset.step || 999))
-    .forEach((card, index) => {
-      card.style.transitionDelay = `${index * 90}ms`;
-    });
-})();
 
-
-/* ===== EKO ATMOSPHERIC REVEALS ===== */
-(function(){
-  const revealEls = document.querySelectorAll(
-    'section, .portfolio-item, .project-card, .process-card, .concept-card, .client-logo, .reel-section, .showreel-section'
-  );
-
-  revealEls.forEach(el=>{
-    el.classList.add('reveal');
-  });
-
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('visible');
-      }
-    });
-  }, {
-    threshold:0.12,
-    rootMargin:'0px 0px -6% 0px'
-  });
-
-  revealEls.forEach(el=>io.observe(el));
-
-  // light sweep assignment
-  document.querySelectorAll('.portfolio-item, .project-card, .reel-section')
-    .forEach(el=>el.classList.add('light-sweep'));
-
-  // ambient mouse glow
-  const glow = document.createElement('div');
-  glow.style.position = 'fixed';
-  glow.style.width = '420px';
-  glow.style.height = '420px';
-  glow.style.borderRadius = '50%';
-  glow.style.pointerEvents = 'none';
-  glow.style.zIndex = '0';
-  glow.style.opacity = '.12';
-  glow.style.filter = 'blur(70px)';
-  glow.style.background = 'radial-gradient(circle, rgba(7,157,243,.35), transparent 70%)';
-  glow.style.transform = 'translate(-50%, -50%)';
-  glow.style.transition = 'left .18s ease-out, top .18s ease-out';
-  document.body.appendChild(glow);
-
-  document.addEventListener('mousemove', (e)=>{
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-  });
-})();
+// Scroll-linked depth without intercepting scrolling or running a perpetual loop.
+function initScrollMotion() {
+  const media = document.querySelector('.hero-media');
+  const hero = document.querySelector('.hero');
+  if (!media || !hero) return;
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  let scheduled = false;
+  const paint = () => {
+    scheduled = false;
+    const bounds = hero.getBoundingClientRect();
+    const enabled = !preference.matches && innerWidth > 680;
+    const offset = enabled ? Math.min(bounds.height, Math.max(0, -bounds.top)) * .16 : 0;
+    media.style.setProperty('--parallax-y', `${offset}px`);
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(paint); }
+  };
+  addEventListener('scroll', schedule, { passive: true });
+  addEventListener('resize', schedule, { passive: true });
+  preference.addEventListener('change', schedule);
+  paint();
+}
