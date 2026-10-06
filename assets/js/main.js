@@ -77,6 +77,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const closeNav = () => {
     navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open navigation');
+    mobileNav.inert = true;
     navToggle.classList.remove('is-open');
     mobileNav.classList.remove('is-open');
     mobileNav.setAttribute('aria-hidden', 'true');
@@ -86,6 +88,8 @@ window.addEventListener('DOMContentLoaded', () => {
   navToggle.addEventListener('click', () => {
     const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
     navToggle.setAttribute('aria-expanded', String(!isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
+    mobileNav.inert = isOpen;
     navToggle.classList.toggle('is-open', !isOpen);
     mobileNav.classList.toggle('is-open', !isOpen);
     mobileNav.setAttribute('aria-hidden', String(isOpen));
@@ -317,17 +321,19 @@ function ekoPortfolioFilteredItems() {
   return EKO_PORTFOLIO_ITEMS.filter(item => ekoCurrentFilter === 'all' || item.category.toLowerCase() === ekoCurrentFilter.toLowerCase());
 }
 
-function ekoRenderPortfolio() {
+function ekoRenderPortfolio(append = false) {
   const grid = document.getElementById('portfolioGrid');
   const loadMore = document.getElementById('loadMoreWork');
   if (!grid) return;
 
   const filtered = ekoPortfolioFilteredItems();
-  const visible = filtered.slice(0, ekoVisibleCount);
+  const start = append ? grid.children.length : 0;
+  const visible = filtered.slice(start, ekoVisibleCount);
+  if (!append) grid.innerHTML = "";
 
-  grid.innerHTML = visible.map((item, index) => `
+  grid.insertAdjacentHTML("beforeend", visible.map((item, index) => `
     <article class="portfolio-item portfolio-video-card reveal-card ${item.featured && index < 3 ? 'is-featured' : ''}" data-category="${item.category}">
-      <button class="portfolio-expand" type="button" aria-label="Expand ${item.title}"><span></span></button>
+      <button class="portfolio-expand" type="button" aria-expanded="false" aria-label="Expand ${item.title}"><span></span></button>
       <div class="portfolio-video-thumb">
         <iframe src="${ekoVimeoEmbed(item.vimeo)}" title="${item.title}" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
       </div>
@@ -337,15 +343,23 @@ function ekoRenderPortfolio() {
         <p>${item.description}</p>
       </div>
     </article>
-  `).join('');
+  `).join(''));
 
-  grid.querySelectorAll('.portfolio-video-card').forEach(card => {
-    card.addEventListener('click', (event) => {
-      if (event.target.closest('iframe')) return;
-      const wasActive = card.classList.contains('is-active');
-      grid.querySelectorAll('.portfolio-video-card').forEach(item => item.classList.remove('is-active'));
-      grid.classList.toggle('has-active', !wasActive);
-      if (!wasActive) card.classList.add('is-active');
+  [...grid.children].slice(start).forEach(card => {
+    const button = card.querySelector('.portfolio-expand');
+    button.addEventListener('click', () => {
+      const opening = !card.classList.contains('is-active');
+      grid.querySelectorAll('.portfolio-video-card').forEach(item => {
+        item.classList.remove('is-active');
+        const control = item.querySelector('.portfolio-expand');
+        control.setAttribute('aria-expanded', 'false');
+        control.setAttribute('aria-label', `Expand ${item.querySelector('h3').textContent}`);
+      });
+      grid.classList.toggle('has-active', opening);
+      card.classList.toggle('is-active', opening);
+      button.setAttribute('aria-expanded', String(opening));
+      button.setAttribute('aria-label', `${opening ? 'Collapse' : 'Expand'} ${card.querySelector('h3').textContent}`);
+      requestAnimationFrame(() => card.scrollIntoView({block: 'start', behavior: 'instant'}));
     });
   });
 
@@ -377,7 +391,7 @@ function ekoInitSlickPortfolio() {
   if (loadMore) {
     loadMore.addEventListener('click', () => {
       ekoVisibleCount += 6;
-      ekoRenderPortfolio();
+      ekoRenderPortfolio(true);
     });
   }
 
@@ -386,48 +400,26 @@ function ekoInitSlickPortfolio() {
 
 
 
-/* --- Hero background video: ensure loop plays reliably --- */
+// Do not request decorative video on phones or when reduced motion is selected.
 (function initHeroVideo() {
   const video = document.querySelector('.hero-bg-video');
   if (!video) return;
-
-  // Ensure attributes are set programmatically as a belt-and-braces measure
-  video.muted = true;
-  video.loop = true;
-  video.playsInline = true;
-
-  const tryPlay = () => {
-    if (video.paused) {
-      video.play().catch(() => {
-        // Autoplay blocked — video stays hidden, fallback image shows through
-      });
+  const viewport = matchMedia('(min-width: 981px)');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const source = video.querySelector('source');
+  const sync = () => {
+    if (viewport.matches && !motion.matches && !navigator.connection?.saveData) {
+      if (!source.hasAttribute('src')) { source.src = source.dataset.src; video.load(); }
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      if (source.hasAttribute('src')) { source.removeAttribute('src'); video.load(); }
     }
   };
-
-  // Attempt on load
-  video.addEventListener('canplaythrough', tryPlay, { once: true });
-
-  // If canplaythrough already fired (cached), try immediately
-  if (video.readyState >= 4) tryPlay();
-
-  // Retry on first user interaction if still paused (handles strict autoplay policies)
-  const onInteract = () => {
-    tryPlay();
-    document.removeEventListener('pointerdown', onInteract);
-    document.removeEventListener('keydown', onInteract);
-  };
-  document.addEventListener('pointerdown', onInteract, { passive: true });
-  document.addEventListener('keydown', onInteract);
-
-  // Fade video in once playing to avoid flash
-  video.style.opacity = '0';
-  video.style.transition = 'opacity 1.2s ease';
-  video.addEventListener('playing', () => {
-    video.style.opacity = '';
-  }, { once: true });
+  viewport.addEventListener('change', sync);
+  motion.addEventListener('change', sync);
+  sync();
 })();
-
-
 
 // Scroll-linked depth without intercepting scrolling or running a perpetual loop.
 function initScrollMotion() {
