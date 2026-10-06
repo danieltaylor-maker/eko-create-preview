@@ -1,3 +1,4 @@
+@font-face{font-family:Inter;src:url(../fonts/InterVariable.woff2) format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
 /* Atmospheric foundation, modern editorial palette — October 2026 */
 :root{--navy:#101D31;--orange:#FF754A;--cream:#F4F1E9;--eko-blue:var(--orange);--bg:var(--navy);--bg2:#16263d;--text:var(--cream);--muted:#bdc5ce;--line:rgba(244,241,233,.18)}
 html{scroll-padding-top:100px}body{background:var(--navy);color:var(--cream)}
@@ -78,3 +79,29 @@ body::before,.site-grain{animation:none!important}.cursor-glow{display:none}.lig
 .portfolio-video-card:focus-within{opacity:1!important;transform:none!important}
 @media(max-width:680px){.hero-media{transform:none!important;will-change:auto}.motion-ready{transition-delay:0ms!important}.motion-ready:not(.in-view){transform:translateY(18px)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero-media{transform:none!important;will-change:auto}.motion-ready,.service-card>*{opacity:1!important;transform:none!important;transition:none!important}.process-step::before{transform:scaleX(1);transition:none}}
+
+/* Warm map tones blend into the cream location panel without blocking controls. */
+.map-card{background:var(--cream);border:1px solid rgba(16,29,49,.16);overflow:hidden}
+.map-embed{filter:grayscale(1) sepia(.25) saturate(.7) contrast(.92);mix-blend-mode:multiply}
+/* Preserve Google's widget, attribution and challenge while reducing its footprint. */
+.captcha-panel{background:var(--navy);border:1px solid rgba(16,29,49,.18);border-radius:6px;padding:12px;width:fit-content;max-width:100%;margin:4px 0 22px}
+.captcha-panel>div{zoom:.9;min-height:78px;min-width:304px}
+@media(max-width:380px){.captcha-panel>div{zoom:.78}}
+
+.captcha-panel:has(> .captcha-widget:empty){display:none}
+
+/* Browser audit: stable cards, accessible navigation and compact laptop hero. */
+.mobile-call{position:fixed!important;right:18px;left:auto;bottom:18px}
+.mobile-nav[aria-hidden="true"]{visibility:hidden;pointer-events:none}
+.mobile-nav[aria-hidden="false"]{visibility:visible}
+#portfolioGrid{overflow-anchor:none;grid-auto-flow:row dense;align-items:stretch}
+.portfolio-video-card{scroll-margin-top:112px;display:flex;flex-direction:column;position:relative}
+.portfolio-body{flex:1;padding-right:68px!important}
+.portfolio-expand{top:auto!important;bottom:22px!important;right:18px!important}
+.contact-form input,.contact-form textarea{font-size:16px}
+.hero h1{font-size:clamp(40px,5.2vw,76px)!important;text-wrap:balance;max-width:1100px}
+.hero-content{max-width:1150px}
+@media(min-width:981px) and (max-height:800px){.hero{min-height:100svh!important;height:auto;padding:135px 0 90px!important}.hero-content{padding-top:0!important;padding-bottom:0!important}.hero h1{font-size:clamp(44px,4.5vw,64px)!important}.hero-established{top:104px!important}.hero-copy{margin-top:20px}.hero-actions{margin-top:24px}}
+.thankyou{min-height:100svh;display:grid;place-items:center;padding:32px}
+.thankyou .thanks-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:0;height:auto;max-width:650px;text-align:center}
+.thanks-screen>*{margin:0}.thanks-screen img{width:64px;filter:brightness(0) invert(1)}
