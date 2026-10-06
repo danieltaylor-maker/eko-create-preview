@@ -9,18 +9,20 @@
   <meta property="og:title" content="Eko Create - Video Production York">
   <meta property="og:description" content="Video, social and motion content for brands and organisations.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://eko-create.netlify.app/">
+  <link rel="canonical" href="https://eko-create.netlify.app/">
   <!-- og:image should be an absolute URL before launch, e.g. https://eko-create.com/assets/images/hero.jpg -->
-  <meta property="og:image" content="https://danieltaylor-maker.github.io/eko-create-preview/assets/images/hero.jpg">
+  <meta property="og:image" content="https://eko-create.netlify.app/assets/images/hero.jpg">
   <link rel="icon" type="image/svg+xml" href="assets/images/eko-logo.svg">
-  <link rel="apple-touch-icon" href="assets/images/eko-logo.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="stylesheet" href="assets/css/hybrid.css?v=20261006-motion">
+  <link rel="stylesheet" href="assets/css/hybrid.css?v=20261006-audit2">
   <!-- Hero video enhancement: place assets/video/hero-loop.mp4 to enable desktop video background. Existing hero image remains fallback. -->
 </head>
 <body>
   <div class="site-grain" aria-hidden="true"></div>
   <div class="cursor-glow" aria-hidden="true"></div>
-  <!-- Google Analytics / Google Tag Manager slot: paste existing tracking code here -->
+
   <header class="site-header" data-animate="fade-down">
     <a class="brand" href="#top" aria-label="Eko Create home"><img src="assets/images/eko-logo.svg" alt="Eko Create"></a>
     <nav class="main-nav" aria-label="Main navigation">
@@ -37,7 +39,7 @@
       <span></span><span></span><span></span>
     </button>
   </header>
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true" inert>
     <a href="#services">Services</a>
     <a href="#portfolio">Work</a>
     <a href="#contact">Contact</a>
@@ -48,8 +50,8 @@
   <main id="top">
     <section class="hero" aria-label="Eko Create hero">
 
-<video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-  <source src="assets/video/hero-loop.mp4" type="video/mp4">
+<video class="hero-bg-video" muted loop playsinline preload="none" aria-hidden="true">
+  <source data-src="assets/video/hero-loop.mp4" type="video/mp4">
 </video>
 
 
@@ -64,7 +66,7 @@
       <div class="hero-content">
 
         <p class="eyebrow" data-animate="fade-up">Eko Create</p>
-        <h1 class="hero-title" data-animate="split-lines"><span>Video, social and motion content</span><span>for brands and organisations.</span></h1>
+        <h1 class="hero-title" data-animate="split-lines"><span>Video, social and motion content</span> <span>for brands and organisations.</span></h1>
         <p class="hero-copy" data-animate="fade-up" data-delay="160">Eko Create produces content from concept through to final output.</p>
         <div class="hero-actions" data-animate="fade-up" data-delay="260">
           <a class="btn btn-primary" href="#contact">Start a project</a>
@@ -80,9 +82,7 @@
 
 <section id="reel" class="reel-section section-dark reveal-section eko-vimeo-reel" aria-label="Selected Work Reel">
   <div class="reel-bg-glow" aria-hidden="true"></div>
-  <div class="reel-atmosphere" aria-hidden="true">
-    <iframe src="https://player.vimeo.com/video/1190711612?h=6c7e8990a5&background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0" title="" allow="autoplay; fullscreen; picture-in-picture" tabindex="-1" loading="lazy"></iframe>
-  </div>
+
   <div class="container">
     <div class="section-heading-standard reel-heading-fixed">
       <p class="section-kicker centered-kicker">01 / SHOWREEL</p>
@@ -102,7 +102,7 @@
     <section id="statement" class="blue-statement reveal-section" aria-label="Good stories. Well told.">
       <div class="container statement-inner">
         <h2>Good stories. Well told.</h2>
-        <p>Eko Create produces video, social and motion content<br>built to work across teams, platforms and campaigns.</p>
+        <p>Eko Create produces video, social and motion content <br>built to work across teams, platforms and campaigns.</p>
       </div>
     </section>
 
@@ -265,7 +265,6 @@
         <button class="filter" data-filter="film" type="button">Film</button>
         <button class="filter" data-filter="motion" type="button">Motion</button>
         <button class="filter" data-filter="social" type="button">Social</button>
-        <button class="filter" data-filter="podcast" type="button">Podcast</button>
       </div>
     </div>
 
@@ -293,7 +292,7 @@
           <label>Name<input type="text" name="name" required></label>
           <label>Email<input type="email" name="contact_email" required></label>
           <label>Project details<textarea name="message" rows="5" required></textarea></label>
-          <div data-netlify-recaptcha="true"></div>
+          <div class="captcha-panel"><div class="captcha-widget" data-netlify-recaptcha="true"></div></div>
           <button class="btn btn-primary" type="submit">Send message</button>
         </form>
       </div>
@@ -328,7 +327,7 @@
     </div>
     <a class="mobile-call" href="tel:+441904500034">Call</a>
   </footer>
-  <script src="https://player.vimeo.com/api/player.js"></script>
-  <script src="assets/js/main.js?v=20261006-motion"></script>
+
+  <script src="assets/js/main.js?v=20261006-audit2"></script>
 </body>
 </html>
