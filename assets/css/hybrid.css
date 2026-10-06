@@ -105,3 +105,20 @@ body::before,.site-grain{animation:none!important}.cursor-glow{display:none}.lig
 .thankyou{min-height:100svh;display:grid;place-items:center;padding:32px}
 .thankyou .thanks-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:0;height:auto;max-width:650px;text-align:center}
 .thanks-screen>*{margin:0}.thanks-screen img{width:64px;filter:brightness(0) invert(1)}
+
+/* Audit round 3 */
+/* Stop "View more work" jumping the page in Chrome, Edge and Android */
+body{overflow-anchor:none}
+/* Two-line hero headline on large screens, aligned with the content column */
+@media(min-width:981px){.hero-content{width:min(1150px,calc(100% - 96px));margin-left:max(48px,calc((100% - 1200px)/2))}}
+/* Scroll cue overlaps the hero buttons on short phones and in phone landscape */
+@media (max-width:680px) and (max-height:700px),(max-height:480px){.scroll-cue{display:none}}
+/* Only the + button expands a card, so only it shows a pointer */
+.portfolio-video-card{cursor:default}.portfolio-expand{cursor:pointer}
+/* Safari 17 and earlier need the prefixed blur */
+.site-header.scrolled{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.mobile-nav{-webkit-backdrop-filter:blur(18px)}
+/* Stop iPhone landscape inflating text */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* St Leonard's is a two-line logo, so give it the taller logo size */
+.client-marquee-item img[src$="st-leonards.svg"]{max-height:54px}
