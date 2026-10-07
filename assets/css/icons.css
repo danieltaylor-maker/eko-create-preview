@@ -109,3 +109,11 @@
 .intro-photo{object-position:50% 50%;opacity:.42}
 @media(max-width:680px){.sec-photo{--spare:0px;will-change:auto}}
 
+/* ---------- Footer: company details line — added 7 October 2026 ----------
+   The legally required company details, in small type on their own row under the logo and name.
+   On phones and tablets the right-hand padding keeps the text clear of the floating Call button.
+   To remove: delete this block and the <div class="container footer-legal"> in index.html. */
+.footer-legal{margin-top:18px}
+.footer-legal p{margin:0;font-size:12px;line-height:1.6;color:var(--cream);opacity:.62}
+@media(max-width:980px){.footer-legal p{padding-right:96px}}
+
