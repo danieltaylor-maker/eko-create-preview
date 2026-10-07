@@ -1,0 +1,1 @@
+document.querySelectorAll('.reel-poster').forEach(button => { button.addEventListener('click', () => { const player = button.parentElement.querySelector('iframe'); player.src = player.dataset.reelSrc + '&autoplay=1'; player.removeAttribute('tabindex'); button.hidden = true; player.focus(); }, {once:true}); });

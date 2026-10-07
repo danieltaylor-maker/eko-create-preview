@@ -188,7 +188,7 @@ const EKO_PORTFOLIO_ITEMS = [
   },
   {
     "client": "Aviva",
-    "category": "Motion",
+    "category": "Film",
     "title": "Wellbeing",
     "description": "A film focused on wellbeing, bringing Aviva’s message into a clear video format.",
     "distribution": "",
@@ -208,7 +208,7 @@ const EKO_PORTFOLIO_ITEMS = [
   },
   {
     "client": "Stowe Family Law",
-    "category": "Film",
+    "category": "Motion",
     "title": "Stowe Family Law",
     "description": "An introduction to Stowe Family Law, presenting the firm through video.",
     "distribution": "",
@@ -268,7 +268,7 @@ const EKO_PORTFOLIO_ITEMS = [
   },
   {
     "client": "eBay",
-    "category": "Film",
+    "category": "Motion",
     "title": "Valentine’s",
     "description": "A short Valentine’s-themed piece for eBay.",
     "distribution": "",
@@ -278,7 +278,7 @@ const EKO_PORTFOLIO_ITEMS = [
   },
   {
     "client": "Aviva",
-    "category": "Social",
+    "category": "Motion",
     "title": "ESG",
     "description": "A film focused on environmental, social and governance topics for Aviva.",
     "distribution": "",
@@ -288,7 +288,7 @@ const EKO_PORTFOLIO_ITEMS = [
   },
   {
     "client": "AA",
-    "category": "Film",
+    "category": "Motion",
     "title": "MyHR",
     "description": "A video introducing AA’s MyHR service and its role in employee communications.",
     "distribution": "",
