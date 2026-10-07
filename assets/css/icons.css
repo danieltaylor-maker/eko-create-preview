@@ -78,3 +78,34 @@
   .service-card .svc-ico{animation:none!important;transition:none!important}
   .process-step>*{transition:none}
 }
+
+/* ---------- Statement ("Good stories. Well told."): small bar waveform — added 7 October 2026 ----------
+   Rounded vertical bars of uneven height, centred above the heading. No photograph in this section.
+   Sits in the section's existing top padding, out of the text flow, so the heading and paragraph do not move.
+   Width is 26% of the screen (30% at 900px and under, where every other bar is dropped so the bars stay distinct).
+   The bars rise one after another, left to right, once, when main.js marks .statement-inner as in view.
+   To remove: delete this block and the <span class="statement-wave"> in index.html. */
+.statement-inner{position:relative}
+.statement-wave{position:absolute;left:50%;bottom:100%;width:26vw;height:clamp(16px,1.7vw,24px);margin:0 0 clamp(16px,1.5vw,22px) -13vw;pointer-events:none}
+.statement-wave svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--navy);stroke-width:clamp(2px,.21vw,3px);stroke-linecap:round}
+.statement-wave line{vector-effect:non-scaling-stroke;transform-origin:0 20px}
+.statement-inner.motion-ready.in-view .statement-wave line{animation:ekoBar .55s cubic-bezier(.2,.7,.2,1) calc(.1s + var(--i,0)*17ms) backwards}
+@keyframes ekoBar{from{opacity:0;transform:scaleY(.04)}to{opacity:1;transform:scaleY(1)}}
+@media(max-width:900px){
+  .statement-wave{width:30vw;margin-left:-15vw}
+  .statement-wave line:nth-child(odd){display:none}
+}
+@media(prefers-reduced-motion:reduce){.statement-wave line{animation:none!important}}
+
+/* ---------- 02 / Meet Eko: editing-timeline photograph with parallax — added 7 October 2026 ----------
+   The photo in midnight-blue monotone, knocked back behind the text and outside the text flow, so nothing moves.
+   Strength = the opacity value below (lower = fainter).
+   Parallax: enhance.js moves the photo at 16% of the scroll speed, the same rate as the hero.
+   --spare is the extra picture kept above and below the section so the movement never shows an edge.
+   Like the hero, parallax is off on phones (680px and under) and with reduced motion: the photo then sits still.
+   To remove: delete this block, the "Section photograph" part of enhance.js and the <img class="sec-photo"> line. */
+.sec-photo{--spare:120px;position:absolute;left:0;top:calc(var(--spare)*-1);z-index:-1;width:100%;height:calc(100% + var(--spare)*2);max-width:none;
+  object-fit:cover;pointer-events:none;transform:translate3d(0,var(--py,0px),0);will-change:transform}
+.intro-photo{object-position:50% 50%;opacity:.42}
+@media(max-width:680px){.sec-photo{--spare:0px;will-change:auto}}
+
