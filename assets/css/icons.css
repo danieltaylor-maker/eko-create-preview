@@ -1,0 +1,80 @@
+/* Eko icon layer — added by Claude, 6 October 2026.
+   Loads after hybrid.css. Nothing in styles.css or hybrid.css is edited.
+   Remove this file, enhance.js and the <svg class="ico"> tags to return to the previous build. */
+
+/* ---------- Icon system ----------
+   One 24px grid, one line weight, one filled "tally light" accent per icon.
+   Line colour follows the text colour; the accent follows --ico-acc. */
+.eko-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ico{display:inline-block;flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.i-dot{fill:var(--ico-acc,var(--orange));stroke:none}
+
+/* Accent colour per background */
+.services,.about-section,.map-contact{--ico-acc:var(--orange)}
+.reel-section,.intro,.clients,.portfolio{--ico-acc:var(--cream)}
+.process{--ico-acc:var(--orange)}
+.contact{--ico-acc:var(--cream)}
+
+/* ---------- Section labels ---------- */
+.section-kicker .k-ico{width:17px;height:17px;margin-right:10px;vertical-align:-4px;stroke-width:1.7}
+
+/* ---------- Services: icon takes the place of the row number ---------- */
+.service-card{align-items:center}
+.service-card>span{display:none}
+.service-card .svc-ico{width:50px;height:50px;stroke-width:1.2;color:var(--navy);
+  transition:opacity .7s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+/* The icon draws itself in as its row arrives, then settles to a plain solid line */
+.service-card.motion-ready.in-view .svc-ico{animation:ekoDraw 1.4s cubic-bezier(.3,.7,.2,1) .15s backwards}
+@keyframes ekoDraw{from{stroke-dasharray:1 1.2;stroke-dashoffset:1.1}to{stroke-dasharray:1 1.2;stroke-dashoffset:0}}
+.service-card h3{transition-delay:90ms}
+@media(max-width:980px){.service-card{grid-template-columns:52px 1fr 1.2fr}.service-card .svc-ico{width:40px;height:40px}}
+@media(max-width:680px){.service-card{grid-template-columns:40px 1fr;align-items:center}.service-card .svc-ico{width:34px;height:34px;stroke-width:1.35}}
+
+/* ---------- Process: icons and an editing-timeline playhead ---------- */
+.process-row{position:relative}
+.process-step .step-ico{position:absolute;top:20px;right:2px;width:30px;height:30px;stroke-width:1.35;color:var(--cream)}
+.process-step>*{transition:opacity .45s ease}
+@media(max-width:680px){.process-step .step-ico{width:26px;height:26px;top:18px}}
+
+/* Playhead only exists once enhance.js has added .has-playhead (desktop/tablet, motion allowed) */
+.process-row.has-playhead{margin-top:34px}
+.process-row.has-playhead::before{content:"";position:absolute;left:0;right:0;top:-12px;height:6px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(244,241,233,.28) 0 1px,transparent 1px 12px)}
+.process-row.has-playhead .process-step::before{top:-2px;height:2px;transform:scaleX(var(--fill,0))!important;transition:none!important}
+.process-row.has-playhead .process-step:not(.is-lit)>*{opacity:.38}
+.process-playhead{position:absolute;top:-24px;left:calc(var(--p,0)*100%);width:0;height:0;z-index:3;pointer-events:none}
+.process-playhead i{position:absolute;left:-1px;top:0;width:2px;height:58px;background:var(--orange);border-radius:1px}
+.process-playhead i::before{content:"";position:absolute;left:-5px;top:-1px;width:12px;height:13px;background:var(--orange);
+  clip-path:polygon(0 0,100% 0,100% 55%,50% 100%,0 55%)}
+.process-playhead b{position:absolute;left:13px;top:-3px;font-size:10px;font-weight:500;letter-spacing:.1em;line-height:1;white-space:nowrap;
+  font-variant-numeric:tabular-nums;color:rgba(244,241,233,.62)}
+.process-playhead.flip b{left:auto;right:13px}
+
+/* ---------- Section 06: viewfinder frame ---------- */
+.about-section .section-heading{position:relative;padding:60px 56px 58px!important;width:min(940px,100%)!important;max-width:940px!important;
+  --fm:var(--navy);
+  background:
+    linear-gradient(var(--fm),var(--fm)) left top/30px 1.5px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) left top/1.5px 30px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) right top/30px 1.5px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) right top/1.5px 30px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) left bottom/30px 1.5px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) left bottom/1.5px 30px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) right bottom/30px 1.5px no-repeat,
+    linear-gradient(var(--fm),var(--fm)) right bottom/1.5px 30px no-repeat}
+.about-section .section-heading::before{content:"";position:absolute;top:20px;left:22px;width:9px;height:9px;border-radius:50%;background:var(--orange)}
+@media(max-width:680px){.about-section .section-heading{padding:44px 22px 40px!important}.about-section .section-heading::before{top:14px;left:15px;width:8px;height:8px}}
+
+/* ---------- Small touches ---------- */
+/* Portfolio filters carry the same icons as the matching services */
+.filter{display:inline-flex;align-items:center;gap:8px;--ico-acc:currentColor}
+.filter .f-ico{width:15px;height:15px;stroke-width:1.7}
+/* Watch reel */
+.btn .b-ico{width:18px;height:18px;margin-right:9px;stroke-width:1.6;--ico-acc:currentColor}
+/* Direct contact lines */
+.direct-contact .c-ico{width:19px;height:19px;margin-right:11px;vertical-align:-4px;stroke-width:1.6}
+
+@media(prefers-reduced-motion:reduce){
+  .service-card .svc-ico{animation:none!important;transition:none!important}
+  .process-step>*{transition:none}
+}

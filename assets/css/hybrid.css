@@ -122,3 +122,9 @@ body{overflow-anchor:none}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* St Leonard's is a two-line logo, so give it the taller logo size */
 .client-marquee-item img[src$="st-leonards.svg"]{max-height:54px}
+
+/* Section 06 shares the cream service-section palette. */
+.about-section{background:var(--cream);color:var(--navy)}
+.about-section h2,.about-section .section-kicker{color:var(--navy)!important}
+.about-section .section-intro{color:#4c5969}
+.about-section::before,.about-section::after{display:none}
