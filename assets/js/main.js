@@ -1,20 +1,8 @@
 // Vimeo privacy hashes are required to embed these unlisted videos.
+// Private-link codes for Vimeo. The showreel's code lives here; each portfolio video's code comes from
+// its Vimeo link in assets/data/portfolio.json and is added to this list when the page loads.
 const EKO_VIMEO_HASHES = {
-  "1190711612": "6c7e8990a5",
-  "1190711638": "da0169c853",
-  "1190711615": "713fed7178",
-  "1190711606": "9f5bc2a80f",
-  "1190711570": "b2c4f3ce42",
-  "1190718103": "bc33c1fd84",
-  "1190718063": "690519c8ea",
-  "1190718082": "5fa3c7f337",
-  "1190718097": "bdbfcf5a12",
-  "1190718049": "7008b6ed6b",
-  "1190718003": "478d0a9882",
-  "1190718021": "24e81deedf",
-  "1190717849": "7dd68b1524",
-  "1190717821": "5c5263f5c9",
-  "1190719360": "15acc92f7b"
+  "1190711612": "6c7e8990a5"
 };
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -165,148 +153,62 @@ function closeVideo() {
 }
 
 /* --- Slick portfolio system: filters, view more, expanding active cards --- */
-const EKO_PORTFOLIO_ITEMS = [
-  {
-    "client": "UK Government",
-    "category": "Film",
-    "title": "SeaGrown",
-    "description": "A short campaign film featuring SeaGrown, one of the organisations highlighted in this UK Government series.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190711638",
-    "featured": true
-  },
-  {
-    "client": "UK Government",
-    "category": "Film",
-    "title": "Alnwick Garden",
-    "description": "A short campaign film featuring Alnwick Garden, part of the UK Government series.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190711615",
-    "featured": true
-  },
-  {
-    "client": "Aviva",
-    "category": "Film",
-    "title": "Wellbeing",
-    "description": "A film focused on wellbeing, bringing Aviva’s message into a clear video format.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190711606",
-    "featured": true
-  },
-  {
-    "client": "AIR Studios",
-    "category": "Social",
-    "title": "Yoav Goren",
-    "description": "A short film featuring composer Yoav Goren at AIR Studios.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190711570",
-    "featured": false
-  },
-  {
-    "client": "Stowe Family Law",
-    "category": "Motion",
-    "title": "Stowe Family Law",
-    "description": "An introduction to Stowe Family Law, presenting the firm through video.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718103",
-    "featured": false
-  },
-  {
-    "client": "Naspers",
-    "category": "Motion",
-    "title": "Naspers",
-    "description": "A longer-form company film introducing Naspers and its story.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718063",
-    "featured": false
-  },
-  {
-    "client": "Rolawn",
-    "category": "Film",
-    "title": "How to look after your lawn",
-    "description": "A practical guide from Rolawn, taking viewers through how to care for their lawn.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718082",
-    "featured": false
-  },
-  {
-    "client": "Stowe Family Law",
-    "category": "Motion",
-    "title": "Stowe Family Law — animation",
-    "description": "An animated introduction to Stowe Family Law, using motion to communicate the firm’s message.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718097",
-    "featured": false
-  },
-  {
-    "client": "Heineken",
-    "category": "Motion",
-    "title": "Induction",
-    "description": "A short induction piece for Heineken, created for an employee audience.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718049",
-    "featured": false
-  },
-  {
-    "client": "BT",
-    "category": "Motion",
-    "title": "Workplace",
-    "description": "A video introducing BT’s Workplace communication platform.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718003",
-    "featured": false
-  },
-  {
-    "client": "eBay",
-    "category": "Motion",
-    "title": "Valentine’s",
-    "description": "A short Valentine’s-themed piece for eBay.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190718021",
-    "featured": false
-  },
-  {
-    "client": "Aviva",
-    "category": "Motion",
-    "title": "ESG",
-    "description": "A film focused on environmental, social and governance topics for Aviva.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190717849",
-    "featured": false
-  },
-  {
-    "client": "AA",
-    "category": "Motion",
-    "title": "MyHR",
-    "description": "A video introducing AA’s MyHR service and its role in employee communications.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190717821",
-    "featured": false
-  },
-  {
-    "client": "Elsevier",
-    "category": "Motion",
-    "title": "Elsevier",
-    "description": "A company film introducing Elsevier and its work in research and information.",
-    "distribution": "",
-    "type": "video",
-    "vimeo": "1190719360",
-    "featured": false
-  }
-];
+// The portfolio videos live in assets/data/portfolio.json so they can be edited in Pages CMS
+// (settings in .pages.yml). The list order in that file is the order on the page.
+let EKO_PORTFOLIO_ITEMS = [];
+
+function ekoEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}
+
+// Accepts a Vimeo share link (https://vimeo.com/123456789/abcdef1234), a player link (…/video/123456789?h=abcdef1234)
+// or a plain video number. Private videos need the code that follows the number.
+function ekoParseVimeo(value) {
+  const text = String(value == null ? '' : value).trim();
+  const id = (text.match(/^(\d{6,})$/) || text.match(/vimeo\.com\/(?:[^?#]*?\/)?(\d{6,})(?=[\/?#]|$)/i) || [])[1] || '';
+  const hash = (text.match(/[?&]h=([0-9a-z]+)/i) || text.match(/\/\d{6,}\/([0-9a-z]+)/i) || [])[1] || '';
+  return { id, hash };
+}
+
+function ekoLoadPortfolio() {
+  return fetch('assets/data/portfolio.json', { cache: 'no-cache' })
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      const list = Array.isArray(data) ? data : (data && data.videos) || [];
+      EKO_PORTFOLIO_ITEMS = list.map(entry => {
+        const video = ekoParseVimeo(entry && entry.vimeo);
+        if (video.id && video.hash) EKO_VIMEO_HASHES[video.id] = video.hash;
+        return {
+          client: String((entry && entry.client) || '').trim(),
+          category: String((entry && entry.category) || '').trim(),
+          title: String((entry && entry.title) || '').trim(),
+          description: String((entry && entry.description) || '').trim(),
+          featured: Boolean(entry && entry.featured),
+          vimeo: video.id
+        };
+      }).filter(item => item.vimeo && item.title);
+    })
+    .catch(error => {
+      console.warn('Portfolio list could not be loaded.', error);
+      EKO_PORTFOLIO_ITEMS = [];
+    });
+}
+
+// If the page was opened on a section link (for example /#contact), the browser may jump there before the
+// portfolio has been filled in, which pushes the section down. Jump again once, unless the visitor has moved.
+let ekoVisitorMoved = false;
+['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(type => {
+  window.addEventListener(type, () => { ekoVisitorMoved = true; }, { passive: true, once: true });
+});
+function ekoRestoreAnchor() {
+  if (ekoVisitorMoved || window.location.hash.length < 2) return;
+  let target = null;
+  try { target = document.querySelector(window.location.hash); } catch (error) { return; }
+  if (target) target.scrollIntoView({ block: 'start', behavior: 'instant' });
+}
 const EKO_INITIAL_VISIBLE = 6;
 let ekoVisibleCount = EKO_INITIAL_VISIBLE;
 let ekoCurrentFilter = 'all';
@@ -318,7 +220,7 @@ function ekoVimeoEmbed(id) {
 }
 
 function ekoPortfolioFilteredItems() {
-  return EKO_PORTFOLIO_ITEMS.filter(item => ekoCurrentFilter === 'all' || item.category.toLowerCase() === ekoCurrentFilter.toLowerCase());
+  return EKO_PORTFOLIO_ITEMS.filter(item => ekoCurrentFilter === 'all' || String(item.category).toLowerCase() === ekoCurrentFilter.toLowerCase());
 }
 
 function ekoRenderPortfolio(append = false) {
@@ -332,15 +234,15 @@ function ekoRenderPortfolio(append = false) {
   if (!append) grid.innerHTML = "";
 
   grid.insertAdjacentHTML("beforeend", visible.map((item, index) => `
-    <article class="portfolio-item portfolio-video-card reveal-card ${item.featured && index < 3 ? 'is-featured' : ''}" data-category="${item.category}">
-      <button class="portfolio-expand" type="button" aria-expanded="false" aria-label="Expand ${item.title}"><span></span></button>
+    <article class="portfolio-item portfolio-video-card reveal-card ${item.featured && index < 3 ? 'is-featured' : ''}" data-category="${ekoEscape(item.category)}">
+      <button class="portfolio-expand" type="button" aria-expanded="false" aria-label="Expand ${ekoEscape(item.title)}"><span></span></button>
       <div class="portfolio-video-thumb">
-        <iframe src="${ekoVimeoEmbed(item.vimeo)}" title="${item.title}" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        <iframe src="${ekoVimeoEmbed(item.vimeo)}" title="${ekoEscape(item.title)}" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="portfolio-body">
-        <small>${item.client} / ${item.category}</small>
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
+        <small>${ekoEscape(item.client)} / ${ekoEscape(item.category)}</small>
+        <h3>${ekoEscape(item.title)}</h3>
+        <p>${ekoEscape(item.description)}</p>
       </div>
     </article>
   `).join(''));
@@ -395,7 +297,10 @@ function ekoInitSlickPortfolio() {
     });
   }
 
-  ekoRenderPortfolio();
+  ekoLoadPortfolio().then(() => {
+    ekoRenderPortfolio();
+    ekoRestoreAnchor();
+  });
 }
 
 

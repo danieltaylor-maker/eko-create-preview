@@ -1,0 +1,47 @@
+# Pages CMS settings for the Eko Create site (https://pagescms.org). Added by Claude, 7 October 2026.
+# The portfolio videos are stored in assets/data/portfolio.json; assets/js/main.js reads that file.
+# Saving in Pages CMS commits to GitHub, and Netlify republishes the site about a minute later.
+content:
+  - name: portfolio
+    label: Portfolio videos
+    type: file
+    path: assets/data/portfolio.json
+    format: json
+    fields:
+      - name: videos
+        label: Videos
+        description: Drag to reorder. The order here is the order on the website. The first six show before "View more work".
+        type: object
+        list:
+          min: 1
+          collapsible:
+            collapsed: true
+            summary: "{client}: {title}"
+        fields:
+          - name: client
+            label: Client
+            type: string
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: category
+            label: Category
+            description: Decides which filter button shows this video.
+            type: select
+            required: true
+            options:
+              values: [Film, Motion, Social]
+          - name: vimeo
+            label: Vimeo link
+            description: "Paste the share link from Vimeo, for example https://vimeo.com/1234567890/abcdef1234. For a private video the link must include the code after the number."
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+          - name: featured
+            label: Featured
+            description: Adds the featured style when the video is one of the first three shown.
+            type: boolean
