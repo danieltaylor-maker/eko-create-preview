@@ -1,12 +1,12 @@
 {
   "videos": [
     {
-      "client": "UK Government",
-      "title": "SeaGrown",
-      "category": "Film",
-      "vimeo": "https://vimeo.com/1190711638/da0169c853",
-      "description": "A short campaign film featuring SeaGrown, one of the organisations highlighted in this UK Government series.",
-      "featured": true
+      "client": "eBay",
+      "title": "Valentine’s",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/1190718021/24e81deedf",
+      "description": "A short Valentine’s-themed piece for eBay.",
+      "featured": false
     },
     {
       "client": "UK Government",
@@ -17,6 +17,14 @@
       "featured": true
     },
     {
+      "client": "Elsevier",
+      "title": "Elsevier",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/1190719360/15acc92f7b",
+      "description": "A company film introducing Elsevier and its work in research and information.",
+      "featured": false
+    },
+    {
       "client": "Aviva",
       "title": "Wellbeing",
       "category": "Film",
@@ -25,12 +33,12 @@
       "featured": true
     },
     {
-      "client": "AIR Studios",
-      "title": "Yoav Goren",
-      "category": "Social",
-      "vimeo": "https://vimeo.com/1190711570/b2c4f3ce42",
-      "description": "A short film featuring composer Yoav Goren at AIR Studios.",
-      "featured": false
+      "client": "UK Government",
+      "title": "SeaGrown",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190711638/da0169c853",
+      "description": "A short campaign film featuring SeaGrown, one of the organisations highlighted in this UK Government series.",
+      "featured": true
     },
     {
       "client": "Stowe Family Law",
@@ -54,6 +62,14 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1190718082/5fa3c7f337",
       "description": "A practical guide from Rolawn, taking viewers through how to care for their lawn.",
+      "featured": false
+    },
+    {
+      "client": "AIR Studios",
+      "title": "Yoav Goren",
+      "category": "Social",
+      "vimeo": "https://vimeo.com/1190711570/b2c4f3ce42",
+      "description": "A short film featuring composer Yoav Goren at AIR Studios.",
       "featured": false
     },
     {
@@ -81,14 +97,6 @@
       "featured": false
     },
     {
-      "client": "eBay",
-      "title": "Valentine’s",
-      "category": "Motion",
-      "vimeo": "https://vimeo.com/1190718021/24e81deedf",
-      "description": "A short Valentine’s-themed piece for eBay.",
-      "featured": false
-    },
-    {
       "client": "Aviva",
       "title": "ESG",
       "category": "Motion",
@@ -102,21 +110,6 @@
       "category": "Motion",
       "vimeo": "https://vimeo.com/1190717821/5c5263f5c9",
       "description": "A video introducing AA’s MyHR service and its role in employee communications.",
-      "featured": false
-    },
-    {
-      "client": "Elsevier",
-      "title": "Elsevier",
-      "category": "Motion",
-      "vimeo": "https://vimeo.com/1190719360/15acc92f7b",
-      "description": "A company film introducing Elsevier and its work in research and information.",
-      "featured": false
-    },
-    {
-      "client": "test",
-      "title": "test video",
-      "category": "Film",
-      "vimeo": "https://vimeo.com/1190718063/690519c8ea",
       "featured": false
     }
   ]
