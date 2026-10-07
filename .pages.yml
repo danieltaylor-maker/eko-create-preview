@@ -10,7 +10,6 @@ content:
     fields:
       - name: videos
         label: Videos
-        description: Drag to reorder. The order here is the order on the website. The first six show before "View more work".
         type: object
         list:
           min: 1
