@@ -77,3 +77,41 @@
   }
   sync();
 })();
+
+// Section photograph (02 / Meet Eko): gentle parallax — added by Claude, 7 October 2026.
+// The photo moves at 16% of the scroll speed, the same rate main.js uses for the hero.
+// Like the hero, it is off on phones (680px and under) and with reduced motion. Without this file the photo sits still.
+(function () {
+  var photos = Array.prototype.slice.call(document.querySelectorAll('.sec-photo'));
+  if (!photos.length) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var RATE = 0.16;
+  var queued = false;
+
+  function paint() {
+    queued = false;
+    var enabled = !reduce.matches && window.innerWidth > 680;
+    var vh = window.innerHeight;
+    photos.forEach(function (img) {
+      if (!enabled) { img.style.removeProperty('--py'); return; }
+      var section = img.parentNode;
+      var box = section.getBoundingClientRect();
+      if (box.bottom < -200 || box.top > vh + 200) return;        // nowhere near the screen
+      var spare = (img.offsetHeight - section.offsetHeight) / 2;   // spare picture above and below (set in icons.css)
+      var fromCentre = vh / 2 - (box.top + box.height / 2);        // 0 when the section is mid-screen
+      var y = Math.max(-spare, Math.min(spare, fromCentre * RATE));
+      img.style.setProperty('--py', y.toFixed(1) + 'px');
+    });
+  }
+
+  function queue() {
+    if (!queued) { queued = true; window.requestAnimationFrame(paint); }
+  }
+
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue, { passive: true });
+  if (reduce.addEventListener) reduce.addEventListener('change', queue);
+  paint();
+})();
+
