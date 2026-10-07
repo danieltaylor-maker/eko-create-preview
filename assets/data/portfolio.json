@@ -119,6 +119,86 @@
       "vimeo": "https://vimeo.com/1190717821/5c5263f5c9",
       "description": "A video introducing AA’s MyHR service and its role in employee communications.",
       "featured": false
+    },
+    {
+      "client": "Aviva",
+      "title": "Simple life insurance",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/1190717880/88cf538fa1",
+      "description": "A short explainer introducing Aviva’s simple life insurance.",
+      "featured": false
+    },
+    {
+      "client": "Aviva",
+      "title": "Kirsty’s story",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190717933/0193e2cf9c",
+      "description": "Kirsty tells her story on camera in this film for Aviva.",
+      "featured": false
+    },
+    {
+      "client": "UK Government",
+      "title": "Liverpool Bold Street",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190718119/96b5e7d659",
+      "description": "A short campaign film featuring Bold Street in Liverpool, part of the UK Government series.",
+      "featured": false
+    },
+    {
+      "client": "Aviva",
+      "title": "Hackathon",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190719449/cc1348596c",
+      "description": "A film about Aviva’s hackathon.",
+      "featured": false
+    },
+    {
+      "client": "ENGIE",
+      "title": "How to switch",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/1190718038/5d183dd3aa",
+      "description": "A short guide from ENGIE explaining how to switch.",
+      "featured": false
+    },
+    {
+      "client": "Aviva",
+      "title": "Pride",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190717969/8507ae0d32",
+      "description": "A short film made for Aviva Pride.",
+      "featured": false
+    },
+    {
+      "client": "Barclays",
+      "title": "A working day",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190717994/0e5456cdf5",
+      "description": "A film following a working day at Barclays.",
+      "featured": false
+    },
+    {
+      "client": "adam&eve",
+      "title": "Case study",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190717841/7ce334e996",
+      "description": "A case study film produced for adam&eve.",
+      "featured": false
+    },
+    {
+      "client": "Aviva",
+      "title": "Aviva Studios",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/1190711585/36613daef3",
+      "description": "A short piece for Aviva Studios.",
+      "featured": false
+    },
+    {
+      "client": "The Cares Family",
+      "title": "The Multiplier",
+      "category": "Film",
+      "vimeo": "https://vimeo.com/1190718110/4d50b92559",
+      "description": "A film from The Cares Family’s Multiplier event, supporting community leaders.",
+      "featured": false
     }
   ]
 }
