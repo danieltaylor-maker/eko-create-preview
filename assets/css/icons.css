@@ -119,5 +119,12 @@
 
 /* Links from the homepage service list to the service pages (Claude, 8 Oct 2026) */
 .service-card h3 a{color:inherit;text-decoration:none}.service-card h3 a:hover{color:var(--orange,#FF754A)}
-.service-card .svc-link{display:table;margin-top:10px;line-height:1.5;font-size:14px;font-weight:600;color:var(--navy,#101D31);text-decoration:none;border-bottom:1px solid #FF754A}
-.service-card .svc-link::after{content:" \2192"}.service-card .svc-link:hover{color:#FF754A}
+/* Understated link columns above the homepage footer (Claude, 8 Oct 2026) */
+.home-links{position:relative;z-index:1;background:var(--navy,#101D31);border-top:1px solid rgba(244,241,233,.1);padding:48px 0 28px}
+.home-links-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 32px}
+.home-links h2{font-size:13px!important;font-weight:600;letter-spacing:.01em!important;line-height:1.4!important;margin:0 0 12px;color:var(--cream,#F4F1E9)}
+.home-links ul{list-style:none;margin:0;padding:0}
+.home-links li{margin:0 0 6px}
+.home-links a{font-size:13px;line-height:1.5;color:rgba(244,241,233,.55);text-decoration:none;transition:color .2s ease}
+.home-links a:hover{color:#FF754A}
+@media(max-width:680px){.home-links{padding:40px 0 20px}.home-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
