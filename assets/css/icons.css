@@ -117,3 +117,7 @@
 .footer-legal p{margin:0;font-size:12px;line-height:1.6;color:var(--cream);opacity:.62}
 @media(max-width:980px){.footer-legal p{padding-right:96px}}
 
+/* Links from the homepage service list to the service pages (Claude, 8 Oct 2026) */
+.service-card h3 a{color:inherit;text-decoration:none}.service-card h3 a:hover{color:var(--orange,#FF754A)}
+.service-card .svc-link{display:table;margin-top:10px;line-height:1.5;font-size:14px;font-weight:600;color:var(--navy,#101D31);text-decoration:none;border-bottom:1px solid #FF754A}
+.service-card .svc-link::after{content:" \2192"}.service-card .svc-link:hover{color:#FF754A}

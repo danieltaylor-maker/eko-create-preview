@@ -1,0 +1,86 @@
+/* Service pages (Claude, 8 Oct 2026). Loaded only on /<service>/ pages, after the homepage CSS. */
+.svc{--navy:#101D31;--orange:#FF754A;--cream:#F4F1E9;--bg2:#16263d;--muted-dark:#4c5969}
+.svc section{padding:96px 0}
+.svc h1,.svc h2,.svc h3{font-weight:500;margin:0}
+.svc h2{font-size:clamp(30px,4vw,48px);letter-spacing:-.045em!important;line-height:1.05!important;margin:0 0 40px;max-width:760px}
+.svc-kicker{color:var(--orange);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:700;margin:0 0 16px}
+.svc-visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Hero */
+.svc .svc-hero{padding:168px 0 96px;background:radial-gradient(circle at 85% 20%,rgba(255,117,74,.16),transparent 42%),var(--navy)}
+.svc-crumbs{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:rgba(244,241,233,.6);margin-bottom:40px}
+.svc-crumbs a{text-decoration:none}.svc-crumbs a:hover{color:var(--orange)}
+.svc-crumbs [aria-current]{color:var(--cream)}
+.svc-hero-ico{width:56px;height:56px;stroke-width:1.2;color:var(--cream);display:block;margin-bottom:28px}
+.svc-hero-ico .i-dot,.svc .ico .i-dot{fill:var(--orange);stroke:none}
+.svc h1{font-size:clamp(44px,7vw,88px);line-height:.98;letter-spacing:-.055em;max-width:900px}
+.svc-lead{font-size:clamp(18px,2vw,22px);line-height:1.5;color:rgba(244,241,233,.78);max-width:720px;margin:28px 0 0}
+.svc-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+
+/* What we make */
+.svc .svc-make{background:var(--cream);color:var(--navy)}
+.svc-make-list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(16,29,49,.24)}
+.svc-make-list li{display:grid;grid-template-columns:1fr 1.3fr;gap:32px;padding:26px 0;border-bottom:1px solid rgba(16,29,49,.24)}
+.svc-make-list h3{font-size:clamp(20px,2.2vw,26px);letter-spacing:-.03em}
+.svc-make-list p{margin:0;color:var(--muted-dark);font-size:16px;line-height:1.7}
+
+/* Films */
+.svc .svc-films{background:var(--navy)}
+.svc-film-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 28px}
+.svc-film-grid--one{grid-template-columns:minmax(0,760px)}
+.svc-player{position:relative;display:block;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0b1424;margin-bottom:18px}
+.svc-player img,.svc-player iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block;transition:transform .5s ease}
+.svc-player:hover img{transform:scale(1.03)}
+.svc-play{position:absolute;left:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:var(--orange);display:grid;place-items:center;color:var(--cream);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.svc-play svg{margin-left:3px}
+.svc-film-client{color:var(--orange);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700;margin:0 0 6px}
+.svc-film h3{font-size:22px;letter-spacing:-.03em;margin-bottom:8px}
+.svc-film p:last-child{margin:0;color:rgba(244,241,233,.7)}
+.svc-more-work{margin:44px 0 0}.svc-more-work a{color:var(--orange);font-weight:600}
+
+/* Steps */
+.svc .svc-steps{background:var(--bg2)}
+.svc-step-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+.svc-step-list li{border-top:1px solid rgba(244,241,233,.2);padding-top:22px}
+.svc-step-list .ico{width:34px;height:34px;color:var(--cream);display:block;margin-bottom:18px}
+.svc-step-list strong{display:block;font-size:20px;font-weight:500;margin-bottom:8px}
+.svc-step-list p{margin:0;color:rgba(244,241,233,.7);font-size:15px;line-height:1.6}
+
+/* Who */
+.svc .svc-who{background:var(--cream);color:var(--navy)}
+.svc-who-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.svc-who h2{margin:0}
+.svc-who p:not(.svc-kicker){font-size:18px;line-height:1.7;color:var(--muted-dark);margin:0 0 16px}
+
+/* CTA */
+.svc .svc-cta{background:var(--orange);color:var(--cream);text-align:center}
+.svc-cta h2{margin:0 auto 18px}
+.svc-cta p{font-size:clamp(18px,2vw,22px);max-width:640px;margin:0 auto}
+.svc-cta-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin:26px auto 30px!important;font-weight:600}
+.svc-cta-links a{text-decoration:none;border-bottom:1px solid rgba(244,241,233,.5)}
+.svc-btn-navy{background:var(--navy);border-color:var(--navy);color:var(--cream)}
+
+/* Other services */
+.svc .svc-others{background:var(--navy);padding:72px 0}
+.svc-other-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.svc-other-list a{display:flex;align-items:center;gap:14px;padding:20px 22px;border:1px solid rgba(244,241,233,.16);border-radius:16px;text-decoration:none;font-size:18px;transition:border-color .25s ease,color .25s ease}
+.svc-other-list a:hover{border-color:var(--orange);color:var(--orange)}
+.svc-other-list .ico{width:28px;height:28px;flex:none}
+
+.svc-page .site-footer a[href="/"] img{display:block}
+
+@media(max-width:980px){
+  .svc-step-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .svc-other-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .svc-who-grid{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:680px){
+  .svc section{padding:72px 0}
+  .svc .svc-hero{padding:128px 0 72px}
+  .svc-crumbs{margin-bottom:28px}
+  .svc-make-list li{grid-template-columns:1fr;gap:8px;padding:22px 0}
+  .svc-film-grid{grid-template-columns:1fr;gap:36px}
+  .svc-step-list{grid-template-columns:1fr 1fr;gap:28px 20px}
+  .svc-other-list{grid-template-columns:1fr}
+  .svc h2{margin-bottom:28px}
+}
