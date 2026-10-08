@@ -85,12 +85,14 @@
   .svc h2{margin-bottom:28px}
 }
 
-/* Small address block above the footer */
-.svc .svc-address{background:var(--bg2);padding:28px 0;border-top:1px solid rgba(244,241,233,.1)}
-.svc-address-grid{display:flex;flex-wrap:wrap;align-items:center;gap:8px 32px;font-size:14px;color:rgba(244,241,233,.75)}
-.svc-address-grid p,.svc-address-grid address{margin:0;font-style:normal}
-.svc-address-name{display:flex;align-items:center;gap:10px;color:var(--cream);font-weight:600}
-.svc-address-name .ico{width:20px;height:20px}
-.svc-address-links span{margin-left:20px}
-.svc-address a{text-decoration:none}.svc-address a:hover{color:var(--orange)}
-@media(max-width:680px){.svc-address-grid{display:grid;gap:6px}.svc-address-links span{display:block;margin:4px 0 0}}
+/* Link columns above the footer (8 Oct 2026, styled after Dan's reference) */
+.svc .svc-links{background:var(--navy);padding:72px 0 56px;border-top:1px solid rgba(244,241,233,.12)}
+.svc-links-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 32px}
+.svc-links h2{font-size:17px!important;font-weight:600;letter-spacing:-.01em!important;line-height:1.3!important;margin:0 0 18px;color:var(--cream)}
+.svc-links ul{list-style:none;margin:0;padding:0}
+.svc-links li{margin:0 0 10px}
+.svc-links a,.svc-links address{font-size:17px;line-height:1.45;color:rgba(244,241,233,.72);text-decoration:none;font-style:normal;transition:color .2s ease}
+.svc-links address{margin:0 0 14px}
+.svc-links a:hover,.svc-links a[aria-current]{color:var(--orange)}
+@media(max-width:980px){.svc-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.svc .svc-links{padding:56px 0 40px}.svc-links-grid{gap:36px 20px}.svc-links a,.svc-links address{font-size:16px}}
