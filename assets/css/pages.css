@@ -84,3 +84,13 @@
   .svc-other-list{grid-template-columns:1fr}
   .svc h2{margin-bottom:28px}
 }
+
+/* Small address block above the footer */
+.svc .svc-address{background:var(--bg2);padding:28px 0;border-top:1px solid rgba(244,241,233,.1)}
+.svc-address-grid{display:flex;flex-wrap:wrap;align-items:center;gap:8px 32px;font-size:14px;color:rgba(244,241,233,.75)}
+.svc-address-grid p,.svc-address-grid address{margin:0;font-style:normal}
+.svc-address-name{display:flex;align-items:center;gap:10px;color:var(--cream);font-weight:600}
+.svc-address-name .ico{width:20px;height:20px}
+.svc-address-links span{margin-left:20px}
+.svc-address a{text-decoration:none}.svc-address a:hover{color:var(--orange)}
+@media(max-width:680px){.svc-address-grid{display:grid;gap:6px}.svc-address-links span{display:block;margin:4px 0 0}}
