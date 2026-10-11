@@ -177,3 +177,11 @@
 .svc .svc-story + .svc-who{padding-top:32px}
 @media(max-width:680px){.svc .svc-story:has(+ .svc-who){padding-bottom:28px}.svc .svc-story + .svc-who{padding-top:20px}}
 .svc-story-copy p:first-child{font-weight:600;color:var(--navy)}
+/* "How we work" playhead, matching the homepage (Claude, 11 Oct 2026) */
+.svc-step-list{position:relative}
+.svc-step-list li{position:relative}
+.svc-step-list li>*{transition:opacity .45s ease}
+.svc-step-list.has-playhead{margin-top:34px}
+.svc-step-list.has-playhead::before{content:"";position:absolute;left:0;right:0;top:-12px;height:6px;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(244,241,233,.28) 0 1px,transparent 1px 12px)}
+.svc-step-list.has-playhead li::before{content:"";position:absolute;left:0;top:-2px;width:100%;height:2px;background:var(--orange,#FF754A);transform:scaleX(var(--fill,0));transform-origin:left}
+.svc-step-list.has-playhead li:not(.is-lit)>*{opacity:.38}
