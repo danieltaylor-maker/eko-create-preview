@@ -152,3 +152,9 @@
 .svc-cta-links a:hover{border-bottom-color:var(--navy,#101D31)}
 .svc-cta-links a,.svc-cta-links a:hover{border-bottom:0;text-decoration:none}
 .svc-cta-links a:hover{opacity:.75}
+/* Service boxes: always equal height; five-across version stacks icon above the name so nothing wraps (Claude, 11 Oct 2026) */
+.svc-other-list li{display:flex}
+.svc-other-list a{flex:1;min-width:0}
+@media(min-width:981px){
+  .svc-other-list--five a{flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;padding:22px 20px;font-size:17px;white-space:nowrap}
+}
