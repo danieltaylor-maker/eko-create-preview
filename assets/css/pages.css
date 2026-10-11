@@ -145,3 +145,8 @@
 /* Optional background photo in a service page hero, same treatment as the homepage hero (Claude, 11 Oct 2026) */
 .svc .svc-hero--img{position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(16,29,49,.92) 0%,rgba(16,29,49,.78) 45%,rgba(16,29,49,.5) 100%),linear-gradient(180deg,rgba(255,117,74,.14),rgba(16,29,49,.2) 45%,rgba(16,29,49,.95) 100%),var(--hero-img) 70% center/cover no-repeat,var(--navy)}
 @media(max-width:680px){.svc .svc-hero--img{background:linear-gradient(180deg,rgba(16,29,49,.82),rgba(16,29,49,.92)),var(--hero-img) 66% center/cover no-repeat,var(--navy)}}
+/* Orange contact block: midnight blue text like the homepage orange section (Claude, 11 Oct 2026) */
+.svc .svc-cta,.svc .svc-cta h2,.svc .svc-cta p,.svc .svc-cta-links a{color:var(--navy,#101D31)}
+.svc .svc-cta h2{font-weight:500}
+.svc-cta-links a{border-bottom-color:rgba(16,29,49,.45)}
+.svc-cta-links a:hover{border-bottom-color:var(--navy,#101D31)}
