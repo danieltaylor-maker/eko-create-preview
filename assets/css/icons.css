@@ -128,3 +128,11 @@
 .home-links a{font-size:13px;line-height:1.5;color:rgba(244,241,233,.55);text-decoration:none;transition:color .2s ease}
 .home-links a:hover{color:#FF754A}
 @media(max-width:680px){.home-links{padding:40px 0 20px}.home-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Hero video: start dark, fade the video in once it plays; photo only as fallback (11 Oct 2026) */
+@media (min-width:981px) and (prefers-reduced-motion:no-preference){
+  .hero.video-on .hero-media{opacity:0;transition:opacity .8s ease}
+  .hero.video-on.video-fallback .hero-media{opacity:1}
+  .hero .hero-bg-video{opacity:0!important;transition:opacity 1.2s ease}
+  .hero .hero-bg-video.is-playing{opacity:1!important}
+}
