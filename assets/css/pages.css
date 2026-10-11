@@ -139,3 +139,6 @@
 .svc-viewer-next{right:16px;top:50%;transform:translateY(-50%)}
 .svc-viewer-count{position:absolute;bottom:14px;left:0;right:0;margin:0;text-align:center;color:rgba(244,241,233,.6);font-size:14px}
 @media(max-width:680px){.svc-viewer{padding:64px 12px 48px}.svc-viewer-prev,.svc-viewer-next{top:auto;bottom:6px;transform:none}}
+/* Icons beside each "What we make" item, matching the homepage service cards (Claude, 11 Oct 2026) */
+.svc-make-list h3{display:flex;align-items:center;gap:16px}
+.svc-make-ico{width:30px;height:30px;stroke-width:1.4;color:var(--orange,#FF754A)}
