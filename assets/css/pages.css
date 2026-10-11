@@ -150,3 +150,5 @@
 .svc .svc-cta h2{font-weight:500}
 .svc-cta-links a{border-bottom-color:rgba(16,29,49,.45)}
 .svc-cta-links a:hover{border-bottom-color:var(--navy,#101D31)}
+.svc-cta-links a,.svc-cta-links a:hover{border-bottom:0;text-decoration:none}
+.svc-cta-links a:hover{opacity:.75}
