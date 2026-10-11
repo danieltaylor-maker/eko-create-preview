@@ -36,4 +36,52 @@
       link.replaceWith(box);
     });
   });
+  // Photography gallery (Claude, 11 Oct 2026). Photos live in assets/data/photography.json and are
+  // added, changed and removed in Pages CMS. If the list is empty the placeholder tiles stay.
+  var grid = document.querySelector('.svc-gallery-grid[data-photos]');
+  if (grid && window.fetch) {
+    fetch(grid.dataset.photos, { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        var photos = (data && data.photos || []).filter(function (p) { return p && p.image; });
+        if (!photos.length) return;
+        var figs = photos.map(function (p) {
+          var fig = document.createElement('figure');
+          fig.className = 'svc-photo';
+          var img = document.createElement('img');
+          img.src = p.image;
+          img.alt = p.alt || p.caption || '';
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          fig.appendChild(img);
+          var text = [p.client, p.caption].filter(Boolean).join(' – ');
+          if (text) {
+            var cap = document.createElement('figcaption');
+            cap.textContent = text;
+            fig.appendChild(cap);
+          }
+          return fig;
+        });
+        // Deal photos into columns so the order in Pages CMS reads left to right, top to bottom.
+        grid.classList.add('svc-gallery-grid--photos');
+        var cols = 0;
+        var layout = function () {
+          var n = window.innerWidth <= 680 ? 1 : window.innerWidth <= 980 ? 2 : 3;
+          if (n === cols) return;
+          cols = n;
+          grid.textContent = '';
+          var colEls = [];
+          for (var i = 0; i < n; i++) {
+            var c = document.createElement('div');
+            c.className = 'svc-photo-col';
+            grid.appendChild(c);
+            colEls.push(c);
+          }
+          figs.forEach(function (f, i) { colEls[i % n].appendChild(f); });
+        };
+        layout();
+        window.addEventListener('resize', layout);
+      })
+      .catch(function () {});
+  }
 })();
