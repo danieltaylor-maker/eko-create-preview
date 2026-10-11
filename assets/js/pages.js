@@ -45,7 +45,7 @@
       .then(function (data) {
         var photos = (data && data.photos || []).filter(function (p) { return p && p.image; });
         if (!photos.length) return;
-        var figs = photos.map(function (p) {
+        var figs = photos.map(function (p, i) {
           var fig = document.createElement('figure');
           fig.className = 'svc-photo';
           var img = document.createElement('img');
@@ -53,9 +53,78 @@
           img.alt = p.alt || 'Photography by Eko Create';
           img.loading = 'lazy';
           img.decoding = 'async';
-          fig.appendChild(img);
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'svc-photo-open';
+          btn.setAttribute('aria-label', 'View photo ' + (i + 1) + ' of ' + photos.length + ' full screen');
+          btn.addEventListener('click', function () { openViewer(i, btn); });
+          btn.appendChild(img);
+          fig.appendChild(btn);
           return fig;
         });
+        // Full-screen viewer: arrows, swipe, Escape to close (Claude, 11 Oct 2026)
+        var box, boxImg, boxCount, current = 0, opener = null, touchX = null;
+        function show(i) {
+          current = (i + photos.length) % photos.length;
+          boxImg.src = photos[current].image;
+          boxImg.alt = photos[current].alt || 'Photography by Eko Create';
+          boxCount.textContent = (current + 1) + ' / ' + photos.length;
+        }
+        function closeViewer() {
+          box.hidden = true;
+          document.body.classList.remove('no-scroll');
+          document.removeEventListener('keydown', onKey);
+          if (opener) opener.focus();
+        }
+        function onKey(e) {
+          if (e.key === 'Escape') closeViewer();
+          else if (e.key === 'ArrowRight') show(current + 1);
+          else if (e.key === 'ArrowLeft') show(current - 1);
+          else if (e.key === 'Tab') {
+            var f = box.querySelectorAll('button:not([hidden])');
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+          }
+        }
+        function openViewer(i, from) {
+          if (!box) {
+            box = document.createElement('div');
+            box.className = 'svc-viewer';
+            box.setAttribute('role', 'dialog');
+            box.setAttribute('aria-modal', 'true');
+            box.setAttribute('aria-label', 'Photo viewer');
+            box.innerHTML = '<button type="button" class="svc-viewer-close" aria-label="Close">&times;</button>' +
+              '<button type="button" class="svc-viewer-prev" aria-label="Previous photo">&#8249;</button>' +
+              '<img class="svc-viewer-img" alt="">' +
+              '<button type="button" class="svc-viewer-next" aria-label="Next photo">&#8250;</button>' +
+              '<p class="svc-viewer-count" aria-live="polite"></p>';
+            document.body.appendChild(box);
+            boxImg = box.querySelector('.svc-viewer-img');
+            boxCount = box.querySelector('.svc-viewer-count');
+            box.querySelector('.svc-viewer-close').addEventListener('click', closeViewer);
+            box.querySelector('.svc-viewer-prev').addEventListener('click', function () { show(current - 1); });
+            box.querySelector('.svc-viewer-next').addEventListener('click', function () { show(current + 1); });
+            box.addEventListener('click', function (e) { if (e.target === box) closeViewer(); });
+            box.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+            box.addEventListener('touchend', function (e) {
+              if (touchX === null) return;
+              var dx = e.changedTouches[0].clientX - touchX;
+              touchX = null;
+              if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+            });
+            if (photos.length < 2) {
+              box.querySelector('.svc-viewer-prev').hidden = true;
+              box.querySelector('.svc-viewer-next').hidden = true;
+            }
+          }
+          opener = from;
+          show(i);
+          box.hidden = false;
+          document.body.classList.add('no-scroll');
+          document.addEventListener('keydown', onKey);
+          box.querySelector('.svc-viewer-close').focus();
+        }
         // Deal photos into columns so the order in Pages CMS reads left to right, top to bottom.
         grid.classList.add('svc-gallery-grid--photos');
         var cols = 0;

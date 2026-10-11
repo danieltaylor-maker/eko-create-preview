@@ -125,3 +125,17 @@
 .svc-photo figcaption{margin-top:10px;color:rgba(244,241,233,.6);font-size:14px;line-height:1.5}
 .svc-gallery-grid--photos{column-count:auto;display:flex;gap:20px;align-items:flex-start}
 .svc-photo-col{flex:1 1 0;min-width:0}
+/* Photo viewer (Claude, 11 Oct 2026) */
+.svc-photo-open{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:16px}
+.svc-photo-open:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
+.svc-photo-open img{transition:opacity .2s ease}.svc-photo-open:hover img{opacity:.88}
+.svc-viewer{position:fixed;inset:0;z-index:1000;background:rgba(8,14,25,.96);display:flex;align-items:center;justify-content:center;padding:56px 72px}
+.svc-viewer[hidden]{display:none}
+.svc-viewer-img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:6px;user-select:none}
+.svc-viewer button{position:absolute;border:0;background:rgba(244,241,233,.08);color:#F4F1E9;width:48px;height:48px;border-radius:50%;font-size:30px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.svc-viewer button:hover{background:rgba(244,241,233,.18)}.svc-viewer button:focus-visible{outline:2px solid #FF754A;outline-offset:2px}
+.svc-viewer-close{top:16px;right:16px}
+.svc-viewer-prev{left:16px;top:50%;transform:translateY(-50%)}
+.svc-viewer-next{right:16px;top:50%;transform:translateY(-50%)}
+.svc-viewer-count{position:absolute;bottom:14px;left:0;right:0;margin:0;text-align:center;color:rgba(244,241,233,.6);font-size:14px}
+@media(max-width:680px){.svc-viewer{padding:64px 12px 48px}.svc-viewer-prev,.svc-viewer-next{top:auto;bottom:6px;transform:none}}
