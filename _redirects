@@ -4,8 +4,9 @@
 # Source: the old site's sitemap.xml (135 addresses) and its navigation, read on 7 October 2026.
 
 # Main pages -> matching section
-/about             /              301
-/team              /              301
+/about             /about/        301
+/team              /about/        301
+/team/*            /about/        301
 /news              /              301
 /blog-2            /              301
 /elements          /              301
