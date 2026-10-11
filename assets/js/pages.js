@@ -144,6 +144,7 @@
         };
         layout();
         window.addEventListener('resize', layout);
+        if (window.ekoRevealPhotos) window.ekoRevealPhotos(figs);
       })
       .catch(function () {});
   }
@@ -200,4 +201,85 @@
   window.addEventListener('resize', queue, { passive: true });
   if (wide.addEventListener) { wide.addEventListener('change', sync); reduce.addEventListener('change', sync); }
   sync();
+})();
+
+// Entrance and scroll-reveal animation, matching the homepage (Claude, 11 Oct 2026).
+// Uses the homepage's own .motion-ready / .in-view styles from hybrid.css. Nothing is hidden without JavaScript,
+// and everything shows straight away for people who have turned off motion.
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var STAGGER = 110;
+
+  function prep(el) { el.classList.add('motion-ready'); }
+  function show(el, delay) { setTimeout(function () { el.classList.add('in-view'); }, delay || 0); }
+
+  // 1. Hero: header drops in, then the hero content rises line by line, as on the homepage.
+  var header = document.querySelector('.site-header');
+  var heroBits = Array.prototype.slice.call(document.querySelectorAll('.svc-hero .container > *'));
+  if (header) { header.setAttribute('data-animate', 'fade-down'); header.style.transitionDelay = '0ms'; setTimeout(function () { header.classList.add('in-view'); }, 120); }
+  heroBits.forEach(function (el, i) { prep(el); show(el, 180 + i * STAGGER); });
+
+  // 2. Groups that reveal one item after another when they scroll into view.
+  var groups = [
+    '.svc-make-list', '.svc-step-list', '.svc-film-grid', '.svc-other-list',
+    '.svc-links-grid', '.svc-story-grid', '.svc-who-grid'
+  ];
+  // 3. Single blocks that rise into view.
+  var singles = [
+    '.svc-kicker', 'main h2', '.svc-clients-copy', '.svc-cta .container > *', '.svc-more-work'
+  ];
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      io.unobserve(el);
+      if (el.__group) el.__group.forEach(function (child, i) { show(child, i * STAGGER); });
+      else show(el, 0);
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+
+  function inHero(el) { return !!el.closest('.svc-hero'); }
+
+  groups.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (group) {
+      var kids = Array.prototype.slice.call(group.children).filter(function (c) { return c.className !== 'process-playhead'; });
+      kids.forEach(prep);
+      group.__group = kids;
+      io.observe(group);
+    });
+  });
+  singles.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      if (inHero(el) || el.classList.contains('motion-ready') || el.classList.contains('svc-visually-hidden') || el.closest(groups.join(','))) return;
+      prep(el); io.observe(el);
+    });
+  });
+
+  // Gallery photos are added after the page loads, so reveal them as they arrive.
+  window.ekoRevealPhotos = function (figs) {
+    var pio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        pio.unobserve(entry.target);
+        show(entry.target, (entry.target.__i % 3) * STAGGER);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    figs.forEach(function (f, i) { f.__i = i; prep(f); pio.observe(f); });
+  };
+
+  // 4. Hero photo: gentle parallax at 16% of scroll speed, like the homepage hero. Off on phones.
+  var bg = document.querySelector('.svc-hero-bg');
+  if (bg) {
+    var queued = false;
+    var paint = function () {
+      queued = false;
+      var hero = bg.parentNode, box = hero.getBoundingClientRect();
+      var y = window.innerWidth > 680 ? Math.min(box.height, Math.max(0, -box.top)) * 0.16 : 0;
+      bg.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+    };
+    window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(paint); } }, { passive: true });
+    paint();
+  }
 })();
