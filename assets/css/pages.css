@@ -142,3 +142,6 @@
 /* Icons beside each "What we make" item, matching the homepage service cards (Claude, 11 Oct 2026) */
 .svc-make-list h3{display:flex;align-items:center;gap:16px}
 .svc-make-ico{width:30px;height:30px;stroke-width:1.4;color:var(--orange,#FF754A)}
+/* Optional background photo in a service page hero, same treatment as the homepage hero (Claude, 11 Oct 2026) */
+.svc .svc-hero--img{position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(16,29,49,.92) 0%,rgba(16,29,49,.78) 45%,rgba(16,29,49,.5) 100%),linear-gradient(180deg,rgba(255,117,74,.14),rgba(16,29,49,.2) 45%,rgba(16,29,49,.95) 100%),var(--hero-img) 70% center/cover no-repeat,var(--navy)}
+@media(max-width:680px){.svc .svc-hero--img{background:linear-gradient(180deg,rgba(16,29,49,.82),rgba(16,29,49,.92)),var(--hero-img) 66% center/cover no-repeat,var(--navy)}}
