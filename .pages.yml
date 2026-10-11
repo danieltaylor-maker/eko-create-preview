@@ -62,7 +62,7 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: "{client}: {caption}"
+            summary: "{image}"
         fields:
           - name: image
             label: Photo
@@ -70,14 +70,6 @@ content:
             type: image
             required: true
           - name: alt
-            label: Description for screen readers and Google
-            description: "Say what is in the photo, for example: Two engineers checking a train at King's Cross."
-            type: string
-            required: true
-          - name: client
-            label: Client
-            type: string
-          - name: caption
-            label: Caption
-            description: Optional. Shown under the photo after the client name.
+            label: Description (optional)
+            description: Not shown on the page. Leave blank to use the generic description "Photography by Eko Create".
             type: string

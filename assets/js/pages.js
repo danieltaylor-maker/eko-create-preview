@@ -50,16 +50,10 @@
           fig.className = 'svc-photo';
           var img = document.createElement('img');
           img.src = p.image;
-          img.alt = p.alt || p.caption || '';
+          img.alt = p.alt || 'Photography by Eko Create';
           img.loading = 'lazy';
           img.decoding = 'async';
           fig.appendChild(img);
-          var text = [p.client, p.caption].filter(Boolean).join(' – ');
-          if (text) {
-            var cap = document.createElement('figcaption');
-            cap.textContent = text;
-            fig.appendChild(cap);
-          }
           return fig;
         });
         // Deal photos into columns so the order in Pages CMS reads left to right, top to bottom.
