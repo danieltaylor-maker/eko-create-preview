@@ -176,3 +176,4 @@
 .svc .svc-story:has(+ .svc-who){padding-bottom:40px}
 .svc .svc-story + .svc-who{padding-top:32px}
 @media(max-width:680px){.svc .svc-story:has(+ .svc-who){padding-bottom:28px}.svc .svc-story + .svc-who{padding-top:20px}}
+.svc-story-copy p:first-child{font-weight:600;color:var(--navy)}
