@@ -312,11 +312,22 @@ function ekoInitSlickPortfolio() {
   const viewport = matchMedia('(min-width: 981px)');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const source = video.querySelector('source');
+  const hero = video.closest('.hero');
+  let fallbackTimer;
+  const fallback = () => hero && hero.classList.add('video-fallback');
+  video.addEventListener('playing', () => { clearTimeout(fallbackTimer); video.classList.add('is-playing'); hero && hero.classList.remove('video-fallback'); });
+  video.addEventListener('error', fallback, true);
   const sync = () => {
     if (viewport.matches && !motion.matches && !navigator.connection?.saveData) {
+      hero && hero.classList.add('video-on');
       if (!source.hasAttribute('src')) { source.src = source.dataset.src; video.load(); }
-      video.play().catch(() => {});
+      clearTimeout(fallbackTimer);
+      if (!video.classList.contains('is-playing')) fallbackTimer = setTimeout(fallback, 4000);
+      video.play().catch(err => { if (err && err.name !== 'AbortError') fallback(); });
     } else {
+      clearTimeout(fallbackTimer);
+      hero && hero.classList.remove('video-on', 'video-fallback');
+      video.classList.remove('is-playing');
       video.pause();
       if (source.hasAttribute('src')) { source.removeAttribute('src'); video.load(); }
     }
