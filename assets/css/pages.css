@@ -161,3 +161,6 @@
 /* Link columns: three columns now the social links live only in the footer (Claude, 11 Oct 2026) */
 .svc-links-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:680px){.svc-links-grid{grid-template-columns:1fr}}
+/* About: story copy (Claude, 11 Oct 2026) */
+.svc-story-copy p{margin:0 0 16px;color:var(--muted-dark);font-size:18px;line-height:1.7}
+.svc-story-copy p:last-child{margin-bottom:0}
