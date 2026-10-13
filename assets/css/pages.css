@@ -249,3 +249,7 @@
 .svc a.svc-inline:hover{color:#FF754A}
 /* Breadcrumb links: 24px touch height on phones (Claude, 13 Oct 2026) */
 .svc-crumbs a{display:inline-block;padding:2px 0}
+/* About partner block: Graphic Design & Publications as a supporting line (Claude, 13 Oct 2026) */
+.svc-about .svc-partner-extra{margin:28px 0 0}
+.svc-about .svc-partner-extra h3{font-size:18px;letter-spacing:-.01em;margin:0 0 6px;color:var(--navy)}
+.svc-about .svc-partner-extra p{margin:0!important}
