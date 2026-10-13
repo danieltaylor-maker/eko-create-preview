@@ -222,3 +222,15 @@
   .svc-story-photos{gap:12px;margin-top:36px}
   .svc-about .svc-partner>.container{padding-top:40px}
 }
+
+/* ---------- Photography gallery: lead image and hover (Claude, 13 Oct 2026, Stage 3) ----------
+   The first photo in the current view runs full width above the columns; set by pages.js.
+   To remove: delete this block and the "Lead image" lines in pages.js. */
+.svc-photo-lead .svc-photo{margin:0 0 20px}
+.svc-photo--lead .svc-photo-open,.svc-photo--lead img{border-radius:16px}
+.svc-photo--lead img{aspect-ratio:16/9;object-fit:cover;object-position:50% 40%;max-height:78vh}
+.svc-photo-open{overflow:hidden}
+.svc-photo-open img{transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .2s ease}
+.svc-photo-open:hover img{opacity:1;transform:scale(1.025)}
+@media(max-width:680px){.svc-photo--lead img{aspect-ratio:4/3}.svc-photo-lead .svc-photo{margin-bottom:16px}}
+@media(prefers-reduced-motion:reduce){.svc-photo-open img{transition:none}.svc-photo-open:hover img{transform:none}}

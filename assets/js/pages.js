@@ -46,11 +46,15 @@
         var photos = (data && data.photos || []).filter(function (p) { return p && p.image; });
         if (!photos.length) return;
         var visible = photos.map(function (p, i) { return i; });
+        var webpOf = function (src, ext) { return /\.(jpe?g|png)$/i.test(src) ? src.replace(/([^\/]+)\.(jpe?g|png)$/i, 'web/$1' + ext) : src; };
         var figs = photos.map(function (p, i) {
           var fig = document.createElement('figure');
           fig.className = 'svc-photo';
           var img = document.createElement('img');
-          img.src = p.image;
+          // Optimised WebP copies sit in a web/ folder beside each upload (name.w800.webp for the grid, name.webp full size).
+          // A brand-new CMS upload without them simply falls back to the original file.
+          img.src = webpOf(p.image, '.w800.webp');
+          img.onerror = function () { img.onerror = null; img.src = p.image; };
           img.alt = p.alt || 'Photography by eko create';
           img.loading = 'lazy';
           img.decoding = 'async';
@@ -68,7 +72,8 @@
         function show(i) {
           current = (i + visible.length) % visible.length;
           var p = photos[visible[current]];
-          boxImg.src = p.image;
+          boxImg.onerror = function () { boxImg.onerror = null; boxImg.src = p.image; };
+          boxImg.src = webpOf(p.image, '.webp');
           boxImg.alt = p.alt || 'Photography by eko create';
           boxCount.textContent = (current + 1) + ' / ' + visible.length;
         }
@@ -128,12 +133,30 @@
         }
         // Deal photos into columns so the order in Pages CMS reads left to right, top to bottom.
         grid.classList.add('svc-gallery-grid--photos');
+        // Lead image: the first photo in the current view runs full width above the columns (Claude, 13 Oct 2026).
+        var leadWrap = document.createElement('div');
+        leadWrap.className = 'svc-photo-lead';
+        grid.parentNode.insertBefore(leadWrap, grid);
         var cols = 0;
         var layout = function (force) {
           var n = window.innerWidth <= 680 ? 1 : window.innerWidth <= 980 ? 2 : 3;
           if (n === cols && !force) return;
           cols = n;
           grid.textContent = '';
+          leadWrap.textContent = '';
+          figs.forEach(function (f) { f.classList.remove('svc-photo--lead'); });
+          var rest = visible.slice();
+          if (rest.length > 3) {
+            var lead = rest.shift();
+            figs[lead].classList.add('svc-photo--lead');
+            var li = figs[lead].querySelector('img');
+            if (!li.dataset.full) {
+              li.dataset.full = '1';
+              li.onerror = function () { li.onerror = null; li.src = photos[lead].image; };
+              li.src = webpOf(photos[lead].image, '.webp');
+            }
+            leadWrap.appendChild(figs[lead]);
+          }
           var colEls = [];
           for (var i = 0; i < n; i++) {
             var c = document.createElement('div');
@@ -141,7 +164,7 @@
             grid.appendChild(c);
             colEls.push(c);
           }
-          visible.forEach(function (idx, i) { colEls[i % n].appendChild(figs[idx]); });
+          rest.forEach(function (idx, i) { colEls[i % n].appendChild(figs[idx]); });
         };
         layout();
         window.addEventListener('resize', function () { layout(); });
@@ -171,7 +194,7 @@
             });
             bar.appendChild(b);
           });
-          grid.parentNode.insertBefore(bar, grid);
+          grid.parentNode.insertBefore(bar, leadWrap);
         }
         if (window.ekoRevealPhotos) window.ekoRevealPhotos(figs);
       })
