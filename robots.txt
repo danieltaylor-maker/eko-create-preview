@@ -1,3 +1,11 @@
+# eko create — robots.txt (updated 13 Oct 2026: OAI-SearchBot allowed explicitly; existing rules unchanged)
+
+# All crawlers, including Googlebot and Bingbot: allowed everywhere (existing rule)
 User-agent: *
 Allow: /
+
+# OpenAI's search crawler (ChatGPT search results): explicitly allowed
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://eko-create.com/sitemap.xml

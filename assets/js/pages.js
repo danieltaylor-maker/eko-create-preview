@@ -51,7 +51,7 @@
           fig.className = 'svc-photo';
           var img = document.createElement('img');
           img.src = p.image;
-          img.alt = p.alt || 'Photography by Eko Create';
+          img.alt = p.alt || 'Photography by eko create';
           img.loading = 'lazy';
           img.decoding = 'async';
           var btn = document.createElement('button');
@@ -69,7 +69,7 @@
           current = (i + visible.length) % visible.length;
           var p = photos[visible[current]];
           boxImg.src = p.image;
-          boxImg.alt = p.alt || 'Photography by Eko Create';
+          boxImg.alt = p.alt || 'Photography by eko create';
           boxCount.textContent = (current + 1) + ' / ' + visible.length;
         }
         function closeViewer() {
