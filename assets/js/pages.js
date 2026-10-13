@@ -171,9 +171,9 @@
         var leadWrap = document.createElement('div');
         leadWrap.className = 'svc-photo-lead';
         grid.parentNode.insertBefore(leadWrap, grid);
-        // "View more photos" button, like "View more work" on the homepage (Claude, 13 Oct 2026):
-        // the lead plus three rows of three show first, then nine more per click.
-        var FIRST = 10, MORE = 9, shown = FIRST;
+        // "View more work" button, as on the homepage (Claude, 13 Oct 2026):
+        // the lead plus five rows of three show first, then fifteen more per click.
+        var FIRST = 16, MORE = 15, shown = FIRST;
         var moreWrap = document.createElement('div');
         moreWrap.className = 'portfolio-actions svc-photo-actions';
         var moreBtn = document.createElement('button');
@@ -217,7 +217,7 @@
           rest = rest.slice(0, Math.max(0, shown - (visible.length - rest.length)));
           rest.forEach(function (idx, i) { colEls[i % n].appendChild(figs[idx]); });
           moreWrap.hidden = left <= 0;
-          moreBtn.textContent = 'View more photos (' + Math.max(0, left) + ')';
+          moreBtn.textContent = 'View more work (' + Math.max(0, left) + ')';
         };
         layout();
         window.addEventListener('resize', function () { layout(); });
