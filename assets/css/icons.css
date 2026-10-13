@@ -140,3 +140,6 @@
 /* Homepage hero 10% shorter on desktop only (Claude, 13 Oct 2026). Tablet and mobile unchanged. */
 @media(min-width:981px){.hero{min-height:86.4vh}}
 @media(min-width:981px) and (max-height:800px){.hero{min-height:90svh!important}}
+
+/* Homepage hero line on one line where it fits; wraps naturally on narrower screens (Claude, 13 Oct 2026) */
+.hero .hero-copy{max-width:min(720px,100%)}
