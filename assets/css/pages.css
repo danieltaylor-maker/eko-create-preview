@@ -243,3 +243,9 @@
 @media(prefers-reduced-motion:reduce){.svc-viewer,.svc-viewer button,.svc-viewer-count{transition:none}}
 /* Gallery "View more photos" button, sized like the homepage "View more work" (Claude, 13 Oct 2026) */
 .svc .svc-photo-actions{margin-top:38px}.svc-photo-actions[hidden]{display:none!important}.svc-photo-more{min-width:190px}
+
+/* Links inside service-page copy (Claude, 13 Oct 2026): same colour as the text, quiet orange underline */
+.svc a.svc-inline{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,117,74,.7);text-decoration-thickness:1.5px;text-underline-offset:3px;transition:color .2s ease}
+.svc a.svc-inline:hover{color:#FF754A}
+/* Breadcrumb links: 24px touch height on phones (Claude, 13 Oct 2026) */
+.svc-crumbs a{display:inline-block;padding:2px 0}

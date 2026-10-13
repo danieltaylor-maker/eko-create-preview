@@ -1,4 +1,4 @@
-@font-face{font-family:Inter;src:url(../fonts/InterVariable.woff2) format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:Inter;src:url(../fonts/InterVariable-latin.woff2) format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
 /* Atmospheric foundation, modern editorial palette — October 2026 */
 :root{--navy:#101D31;--orange:#FF754A;--cream:#F4F1E9;--eko-blue:var(--orange);--bg:var(--navy);--bg2:#16263d;--text:var(--cream);--muted:#bdc5ce;--line:rgba(244,241,233,.18)}
 html{scroll-padding-top:100px}body{background:var(--navy);color:var(--cream)}
