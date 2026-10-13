@@ -228,7 +228,7 @@
    To remove: delete this block and the "Lead image" lines in pages.js. */
 .svc-photo-lead .svc-photo{margin:0 0 20px}
 .svc-photo--lead .svc-photo-open,.svc-photo--lead img{border-radius:16px}
-.svc-photo--lead img{aspect-ratio:16/9;object-fit:cover;object-position:50% 40%;max-height:78vh}
+.svc-photo--lead img{aspect-ratio:16/9;object-fit:cover;object-position:50% 45%;max-height:78vh}
 .svc-photo-open{overflow:hidden}
 .svc-photo-open img{transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .2s ease}
 .svc-photo-open:hover img{opacity:1;transform:scale(1.025)}

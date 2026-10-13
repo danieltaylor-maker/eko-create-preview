@@ -1,6 +1,11 @@
 {
   "photos": [
     {
+      "image": "/assets/images/photography/gallery-12.jpg",
+      "category": "Studio",
+      "alt": "Woman on a yellow beanbag with a laptop against a blue studio backdrop"
+    },
+    {
       "image": "/assets/images/photography/gallery-01.jpg",
       "category": "Workplace",
       "alt": "Portrait of a man in a creative office lounge with a graffiti mural"
@@ -49,11 +54,6 @@
       "image": "/assets/images/photography/gallery-11.jpg",
       "category": "Studio",
       "alt": "Man striding with a laptop against a blue studio backdrop"
-    },
-    {
-      "image": "/assets/images/photography/gallery-12.jpg",
-      "category": "Studio",
-      "alt": "Woman on a yellow beanbag with a laptop against a blue studio backdrop"
     },
     {
       "image": "/assets/images/photography/gallery-14.jpg",
