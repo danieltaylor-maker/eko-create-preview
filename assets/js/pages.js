@@ -171,6 +171,21 @@
         var leadWrap = document.createElement('div');
         leadWrap.className = 'svc-photo-lead';
         grid.parentNode.insertBefore(leadWrap, grid);
+        // "View more photos" button, like "View more work" on the homepage (Claude, 13 Oct 2026):
+        // the lead plus three rows of three show first, then nine more per click.
+        var FIRST = 10, MORE = 9, shown = FIRST;
+        var moreWrap = document.createElement('div');
+        moreWrap.className = 'portfolio-actions svc-photo-actions';
+        var moreBtn = document.createElement('button');
+        moreBtn.type = 'button';
+        moreBtn.className = 'btn btn-ghost svc-photo-more';
+        moreWrap.appendChild(moreBtn);
+        grid.parentNode.insertBefore(moreWrap, grid.nextSibling);
+        moreBtn.addEventListener('click', function () {
+          shown += MORE;
+          figs.forEach(function (f) { f.classList.add('in-view'); });
+          layout(true);
+        });
         var cols = 0;
         var layout = function (force) {
           var n = window.innerWidth <= 680 ? 1 : window.innerWidth <= 980 ? 2 : 3;
@@ -198,7 +213,11 @@
             grid.appendChild(c);
             colEls.push(c);
           }
+          var left = visible.length - shown;
+          rest = rest.slice(0, Math.max(0, shown - (visible.length - rest.length)));
           rest.forEach(function (idx, i) { colEls[i % n].appendChild(figs[idx]); });
+          moreWrap.hidden = left <= 0;
+          moreBtn.textContent = 'View more photos (' + Math.max(0, left) + ')';
         };
         layout();
         window.addEventListener('resize', function () { layout(); });
@@ -223,6 +242,7 @@
             b.addEventListener('click', function () {
               bar.querySelectorAll('.filter').forEach(function (x) { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
               visible = photos.map(function (p, i) { return i; }).filter(function (i) { return cat === 'All' || photos[i].category === cat; });
+              shown = FIRST;
               figs.forEach(function (f) { f.classList.add('in-view'); });
               layout(true);
             });

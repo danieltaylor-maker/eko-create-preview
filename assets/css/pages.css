@@ -241,3 +241,5 @@
 .svc-viewer.is-open button,.svc-viewer.is-open .svc-viewer-count{opacity:1}
 .svc-viewer-img{will-change:transform}
 @media(prefers-reduced-motion:reduce){.svc-viewer,.svc-viewer button,.svc-viewer-count{transition:none}}
+/* Gallery "View more photos" button, sized like the homepage "View more work" (Claude, 13 Oct 2026) */
+.svc .svc-photo-actions{margin-top:38px}.svc-photo-actions[hidden]{display:none!important}.svc-photo-more{min-width:190px}
