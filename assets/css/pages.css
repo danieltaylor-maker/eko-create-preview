@@ -187,3 +187,38 @@
 .svc-step-list.has-playhead li:not(.is-lit)>*{opacity:.38}
 /* Photography category filters, styled like the homepage portfolio filters (Claude, 13 Oct 2026) */
 .svc .svc-photo-filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start!important;margin:0 0 32px!important}
+
+/* ---------- About: cream editorial spread (Claude, 13 Oct 2026, Stage 2) ----------
+   Scoped to .svc-about. Faint oversized 2007, orange rule before the cream kickers, intro deck,
+   asymmetric story grid, optional office-photo row, production-partner block.
+   To remove: delete this block (and the matching markup in about.py). */
+.svc-about .svc-story{position:relative;overflow:hidden}
+.svc-about .svc-story>.container{position:relative;z-index:1}
+.svc-story-year{position:absolute;z-index:0;top:min(360px,26vw);right:-0.04em;font-size:clamp(150px,24vw,380px);font-weight:700;line-height:1;letter-spacing:-.05em;color:var(--navy);opacity:.04;pointer-events:none;user-select:none}
+.svc-about .svc-make .svc-kicker::before,.svc-about .svc-who .svc-kicker::before{content:"";display:inline-block;width:28px;height:1.5px;margin-right:12px;background:currentColor;vertical-align:.3em}
+.svc-about .svc-story-grid:has(.svc-story-illustration){grid-template-columns:7fr 5fr;gap:64px;align-items:start}
+.svc-about .svc-story-illustration{margin-top:72px;position:relative}
+.svc-about .svc-story-illustration::before{content:"";position:absolute;left:0;top:-20px;width:56px;height:1.5px;background:var(--orange)}
+.svc-about .svc-story-copy p.svc-deck{font-size:clamp(21px,1.9vw,25px);line-height:1.42;font-weight:600;color:var(--navy);max-width:31em;margin:0 0 28px}
+.svc-about .svc-deck em{font-style:normal;color:#D9542A}
+.svc-about .svc-story-copy p:not(.svc-deck){max-width:36em}
+/* Office photos: one lead image, smaller detail crops beside it */
+.svc-story-photos{display:grid;grid-template-columns:7fr 5fr;grid-auto-rows:auto;gap:20px;margin-top:72px}
+.svc-story-ph{margin:0;overflow:hidden;border-radius:4px;aspect-ratio:16/9}
+.svc-story-ph--lead{grid-row:span 2;aspect-ratio:auto}
+.svc-story-ph img{display:block;width:100%;height:100%;object-fit:cover}
+/* Partner block: same cream two-column rhythm as "Who you'll work with", divided by a hairline */
+.svc-about .svc-partner{padding-top:0}
+.svc-about .svc-partner>.container{border-top:1px solid rgba(16,29,49,.14);padding-top:56px}
+.svc-about .svc-partner .svc-partner-proof{font-size:15px!important;line-height:1.6!important;color:var(--navy)!important;opacity:.78;margin-top:24px!important;padding-top:18px;border-top:1.5px solid var(--orange);max-width:34em}
+@media(max-width:980px){
+  .svc-about .svc-story-grid:has(.svc-story-illustration){grid-template-columns:1fr;gap:40px}
+  .svc-about .svc-story-illustration{margin-top:20px;max-width:560px}
+  .svc-story-photos{grid-template-columns:1fr 1fr;margin-top:48px}
+  .svc-story-ph--lead{grid-column:1/-1;grid-row:auto;aspect-ratio:3/2}
+}
+@media(max-width:680px){
+  .svc-story-year{font-size:150px;top:8px;right:-10px;opacity:.035}
+  .svc-story-photos{gap:12px;margin-top:36px}
+  .svc-about .svc-partner>.container{padding-top:40px}
+}
