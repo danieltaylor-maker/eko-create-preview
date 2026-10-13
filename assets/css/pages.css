@@ -234,3 +234,10 @@
 .svc-photo-open:hover img{opacity:1;transform:scale(1.025)}
 @media(max-width:680px){.svc-photo--lead img{aspect-ratio:4/3}.svc-photo-lead .svc-photo{margin-bottom:16px}}
 @media(prefers-reduced-motion:reduce){.svc-photo-open img{transition:none}.svc-photo-open:hover img{transform:none}}
+/* Viewer movement (Claude, 13 Oct 2026): backdrop and controls fade in; pages.js moves the photo itself. */
+.svc-viewer{opacity:0;transition:opacity .3s ease}
+.svc-viewer.is-open{opacity:1}
+.svc-viewer button,.svc-viewer-count{transition:opacity .3s ease .12s,background .2s ease;opacity:0}
+.svc-viewer.is-open button,.svc-viewer.is-open .svc-viewer-count{opacity:1}
+.svc-viewer-img{will-change:transform}
+@media(prefers-reduced-motion:reduce){.svc-viewer,.svc-viewer button,.svc-viewer-count{transition:none}}

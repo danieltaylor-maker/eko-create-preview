@@ -68,25 +68,51 @@
           return fig;
         });
         // Full-screen viewer: arrows, swipe, Escape to close. It steps through the photos in the current filter.
-        var box, boxImg, boxCount, current = 0, opener = null, touchX = null;
-        function show(i) {
+        var box, boxImg, boxCount, current = 0, opener = null, touchX = null, closeTimer = null;
+        // Movement (Claude, 13 Oct 2026): the photo grows out of its thumbnail on open, slides between photos,
+        // and shrinks back on close. All of it is skipped with reduced motion.
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var ease = 'cubic-bezier(.2,.7,.2,1)';
+        var ready = function (img) { return img.decode ? img.decode().catch(function () {}) : Promise.resolve(); };
+        function fromThumb(img, thumb, reverse) {
+          if (still.matches || !img.animate || !thumb) return null;
+          var a = thumb.getBoundingClientRect(), b = img.getBoundingClientRect();
+          if (!a.width || !b.width || a.bottom < 0 || a.top > window.innerHeight) return null;
+          var t = 'translate(' + (a.left + a.width / 2 - b.left - b.width / 2) + 'px,' + (a.top + a.height / 2 - b.top - b.height / 2) + 'px) scale(' + (a.width / b.width) + ')';
+          var k = [{ transform: t, opacity: .6 }, { transform: 'none', opacity: 1 }];
+          return img.animate(reverse ? k.reverse() : k, { duration: reverse ? 320 : 460, easing: ease, fill: 'both' });
+        }
+        function show(i, dir) {
           current = (i + visible.length) % visible.length;
           var p = photos[visible[current]];
           boxImg.onerror = function () { boxImg.onerror = null; boxImg.src = p.image; };
           boxImg.src = webpOf(p.image, '.webp');
           boxImg.alt = p.alt || 'Photography by eko create';
           boxCount.textContent = (current + 1) + ' / ' + visible.length;
+          if (dir && !still.matches && boxImg.animate) {
+            ready(boxImg).then(function () {
+              boxImg.animate([{ opacity: 0, transform: 'translateX(' + (dir * 48) + 'px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: ease });
+            });
+          }
         }
         function closeViewer() {
-          box.hidden = true;
-          document.body.classList.remove('no-scroll');
           document.removeEventListener('keydown', onKey);
-          if (opener) opener.focus();
+          var thumb = figs[visible[current]] && figs[visible[current]].querySelector('img');
+          var anim = fromThumb(boxImg, thumb, true);
+          box.classList.remove('is-open');
+          var done = function () {
+            box.hidden = true;
+            if (anim) anim.cancel();
+            document.body.classList.remove('no-scroll');
+            if (opener) opener.focus({ preventScroll: true });
+          };
+          clearTimeout(closeTimer);
+          closeTimer = setTimeout(done, still.matches ? 0 : 320);
         }
         function onKey(e) {
           if (e.key === 'Escape') closeViewer();
-          else if (e.key === 'ArrowRight') show(current + 1);
-          else if (e.key === 'ArrowLeft') show(current - 1);
+          else if (e.key === 'ArrowRight') show(current + 1, 1);
+          else if (e.key === 'ArrowLeft') show(current - 1, -1);
           else if (e.key === 'Tab') {
             var f = box.querySelectorAll('button:not([hidden])');
             var first = f[0], last = f[f.length - 1];
@@ -110,26 +136,34 @@
             boxImg = box.querySelector('.svc-viewer-img');
             boxCount = box.querySelector('.svc-viewer-count');
             box.querySelector('.svc-viewer-close').addEventListener('click', closeViewer);
-            box.querySelector('.svc-viewer-prev').addEventListener('click', function () { show(current - 1); });
-            box.querySelector('.svc-viewer-next').addEventListener('click', function () { show(current + 1); });
+            box.querySelector('.svc-viewer-prev').addEventListener('click', function () { show(current - 1, -1); });
+            box.querySelector('.svc-viewer-next').addEventListener('click', function () { show(current + 1, 1); });
             box.addEventListener('click', function (e) { if (e.target === box) closeViewer(); });
             box.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
             box.addEventListener('touchend', function (e) {
               if (touchX === null) return;
               var dx = e.changedTouches[0].clientX - touchX;
               touchX = null;
-              if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+              if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
             });
           }
           var single = visible.length < 2;
           box.querySelector('.svc-viewer-prev').hidden = single;
           box.querySelector('.svc-viewer-next').hidden = single;
           opener = from;
+          clearTimeout(closeTimer);
           show(i);
           box.hidden = false;
+          void box.offsetWidth;
+          box.classList.add('is-open');
           document.body.classList.add('no-scroll');
           document.addEventListener('keydown', onKey);
-          box.querySelector('.svc-viewer-close').focus();
+          box.querySelector('.svc-viewer-close').focus({ preventScroll: true });
+          var thumb = from && from.querySelector('img');
+          if (!still.matches && boxImg.animate) {
+            boxImg.style.opacity = '0';
+            ready(boxImg).then(function () { boxImg.style.opacity = ''; fromThumb(boxImg, thumb, false); });
+          }
         }
         // Deal photos into columns so the order in Pages CMS reads left to right, top to bottom.
         grid.classList.add('svc-gallery-grid--photos');
