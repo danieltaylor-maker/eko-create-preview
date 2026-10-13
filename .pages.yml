@@ -62,13 +62,19 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: "{image}"
+            summary: "{category}: {alt}"
         fields:
           - name: image
             label: Photo
             description: "Upload a JPG, about 2000 pixels on the longest side and under 500 KB, so the page loads quickly."
             type: image
             required: true
+          - name: category
+            label: Category
+            description: Decides which filter button shows this photo.
+            type: select
+            options:
+              values: [Studio, Workplace, Events]
           - name: alt
             label: Description (optional)
             description: Not shown on the page. Leave blank to use the generic description "Photography by Eko Create".

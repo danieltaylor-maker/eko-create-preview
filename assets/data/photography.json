@@ -1,82 +1,134 @@
 {
   "photos": [
     {
-      "image": "/assets/images/photography/gallery-01.jpg"
+      "image": "/assets/images/photography/gallery-01.jpg",
+      "category": "Workplace",
+      "alt": "Portrait of a man in a creative office lounge with a graffiti mural"
     },
     {
-      "image": "/assets/images/photography/gallery-02.jpg"
+      "image": "/assets/images/photography/gallery-02.jpg",
+      "category": "Workplace",
+      "alt": "Team of colleagues with laptops on an office atrium balcony"
     },
     {
-      "image": "/assets/images/photography/gallery-03.jpg"
+      "image": "/assets/images/photography/gallery-03.jpg",
+      "category": "Workplace",
+      "alt": "Woman holding a notebook on a glass office balcony"
     },
     {
-      "image": "/assets/images/photography/gallery-04.jpg"
+      "image": "/assets/images/photography/gallery-04.jpg",
+      "category": "Workplace",
+      "alt": "Portrait of a woman leaning on a railing outside an office building"
     },
     {
-      "image": "/assets/images/photography/gallery-05.jpg"
+      "image": "/assets/images/photography/gallery-05.jpg",
+      "category": "Workplace",
+      "alt": "Three colleagues looking at a laptop in an office corridor"
     },
     {
-      "image": "/assets/images/photography/gallery-06.jpg"
+      "image": "/assets/images/photography/gallery-06.jpg",
+      "category": "Workplace",
+      "alt": "Woman writing in a notebook in an office atrium"
     },
     {
-      "image": "/assets/images/photography/gallery-07.jpg"
+      "image": "/assets/images/photography/gallery-07.jpg",
+      "category": "Workplace",
+      "alt": "Woman working on a laptop at a table in a staff café"
     },
     {
-      "image": "/assets/images/photography/gallery-08.jpg"
+      "image": "/assets/images/photography/gallery-08.jpg",
+      "category": "Workplace",
+      "alt": "Smiling woman at a desk with a notebook in a modern office"
     },
     {
-      "image": "/assets/images/photography/gallery-10.jpg"
+      "image": "/assets/images/photography/gallery-10.jpg",
+      "category": "Studio",
+      "alt": "Woman cheering with a laptop against a pink studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-11.jpg"
+      "image": "/assets/images/photography/gallery-11.jpg",
+      "category": "Studio",
+      "alt": "Man striding with a laptop against a blue studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-12.jpg"
+      "image": "/assets/images/photography/gallery-12.jpg",
+      "category": "Studio",
+      "alt": "Woman on a yellow beanbag with a laptop against a blue studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-14.jpg"
+      "image": "/assets/images/photography/gallery-14.jpg",
+      "category": "Studio",
+      "alt": "Three colleagues posing playfully against a pink studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-16.jpg"
+      "image": "/assets/images/photography/gallery-16.jpg",
+      "category": "Studio",
+      "alt": "Two colleagues posing back to back against a yellow studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-17.jpg"
+      "image": "/assets/images/photography/gallery-17.jpg",
+      "category": "Studio",
+      "alt": "Three colleagues posing against a pink studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-18.jpg"
+      "image": "/assets/images/photography/gallery-18.jpg",
+      "category": "Studio",
+      "alt": "Two colleagues walking together against a blue studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-20.jpg"
+      "image": "/assets/images/photography/gallery-20.jpg",
+      "category": "Studio",
+      "alt": "Group of colleagues celebrating against a blue studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-22.jpg"
+      "image": "/assets/images/photography/gallery-22.jpg",
+      "category": "Studio",
+      "alt": "Group of colleagues celebrating against a yellow studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-23.jpg"
+      "image": "/assets/images/photography/gallery-23.jpg",
+      "category": "Studio",
+      "alt": "Four colleagues seated and cheering against a blue studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-24.jpg"
+      "image": "/assets/images/photography/gallery-24.jpg",
+      "category": "Studio",
+      "alt": "Two colleagues high-fiving against a blue studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-25.jpg"
+      "image": "/assets/images/photography/gallery-25.jpg",
+      "category": "Studio",
+      "alt": "Man holding a retro boombox against a pink studio backdrop"
     },
     {
-      "image": "/assets/images/photography/gallery-26.jpg"
+      "image": "/assets/images/photography/gallery-26.jpg",
+      "category": "Workplace",
+      "alt": "Portrait of a woman in an open-plan office"
     },
     {
-      "image": "/assets/images/photography/gallery-29.jpg"
+      "image": "/assets/images/photography/gallery-29.jpg",
+      "category": "Workplace",
+      "alt": "Portrait of a man in a blazer in an open-plan office"
     },
     {
-      "image": "/assets/images/photography/gallery-31.jpg"
+      "image": "/assets/images/photography/gallery-31.jpg",
+      "category": "Events",
+      "alt": "Rail staff holding 100 DAYS letters on a station concourse"
     },
     {
-      "image": "/assets/images/photography/gallery-33.jpg"
+      "image": "/assets/images/photography/gallery-33.jpg",
+      "category": "Events",
+      "alt": "Rail staff holding giant 100 days numbers on a station platform"
     },
     {
-      "image": "/assets/images/photography/gallery-34.jpg"
+      "image": "/assets/images/photography/gallery-34.jpg",
+      "category": "Events",
+      "alt": "Rail staff holding a 100 days sign at a busy station"
     },
     {
-      "image": "/assets/images/photography/gallery-35.jpg"
+      "image": "/assets/images/photography/gallery-35.jpg",
+      "category": "Events",
+      "alt": "Rail staff celebrating 100 days on a station footbridge"
     }
   ]
 }

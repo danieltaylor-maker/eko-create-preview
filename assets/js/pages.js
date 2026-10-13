@@ -45,6 +45,7 @@
       .then(function (data) {
         var photos = (data && data.photos || []).filter(function (p) { return p && p.image; });
         if (!photos.length) return;
+        var visible = photos.map(function (p, i) { return i; });
         var figs = photos.map(function (p, i) {
           var fig = document.createElement('figure');
           fig.className = 'svc-photo';
@@ -56,19 +57,20 @@
           var btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'svc-photo-open';
-          btn.setAttribute('aria-label', 'View photo ' + (i + 1) + ' of ' + photos.length + ' full screen');
-          btn.addEventListener('click', function () { openViewer(i, btn); });
+          btn.setAttribute('aria-label', 'View photo full screen: ' + img.alt);
+          btn.addEventListener('click', function () { openViewer(visible.indexOf(i), btn); });
           btn.appendChild(img);
           fig.appendChild(btn);
           return fig;
         });
-        // Full-screen viewer: arrows, swipe, Escape to close (Claude, 11 Oct 2026)
+        // Full-screen viewer: arrows, swipe, Escape to close. It steps through the photos in the current filter.
         var box, boxImg, boxCount, current = 0, opener = null, touchX = null;
         function show(i) {
-          current = (i + photos.length) % photos.length;
-          boxImg.src = photos[current].image;
-          boxImg.alt = photos[current].alt || 'Photography by Eko Create';
-          boxCount.textContent = (current + 1) + ' / ' + photos.length;
+          current = (i + visible.length) % visible.length;
+          var p = photos[visible[current]];
+          boxImg.src = p.image;
+          boxImg.alt = p.alt || 'Photography by Eko Create';
+          boxCount.textContent = (current + 1) + ' / ' + visible.length;
         }
         function closeViewer() {
           box.hidden = true;
@@ -113,11 +115,10 @@
               touchX = null;
               if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
             });
-            if (photos.length < 2) {
-              box.querySelector('.svc-viewer-prev').hidden = true;
-              box.querySelector('.svc-viewer-next').hidden = true;
-            }
           }
+          var single = visible.length < 2;
+          box.querySelector('.svc-viewer-prev').hidden = single;
+          box.querySelector('.svc-viewer-next').hidden = single;
           opener = from;
           show(i);
           box.hidden = false;
@@ -128,9 +129,9 @@
         // Deal photos into columns so the order in Pages CMS reads left to right, top to bottom.
         grid.classList.add('svc-gallery-grid--photos');
         var cols = 0;
-        var layout = function () {
+        var layout = function (force) {
           var n = window.innerWidth <= 680 ? 1 : window.innerWidth <= 980 ? 2 : 3;
-          if (n === cols) return;
+          if (n === cols && !force) return;
           cols = n;
           grid.textContent = '';
           var colEls = [];
@@ -140,10 +141,38 @@
             grid.appendChild(c);
             colEls.push(c);
           }
-          figs.forEach(function (f, i) { colEls[i % n].appendChild(f); });
+          visible.forEach(function (idx, i) { colEls[i % n].appendChild(figs[idx]); });
         };
         layout();
-        window.addEventListener('resize', layout);
+        window.addEventListener('resize', function () { layout(); });
+
+        // Category filter buttons, like the homepage portfolio (Claude, 13 Oct 2026).
+        // Categories come from each photo's "category" in Pages CMS; with fewer than two in use, no buttons show.
+        var ICONS = { All: 'i-grid', Studio: 'i-photo', Workplace: 'i-team', Events: 'i-award', Portraits: 'i-team' };
+        var cats = [];
+        photos.forEach(function (p) { if (p.category && cats.indexOf(p.category) < 0) cats.push(p.category); });
+        if (cats.length > 1) {
+          var bar = document.createElement('div');
+          bar.className = 'filters svc-photo-filters';
+          bar.setAttribute('role', 'group');
+          bar.setAttribute('aria-label', 'Filter photography');
+          ['All'].concat(cats).forEach(function (cat) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'filter' + (cat === 'All' ? ' active' : '');
+            b.setAttribute('aria-pressed', cat === 'All' ? 'true' : 'false');
+            b.innerHTML = '<svg class="ico f-ico" aria-hidden="true" focusable="false"><use href="#' + (ICONS[cat] || 'i-photo') + '"/></svg><span></span>';
+            b.querySelector('span').textContent = cat;
+            b.addEventListener('click', function () {
+              bar.querySelectorAll('.filter').forEach(function (x) { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+              visible = photos.map(function (p, i) { return i; }).filter(function (i) { return cat === 'All' || photos[i].category === cat; });
+              figs.forEach(function (f) { f.classList.add('in-view'); });
+              layout(true);
+            });
+            bar.appendChild(b);
+          });
+          grid.parentNode.insertBefore(bar, grid);
+        }
         if (window.ekoRevealPhotos) window.ekoRevealPhotos(figs);
       })
       .catch(function () {});
