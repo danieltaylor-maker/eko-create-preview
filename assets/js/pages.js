@@ -329,7 +329,7 @@
   // 2. Groups that reveal one item after another when they scroll into view.
   var groups = [
     '.svc-make-list', '.svc-step-list', '.svc-film-grid', '.svc-other-list',
-    '.svc-links-grid', '.svc-story-grid', '.svc-who-grid'
+    '.svc-links-grid', '.svc-story-grid', '.svc-who-grid', '.svc-client-grid'
   ];
   // 3. Single blocks that rise into view.
   var singles = [
