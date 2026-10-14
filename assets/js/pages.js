@@ -389,3 +389,28 @@
     paint();
   }
 })();
+
+// About page photos: the picture drifts gently inside its rounded frame as you scroll, like the homepage (Claude, 14 Oct 2026).
+// Desktop and tablet only; off with reduced motion, where the photos sit still.
+(function () {
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.svc-story-ph, .svc-who-photo')).filter(function (f) { return f.querySelector('img'); });
+  if (!frames.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)'), wide = window.matchMedia('(min-width: 681px)');
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var on = wide.matches && !reduce.matches, vh = window.innerHeight;
+    frames.forEach(function (f) {
+      f.classList.toggle('svc-plx', on);
+      if (!on) return;
+      var r = f.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var p = (r.top + r.height / 2 - vh / 2) / vh;          // -1 (above) .. 1 (below)
+      f.style.setProperty('--plx', (Math.max(-1, Math.min(1, p)) * -28).toFixed(1) + 'px');
+    });
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
