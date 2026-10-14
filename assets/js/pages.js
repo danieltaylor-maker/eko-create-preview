@@ -336,11 +336,11 @@
     '.svc-kicker', 'main h2', '.svc-clients-copy', '.svc-cta .container > *', '.svc-more-work'
   ];
   // About page: finer, line-by-line reveal through the cream sections (Claude, 14 Oct 2026).
-  // Label, heading, intro and paragraphs arrive one after another; photos and the illustration follow; the faint 2007 fades up last.
+  // Label, heading, intro and paragraphs arrive one after another; photos and the illustration follow; the faint 2007 stays put.
   if (document.body.classList.contains('about-page')) {
     groups = groups.filter(function (g) { return g !== '.svc-story-grid' && g !== '.svc-who-grid'; })
       .concat(['.svc-story-grid > div:first-child', '.svc-story-copy', '.svc-story-photos', '.svc-who-grid > div']);
-    singles = singles.concat(['.svc-story-illustration', '.svc-story-year']);
+    singles = singles.concat(['.svc-story-illustration']);
   }
 
   var io = new IntersectionObserver(function (entries) {
