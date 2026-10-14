@@ -266,3 +266,5 @@
 @media(max-width:680px){.svc-client-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.svc-client-grid li{height:84px;padding:14px 18px}.svc-client-grid img{max-width:118px;max-height:36px}.svc-client-grid img[src$="-cream.svg"],.svc-client-grid img[src$="st-leonards.svg"]{max-height:46px}}
 @media(prefers-reduced-motion:reduce){.svc-client-grid li{transition:none}.svc-client-grid li:hover{transform:none}}
 .svc-client-grid img[src$="stowe-cream.svg"]{max-height:74px}
+.svc-client-grid img[src$="jrf.svg"]{max-height:60px}
+@media(max-width:680px){.svc-client-grid img[src$="jrf.svg"],.svc-client-grid img[src$="stowe-cream.svg"]{max-height:50px}}

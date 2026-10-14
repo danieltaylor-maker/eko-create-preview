@@ -148,3 +148,4 @@
 a.client-marquee{color:inherit;text-decoration:none;cursor:pointer}
 a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
 .client-marquee-item img[src$="stowe-cream.svg"]{max-height:50px}
+.client-marquee-item img[src$="jrf.svg"]{max-height:46px}
