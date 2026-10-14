@@ -149,3 +149,6 @@ a.client-marquee{color:inherit;text-decoration:none;cursor:pointer}
 a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
 .client-marquee-item img[src$="stowe-cream.svg"]{max-height:50px}
 .client-marquee-item img[src$="jrf.svg"]{max-height:46px}
+
+/* Homepage hero: "Video" in orange (Claude, 14 Oct 2026) */
+.hero-title .hero-accent{font-style:normal;color:var(--orange,#FF754A)}
