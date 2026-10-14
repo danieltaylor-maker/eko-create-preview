@@ -272,3 +272,6 @@
 .svc .svc-client-logos{padding-top:150px}
 .svc-client-logos h1{font-size:clamp(44px,6vw,80px);line-height:1;letter-spacing:-.05em;margin:18px 0 24px}
 @media(max-width:680px){.svc .svc-client-logos{padding-top:116px}}
+/* Clients page intro: full width of the grid, first paragraph bold (Claude, 14 Oct 2026) */
+.svc-client-logos .svc-clients-copy{max-width:none}
+.svc-client-logos .svc-clients-copy:first-of-type{font-weight:600;color:var(--cream)}
