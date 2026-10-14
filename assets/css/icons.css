@@ -152,3 +152,4 @@ a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
 
 /* Homepage hero: "Video" in orange (Claude, 14 Oct 2026) */
 .hero-title .hero-accent{font-style:normal;color:var(--orange,#FF754A)}
+.client-marquee-item img[src$="nymr.svg"]{max-height:48px}

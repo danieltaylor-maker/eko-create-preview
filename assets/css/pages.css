@@ -312,3 +312,4 @@
 .svc-about .motion-ready:not(.in-view) .svc-kicker::before,.svc-about .svc-kicker.motion-ready:not(.in-view)::before,.svc-about .svc-story-illustration.motion-ready:not(.in-view)::before{transform:scaleX(0)}
 .svc-about .motion-ready:not(.in-view) .svc-partner-proof,.svc-about .svc-partner-proof.motion-ready:not(.in-view){background-size:0 1.5px}
 @media(prefers-reduced-motion:reduce){.svc-about .svc-kicker::before,.svc-about .svc-story-illustration::before,.svc-about .svc-partner-proof{transition:none}}
+.svc-client-grid img[src$="nymr.svg"]{max-height:62px}
