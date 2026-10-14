@@ -275,3 +275,6 @@
 /* Clients page intro: full width of the grid, first paragraph bold (Claude, 14 Oct 2026) */
 .svc-client-logos .svc-clients-copy{max-width:none}
 .svc-client-logos .svc-clients-copy:first-of-type{font-weight:600;color:var(--cream)}
+/* Clients intro: larger first paragraph with key words in orange (Claude, 14 Oct 2026) */
+.svc-client-logos .svc-clients-copy:first-of-type{font-size:clamp(20px,1.9vw,25px);line-height:1.45;letter-spacing:-.01em;margin-bottom:22px}
+.svc-client-logos .svc-clients-copy em{font-style:normal;color:#FF754A}
