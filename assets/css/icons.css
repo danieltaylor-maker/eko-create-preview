@@ -157,3 +157,7 @@ a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
 .footer-legal .footer-privacy{margin-top:6px}
 .footer-legal .footer-privacy a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .footer-legal .footer-privacy a:hover{color:#FF754A;opacity:1}
+/* Map on iPhone/iPad (Claude, 14 Oct 2026): iOS Safari leaves a cross-site map iframe blank when it has mix-blend-mode,
+   so touch devices get the same grey map without the blend. Desktop is unchanged. */
+@media (hover:none){.map-embed{mix-blend-mode:normal;filter:grayscale(1) sepia(.2) contrast(.95)}}
+@supports (-webkit-touch-callout:none){.map-embed{mix-blend-mode:normal;filter:grayscale(1) sepia(.2) contrast(.95)}}
