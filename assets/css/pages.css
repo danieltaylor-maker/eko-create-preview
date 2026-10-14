@@ -280,3 +280,5 @@
 .svc-client-logos .svc-clients-copy em{font-style:normal;color:#FF754A}
 /* About partner block: copy on the left, heading on the right (desktop/tablet); heading first on phones (Claude, 14 Oct 2026) */
 @media(min-width:981px){.svc-about .svc-partner .svc-who-grid>div:first-child{order:2}}
+/* About "Who you will work with": first paragraph bold in navy, like Our story (Claude, 14 Oct 2026) */
+.svc-about .svc-who:not(.svc-partner) .svc-who-grid>div:nth-child(2)>p:first-child{font-weight:600;color:var(--navy)}
