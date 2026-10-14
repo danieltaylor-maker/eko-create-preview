@@ -9,6 +9,10 @@
   var host = window.location.hostname.replace(/^www\./, '');
   if (host !== 'eko-create.com') return;
 
+  // Visitor opt-out (Privacy & cookies page, 14 Oct 2026): if they've turned analytics off, don't load it.
+  window['ga-disable-' + MEASUREMENT_ID] = false;
+  try { if (localStorage.getItem('eko-analytics-off') === '1') { window['ga-disable-' + MEASUREMENT_ID] = true; return; } } catch (e) {}
+
   var tag = document.createElement('script');
   tag.async = true;
   tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + MEASUREMENT_ID;

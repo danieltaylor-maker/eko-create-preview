@@ -153,3 +153,7 @@ a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
 /* Homepage hero: "Video" in orange (Claude, 14 Oct 2026) */
 .hero-title .hero-accent{font-style:normal;color:var(--orange,#FF754A)}
 .client-marquee-item img[src$="nymr.svg"]{max-height:48px}
+/* Footer privacy link (Claude, 14 Oct 2026) */
+.footer-legal .footer-privacy{margin-top:6px}
+.footer-legal .footer-privacy a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.footer-legal .footer-privacy a:hover{color:#FF754A;opacity:1}

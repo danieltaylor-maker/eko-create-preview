@@ -313,3 +313,27 @@
 .svc-about .motion-ready:not(.in-view) .svc-partner-proof,.svc-about .svc-partner-proof.motion-ready:not(.in-view){background-size:0 1.5px}
 @media(prefers-reduced-motion:reduce){.svc-about .svc-kicker::before,.svc-about .svc-story-illustration::before,.svc-about .svc-partner-proof{transition:none}}
 .svc-client-grid img[src$="nymr.svg"]{max-height:62px}
+/* Privacy & cookies page (Claude, 14 Oct 2026) */
+.svc .svc-privacy{padding-top:150px;padding-bottom:110px}
+@media(max-width:680px){.svc .svc-privacy{padding-top:116px}}
+.svc-privacy h1{font-size:clamp(44px,6vw,80px);line-height:1;letter-spacing:-.05em;margin:18px 0 24px}
+.svc-privacy .svc-privacy-body{max-width:820px}
+.svc-privacy .svc-privacy-lead{font-weight:600;color:var(--cream);font-size:clamp(20px,1.9vw,25px);line-height:1.45;letter-spacing:-.01em;margin:0 0 10px}
+.svc-privacy .svc-privacy-lead em{font-style:normal;color:#FF754A}
+.svc-privacy .svc-privacy-date{color:rgba(244,241,233,.5);font-size:14px;margin:0 0 48px}
+.svc-privacy h2{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.02em;line-height:1.15;margin:48px 0 14px;color:var(--cream)}
+.svc-privacy h2::before{content:"";display:block;width:34px;height:3px;border-radius:2px;background:#FF754A;margin-bottom:16px}
+.svc-privacy p,.svc-privacy li{color:rgba(244,241,233,.75);font-size:17px;line-height:1.7}
+.svc-privacy p{margin:0 0 14px}
+.svc-privacy ul{margin:0 0 14px;padding-left:20px}
+.svc-privacy a{color:#FF754A;text-underline-offset:3px}
+.svc-privacy strong{color:var(--cream)}
+.svc-cookie-table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 20px;border:1px solid rgba(244,241,233,.14);border-radius:16px;overflow:hidden;font-size:15px}
+.svc-cookie-table th,.svc-cookie-table td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid rgba(244,241,233,.1);color:rgba(244,241,233,.75);line-height:1.5}
+.svc-cookie-table th{color:var(--cream);font-weight:600;background:rgba(244,241,233,.05)}
+.svc-cookie-table tr:last-child td{border-bottom:0}
+.svc-cookie-table code{font-size:13px;color:var(--cream)}
+@media(max-width:680px){.svc-cookie-table thead{display:none}.svc-cookie-table tr{display:block;border-bottom:1px solid rgba(244,241,233,.1)}.svc-cookie-table tr:last-child{border-bottom:0}.svc-cookie-table td{display:block;border:0;padding:6px 16px}.svc-cookie-table td:first-child{padding-top:14px;color:var(--cream);font-weight:600}.svc-cookie-table td:last-child{padding-bottom:14px}}
+.svc-optout{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;margin:20px 0 6px;padding:20px 22px;border-radius:16px;background:rgba(244,241,233,.06);border:1px solid rgba(244,241,233,.12)}
+.svc-optout p{margin:0;flex:1 1 260px}
+.svc-optout .btn{white-space:nowrap}
