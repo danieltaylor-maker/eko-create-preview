@@ -32,8 +32,8 @@
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/styles.css">
   <link rel="stylesheet" href="/assets/css/hybrid.css?v=20261006-cream06">
-  <link rel="stylesheet" href="/assets/css/icons.css?v=20261015-h2">
-  <link rel="stylesheet" href="/assets/css/pages.css?v=20261015-h6">
+  <link rel="stylesheet" href="/assets/css/icons.css?v=20261015-n1">
+  <link rel="stylesheet" href="/assets/css/pages.css?v=20261015-h7">
   <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -103,7 +103,16 @@
   <header class="site-header">
     <a class="brand" href="/" aria-label="eko create home"><img src="/assets/images/eko-logo.svg" alt="eko create"></a>
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="/#services">Services</a>
+      <div class="nav-drop">
+        <a class="nav-drop-top" href="/#services">Services<svg class="nav-drop-chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5"/></svg></a>
+        <div class="nav-drop-panel">
+          <a href="/corporate-video-production/"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-film"/></svg><span>Film</span></a>
+          <a href="/animation-and-motion-graphics/"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-motion"/></svg><span>Animation &amp; Motion</span></a>
+          <a href="/photography/"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-photo"/></svg><span>Photography</span></a>
+          <a href="/social-media-video/"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-social"/></svg><span>Social Content</span></a>
+          <a href="/podcast-production/"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-podcast"/></svg><span>Podcasts</span></a>
+        </div>
+      </div>
       <a href="/#portfolio">Work</a>
       <a href="/about/" aria-current="page">About</a>
       <a href="/#contact">Contact</a>
@@ -117,6 +126,13 @@
   </header>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true" inert>
     <a href="/#services">Services</a>
+    <div class="mobile-sub">
+      <a href="/corporate-video-production/">Film</a>
+      <a href="/animation-and-motion-graphics/">Animation &amp; Motion</a>
+      <a href="/photography/">Photography</a>
+      <a href="/social-media-video/">Social Content</a>
+      <a href="/podcast-production/">Podcasts</a>
+    </div>
     <a href="/#portfolio">Work</a>
     <a href="/about/" aria-current="page">About</a>
     <a href="/#contact">Contact</a>
@@ -271,6 +287,6 @@
     <a class="mobile-call" href="tel:+447813924599" aria-label="Call eko create on 07813 924599">Call</a>
   </footer>
 
-  <script src="/assets/js/pages.js?v=20261015-h6"></script>
+  <script src="/assets/js/pages.js?v=20261015-h7"></script>
 </body>
 </html>
