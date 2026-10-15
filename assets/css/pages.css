@@ -353,3 +353,5 @@
 /* About: big "2007" moved to the left (Claude, 15 Oct 2026) */
 .svc-story-year{right:auto;left:-0.04em}
 @media(max-width:680px){.svc-story-year{right:auto;left:-10px}}
+/* Top nav: About link marked on the About page (Claude, 15 Oct 2026) */
+.main-nav a[aria-current="page"],.mobile-nav a[aria-current="page"]{color:#FF754A;opacity:1}
