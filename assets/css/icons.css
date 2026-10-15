@@ -161,3 +161,11 @@ a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
    so touch devices get the same grey map without the blend. Desktop is unchanged. */
 @media (hover:none){.map-embed{mix-blend-mode:normal;filter:grayscale(1) sepia(.2) contrast(.95)}}
 @supports (-webkit-touch-callout:none){.map-embed{mix-blend-mode:normal;filter:grayscale(1) sepia(.2) contrast(.95)}}
+/* Homepage hero headline: bigger, bolder, four stacked lines, "Video, social" and "motion content" in orange (Claude, 15 Oct 2026) */
+.hero h1.hero-title{font-weight:700;line-height:.92;letter-spacing:-.055em;text-wrap:wrap}
+.hero-title .hero-br{display:none}
+@media(min-width:981px){
+  .hero .hero-content{width:min(1340px,calc(100% - 96px));margin-left:max(48px,calc((100% - 1340px)/2))}
+  .hero h1.hero-title{font-size:clamp(60px,6.25vw,106px)!important;max-width:9.2em}
+  .hero-title .hero-br{display:inline}
+}
