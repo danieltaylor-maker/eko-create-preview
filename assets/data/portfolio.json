@@ -41,6 +41,14 @@
       "featured": false
     },
     {
+      "client": "TSB",
+      "title": "TSB - Why insurance is important",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/369515905/375d180d63",
+      "description": "A short film for TSB explaining why insurance is important.",
+      "featured": false
+    },
+    {
       "client": "Aviva",
       "title": "Wellbeing",
       "category": "Film",
@@ -222,14 +230,6 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1235905123/cf9188f18d",
       "description": "An employee film for TikTok.",
-      "featured": false
-    },
-    {
-      "client": "TSB",
-      "title": "TSB - Why insurance is important",
-      "category": "Motion",
-      "vimeo": "https://vimeo.com/369515905/375d180d63",
-      "description": "A short film for TSB explaining why insurance is important.",
       "featured": false
     }
   ]
