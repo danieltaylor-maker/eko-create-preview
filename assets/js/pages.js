@@ -450,3 +450,25 @@
   h.classList.add('lb-ready');
   requestAnimationFrame(function () { requestAnimationFrame(function () { h.classList.add('lb-in'); }); });
 })();
+
+// About page: top of the framed print lines up with the top of the first paragraph, on desktop (Claude, 15 Oct 2026).
+(function () {
+  var fig = document.querySelector('.svc-story-illustration--photo');
+  var deck = document.querySelector('.svc-story-copy .svc-deck');
+  if (!fig || !deck) return;
+  var mq = window.matchMedia('(min-width: 981px)');
+  function align() {
+    if (!mq.matches) { fig.style.marginTop = ''; return; }
+    // Layout positions (offsetTop) so the build-in animations don't throw the measurement off.
+    function top(el) { var t = 0; while (el) { t += el.offsetTop; el = el.offsetParent; } return t; }
+    var col = deck.closest('.svc-story-grid > div');
+    var d = col ? top(deck) - top(col) : 0;  // the figure starts level with the top of the text column
+    fig.style.marginTop = Math.max(0, Math.round(d)) + 'px';
+  }
+  align();
+  window.addEventListener('resize', align);
+  window.addEventListener('load', align);
+  // Re-align whenever the text column changes height (web font swap, headline build-in)
+  if ('ResizeObserver' in window) { var col = deck.closest('.svc-story-grid > div'); if (col) new ResizeObserver(align).observe(col); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+})();

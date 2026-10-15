@@ -350,3 +350,6 @@
 @media(max-width:680px){.svc-story-ph--wide{aspect-ratio:4/3}}
 /* About: framed Dan & Andy photo in a rounded box like the other About photos (Claude, 15 Oct 2026) */
 .svc-story-illustration--photo img{border-radius:16px}
+/* About: big "2007" moved to the left (Claude, 15 Oct 2026) */
+.svc-story-year{right:auto;left:-0.04em}
+@media(max-width:680px){.svc-story-year{right:auto;left:-10px}}
