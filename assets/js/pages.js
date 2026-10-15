@@ -421,3 +421,32 @@
   window.addEventListener('resize', onScroll);
   update();
 })();
+
+// Page headlines build in line by line, like the homepage hero (Claude, 15 Oct 2026).
+// Words are wrapped, grouped into the lines the browser actually draws, and each line rises and fades in after the one above.
+(function () {
+  var h = document.querySelector('h1.h1-build');
+  if (!h || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function wrap(node) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) {
+        var parts = n.textContent.split(/(\s+)/), frag = document.createDocumentFragment();
+        parts.forEach(function (t) {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
+          var s = document.createElement('span'); s.className = 'lw'; s.textContent = t; frag.appendChild(s);
+        });
+        n.parentNode.replaceChild(frag, n);
+      } else if (n.nodeType === 1) wrap(n);
+    });
+  }
+  wrap(h);
+  var words = h.querySelectorAll('.lw'), line = -1, lastTop = null;
+  Array.prototype.forEach.call(words, function (w) {
+    var t = w.offsetTop;
+    if (lastTop === null || Math.abs(t - lastTop) > 4) { line++; lastTop = t; }
+    w.style.setProperty('--d', (line * 0.16) + 's');
+  });
+  h.classList.add('lb-ready');
+  requestAnimationFrame(function () { requestAnimationFrame(function () { h.classList.add('lb-in'); }); });
+})();
