@@ -11,6 +11,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var still = reduce.matches;
   if (!still) doc.classList.add('mx');
+  if (!still && window.matchMedia('(min-width: 981px)').matches) doc.classList.add('mx-full');
 
   function all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
@@ -79,10 +80,9 @@
     if (wide.addEventListener) wide.addEventListener('change', onWide);
   })();
 
-  // Phone menu: each item arrives a moment after the one above.
-  all('.mobile-nav > *').forEach(function (el, i) { el.style.setProperty('--i', i); });
-
-  if (still) return;
+  
+  // Phones and tablets keep the steadier, simpler movement (Dan, 16 Oct 2026): no masked reveals or sheen.
+  if (still || !doc.classList.contains('mx-full')) return;
 
   // ---------- 2. Headings: words rise out of a mask ----------
   function splitWords(el) {

@@ -2,6 +2,7 @@
    One shared set of movement rules for every page: the Services panel, stronger reveals, masked image and heading
    reveals, hover states, button emphasis, page-to-page transitions and the phone menu.
    assets/js/motion.js adds the classes these rules use. Without it, everything simply shows as before.
+   Phones and tablets (980px and narrower) keep the simpler, steadier movement: no masked text or image reveals.
    Everything here is switched off for people who have asked their device for reduced motion. */
 
 :root{
@@ -123,11 +124,11 @@ html .service-card:hover{background:linear-gradient(var(--mx-orange),var(--mx-or
 .mx-split .mx-wi{display:inline-block;transform:translate3d(0,110%,0);transition:transform 1.15s var(--mx-ease) var(--d,0s)}
 .mx-split.is-in .mx-wi{transform:none}
 /* Page titles on the service pages and About use the same masked rise */
-.h1-build .lwm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
-html.mx .h1-build.lb-ready .lw{opacity:1;transform:translate3d(0,110%,0);transition:transform 1.25s var(--mx-ease) var(--d,0s)}
-html.mx .h1-build.lb-ready.lb-in .lw{transform:none}
+html.mx-full .h1-build .lwm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+html.mx-full .h1-build.lb-ready .lw{opacity:1;transform:translate3d(0,110%,0);transition:transform 1.25s var(--mx-ease) var(--d,0s)}
+html.mx-full .h1-build.lb-ready.lb-in .lw{transform:none}
 /* Homepage hero headline: each line rises out of its own mask */
-html.mx .hero h1.hero-title > span{overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em;opacity:1!important;transform:none!important;transition:none!important}
+html.mx-full .hero h1.hero-title > span{overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em;opacity:1!important;transform:none!important;transition:none!important}
 .hero-title .mx-hl{display:inline-block;font-style:inherit;transform:translate3d(0,108%,0);transition:transform 1.3s var(--mx-ease)}
 .hero-title.in-view .mx-hl{transform:none}
 .hero-title.in-view > span:nth-child(2) .mx-hl{transition-delay:.12s}
@@ -142,19 +143,17 @@ html.mx .hero h1.hero-title > span{overflow:hidden;vertical-align:top;padding-bo
 .mx-media.mx-done{clip-path:none}
 
 /* Stronger rise for text and cards that come into view (uses the existing reveal classes) */
-html.mx .motion-ready{transition-duration:1.1s!important;transition-timing-function:var(--mx-ease)!important}
-html.mx .motion-ready:not(.in-view){transform:translate3d(0,44px,0)}
+html.mx-full .motion-ready{transition-duration:1.1s!important;transition-timing-function:var(--mx-ease)!important}
+html.mx-full .motion-ready:not(.in-view){transform:translate3d(0,44px,0)}
 
 /* Hero video and photo settle in from a slight zoom on arrival */
-.hero-bg-video.is-playing{animation:mxSettle 2.6s var(--mx-ease) both}
-.svc-hero-bg{animation:mxSettle 2.2s var(--mx-ease) both}
+html.mx-full .hero-bg-video.is-playing{animation:mxSettle 2.6s var(--mx-ease) both}
+html.mx-full .svc-hero-bg{animation:mxSettle 2.2s var(--mx-ease) both}
 @keyframes mxSettle{from{scale:1.1}to{scale:1}}
 
-/* ---------- 7. Phone menu: items arrive one after another; services sit in a vertical list ---------- */
+/* ---------- 7. Phone menu: services sit in a vertical list with their icons (kept still on phones) ---------- */
 @media(max-width:980px){
   .mobile-nav{justify-content:safe center;overflow-y:auto;padding-bottom:40px}
-  .mobile-nav > *{opacity:0;transform:translate3d(0,22px,0);transition:opacity .25s ease,transform .3s ease}
-  .mobile-nav.is-open > *{opacity:1;transform:none;transition:opacity .6s var(--mx-ease) calc(.08s + var(--i,0)*.05s),transform .8s var(--mx-ease) calc(.08s + var(--i,0)*.05s)}
   .mobile-nav .mobile-nav a{opacity:.8}
   .mobile-sub{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:-10px;max-width:none;padding:0}
   .mobile-nav .mobile-sub a{display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:500;letter-spacing:0;opacity:.7}
@@ -169,6 +168,8 @@ html.mx .motion-ready:not(.in-view){transform:translate3d(0,44px,0)}
 ::view-transition-new(root){animation:mxPageIn .6s var(--mx-ease) both}
 @keyframes mxPageOut{to{opacity:0}}
 @keyframes mxPageIn{from{opacity:0;transform:translate3d(0,16px,0)}}
+@media(max-width:980px){::view-transition-new(root){animation-name:mxPageFade}}
+@keyframes mxPageFade{from{opacity:0}}
 
 /* ---------- Reduced motion: everything shows straight away ---------- */
 @media(prefers-reduced-motion:reduce){
