@@ -60,7 +60,7 @@ html .site-header[data-animate]{filter:none!important;will-change:auto}
 .nav-drop.is-open .nav-drop-top{opacity:1}
 
 /* ---------- 3. Buttons: a colour sweep fills the button, and it presses in slightly ---------- */
-.btn{position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--mx-ease),border-color .45s var(--mx-ease),transform .35s var(--mx-ease)!important}
+.btn{position:relative;overflow:hidden;isolation:isolate;-webkit-mask-image:-webkit-radial-gradient(#fff,#000);mask-image:radial-gradient(#fff,#000);transition:color .45s var(--mx-ease),border-color .45s var(--mx-ease),transform .35s var(--mx-ease)!important}
 .btn::before{content:"";position:absolute;inset:-1px;z-index:-1;background:var(--mx-cream);transform:translate3d(-101%,0,0);transition:transform .6s var(--mx-ease)}
 .btn:hover{transform:none}
 .btn:hover::before,.btn:focus-visible::before{transform:none}

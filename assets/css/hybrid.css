@@ -85,8 +85,9 @@ body::before,.site-grain{animation:none!important}.cursor-glow{display:none}.lig
 .map-embed{filter:grayscale(1) sepia(.25) saturate(.7) contrast(.92);mix-blend-mode:multiply}
 /* Preserve Google's widget, attribution and challenge while reducing its footprint. */
 .captcha-panel{background:var(--navy);border:1px solid rgba(16,29,49,.18);border-radius:6px;padding:12px;width:fit-content;max-width:100%;margin:4px 0 22px}
-.captcha-panel>div{zoom:.9;min-height:78px;min-width:304px}
-@media(max-width:380px){.captcha-panel>div{zoom:.78}}
+.captcha-panel>div{width:304px;height:78px;overflow:hidden;border-radius:3px}
+.captcha-panel iframe{display:block}
+@media(max-width:380px){.captcha-panel{padding:8px}.captcha-panel>div{transform:scale(.86);transform-origin:0 0;margin:0 -43px -11px 0}}
 
 .captcha-panel:has(> .captcha-widget:empty){display:none}
 
