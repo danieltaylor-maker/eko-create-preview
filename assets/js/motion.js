@@ -2,8 +2,7 @@
 // 1. Services panel in the top navigation (desktop) and the phone menu stagger.
 // 2. Section headings rise word by word out of a mask, a line at a time.
 // 3. Photos and video are revealed through a mask as they come into view.
-// 4. Scroll-linked depth (desktop only, using GSAP ScrollTrigger): the hero eases away, the showreel opens up,
-//    and the orange bands widen to full width as they arrive.
+// 4. Scroll-linked depth (desktop only): the hero eases away and the showreel opens up as it arrives.
 // 5. A single sheen across the main call-to-action buttons when they first appear.
 // Nothing is hidden unless this file runs, and with reduced motion everything shows straight away.
 (function () {
@@ -191,28 +190,32 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { headings.forEach(function (h) { lineDelays(h, 0.09); }); });
 
   // ---------- 4. Scroll-linked depth (desktop) ----------
-  var gsap = window.gsap, ST = window.ScrollTrigger;
-  if (!gsap || !ST) return;
-  gsap.registerPlugin(ST);
-  var mm = gsap.matchMedia();
-  mm.add('(min-width: 981px) and (prefers-reduced-motion: no-preference)', function () {
-    // Hero: the headline and buttons ease upwards and soften as the next section takes over.
-    all('.hero .hero-content, .svc-hero > .container').forEach(function (el) {
-      gsap.to(el, { yPercent: -14, opacity: 0.2, ease: 'none',
-        scrollTrigger: { trigger: el.closest('section'), start: 'top top', end: 'bottom top', scrub: true } });
-    });
-    // Showreel: the frame opens up to full size as it rises into view.
-    all('.reel-frame').forEach(function (el) {
-      gsap.fromTo(el, { scale: 0.86, borderRadius: 36 }, { scale: 1, borderRadius: 8, ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'center 58%', scrub: 0.6 } });
-    });
-    // Orange bands: arrive as a rounded panel and widen to full width.
-    all('.blue-statement, .contact, .svc-cta').forEach(function (el) {
-      gsap.fromTo(el, { clipPath: 'inset(0% 4% 0% 4% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 35%', scrub: 0.6 } });
-    });
-  });
-  // The portfolio and gallery change the page height after they load; keep the scroll positions right.
-  window.addEventListener('load', function () { ST.refresh(); });
-  setTimeout(function () { ST.refresh(); }, 2500);
+  // One light scroll handler, transforms and opacity only (no layout or repaint work):
+  // the hero eases up and softens as you leave it, and the showreel frame opens up to full size as it arrives.
+  var hero = document.querySelector('.hero .hero-content, .svc-hero > .container');
+  var heroBox = hero && hero.closest('section');
+  var reel = document.querySelector('.reel-frame');
+  if (!hero && !reel) return;
+  var queued = false;
+  function depth() {
+    queued = false;
+    var vh = window.innerHeight;
+    if (hero) {
+      var r = heroBox.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height)));
+      hero.style.transform = p ? 'translate3d(0,' + (-p * 14).toFixed(2) + '%,0)' : '';
+      hero.style.opacity = p ? (1 - p * 0.8).toFixed(3) : '';
+    }
+    if (reel) {
+      var b = reel.getBoundingClientRect();
+      if (b.top < vh && b.bottom > 0) {
+        // 0 when the frame's top meets the bottom of the screen, 1 when its centre reaches 58% down
+        var q = Math.min(1, Math.max(0, (vh - b.top) / (vh - vh * 0.58 + b.height / 2)));
+        reel.style.transform = q < 1 ? 'scale(' + (0.86 + q * 0.14).toFixed(4) + ')' : '';
+      }
+    }
+  }
+  window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(depth); } }, { passive: true });
+  window.addEventListener('resize', depth);
+  depth();
 })();

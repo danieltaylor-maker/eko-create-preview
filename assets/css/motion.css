@@ -135,15 +135,21 @@ html.mx-full .hero h1.hero-title > span{overflow:hidden;vertical-align:top;paddi
 .hero-title.in-view > span:nth-child(4) .mx-hl{transition-delay:.36s}
 
 /* ---------- 6. Images and video: revealed through a mask that opens upwards, settling from a slight zoom ---------- */
-.mx-media{clip-path:inset(100% 0 0 0)}
-.mx-media.is-in{clip-path:inset(0 0 0 0);transition:clip-path 1.3s var(--mx-ease) var(--md,0s)}
-.mx-media > img,.mx-media > iframe,.mx-media > video,.mx-media > .svc-photo-open > img,.mx-media > a > img{scale:1.16}
-.mx-media.is-in > img,.mx-media.is-in > iframe,.mx-media.is-in > video,.mx-media.is-in > .svc-photo-open > img,.mx-media.is-in > a > img{scale:1;transition:scale 1.8s var(--mx-ease) var(--md,0s)}
-.mx-media.mx-done{clip-path:none}
+/* The picture rises into its rounded frame (the frame acts as the mask) and settles from a slight zoom.
+   Transform and opacity only, so the browser can animate it without repainting. */
+.mx-media > img,.mx-media > iframe,.mx-media > video,.mx-media > .svc-photo-open > img{opacity:0;translate:0 12%;scale:1.12}
+.mx-media.is-in > img,.mx-media.is-in > iframe,.mx-media.is-in > video,.mx-media.is-in > .svc-photo-open > img{opacity:1;translate:0 0;scale:1;transition:opacity .7s ease var(--md,0s),translate 1.2s var(--mx-ease) var(--md,0s),scale 1.6s var(--mx-ease) var(--md,0s)}
 
 /* Stronger rise for text and cards that come into view (uses the existing reveal classes) */
-html.mx-full .motion-ready{transition-duration:1.1s!important;transition-timing-function:var(--mx-ease)!important}
-html.mx-full .motion-ready:not(.in-view){transform:translate3d(0,44px,0)}
+html.mx-full .motion-ready{transition-duration:.95s!important;transition-timing-function:var(--mx-ease)!important}
+html.mx-full .motion-ready:not(.in-view){transform:translate3d(0,28px,0)}
+
+/* Lean rendering (Claude, 16 Oct 2026): no blur-to-sharp filter on reveals and no permanent will-change.
+   Both made the browser repaint large areas while things built in. Movement is transform and opacity only. */
+html.mx [data-animate],html.mx .reveal-section,html.mx .reveal-card,html.mx .reveal-logo,html.mx .portfolio-item,html.mx .motion-ready{filter:none!important}
+html.mx [data-animate],html.mx .reveal-section,html.mx .reveal-card,html.mx .reveal-logo,html.mx .portfolio-item,html.mx .service-card,html.mx .process-step,html.mx .address-card,html.mx .map-card,html.mx .contact-form,html.mx .client-marquee-item,html.mx .hero-media,html.mx .svc-story-ph img,html.mx .svc-who-photo img{will-change:auto}
+/* The scrolled header is already 94% opaque, so the background blur was costing every scroll frame for almost no visible change */
+html.mx .site-header.scrolled{-webkit-backdrop-filter:none;backdrop-filter:none}
 
 /* Hero video and photo settle in from a slight zoom on arrival */
 html.mx-full .hero-bg-video.is-playing{animation:mxSettle 2.6s var(--mx-ease) both}
@@ -173,8 +179,7 @@ html.mx-full .svc-hero-bg{animation:mxSettle 2.2s var(--mx-ease) both}
 /* ---------- Reduced motion: everything shows straight away ---------- */
 @media(prefers-reduced-motion:reduce){
   @view-transition{navigation:none}
-  .mx-media,.mx-media.is-in{clip-path:none!important;transition:none!important}
-  .mx-media img,.mx-media iframe,.mx-media video{scale:1!important;transition:none!important}
+  .mx-media img,.mx-media iframe,.mx-media video{opacity:1!important;translate:none!important;scale:1!important;transition:none!important}
   .mx-split .mx-wi,.hero-title .mx-hl,html.mx .h1-build .lw{transform:none!important;transition:none!important}
   .hero-bg-video.is-playing,.svc-hero-bg{animation:none}
   .btn::before,.btn.mx-sheen::after{transition:none;animation:none!important}
