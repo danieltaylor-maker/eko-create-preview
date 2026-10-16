@@ -119,15 +119,15 @@ html .service-card:hover{background:linear-gradient(var(--mx-orange),var(--mx-or
 .contact-form input,.contact-form textarea{transition:border-color .35s ease,box-shadow .45s var(--mx-ease),background-color .35s ease!important}
 
 /* ---------- 5. Headings: words rise out of a mask, a line at a time ---------- */
-.mx-split .mx-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.mx-split .mx-w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .12em .14em;margin:0 -.12em -.14em}
 .mx-split .mx-wi{display:inline-block;transform:translate3d(0,110%,0);transition:transform 1.15s var(--mx-ease) var(--d,0s)}
 .mx-split.is-in .mx-wi{transform:none}
 /* Page titles on the service pages and About use the same masked rise */
-html.mx-full .h1-build .lwm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+html.mx-full .h1-build .lwm{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .12em .14em;margin:0 -.12em -.14em}
 html.mx-full .h1-build.lb-ready .lw{opacity:1;transform:translate3d(0,110%,0);transition:transform 1.25s var(--mx-ease) var(--d,0s)}
 html.mx-full .h1-build.lb-ready.lb-in .lw{transform:none}
 /* Homepage hero headline: each line rises out of its own mask */
-html.mx-full .hero h1.hero-title > span{overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em;opacity:1!important;transform:none!important;transition:none!important}
+html.mx-full .hero h1.hero-title > span{overflow:hidden;vertical-align:top;padding:0 .12em .12em;margin:0 -.12em -.12em;opacity:1!important;transform:none!important;transition:none!important}
 .hero-title .mx-hl{display:inline-block;font-style:inherit;transform:translate3d(0,108%,0);transition:transform 1.3s var(--mx-ease)}
 .hero-title.in-view .mx-hl{transform:none}
 .hero-title.in-view > span:nth-child(2) .mx-hl{transition-delay:.12s}
