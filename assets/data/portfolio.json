@@ -231,6 +231,13 @@
       "vimeo": "https://vimeo.com/1190718110/4d50b92559",
       "description": "A film from The Cares Family’s Multiplier event, supporting community leaders.",
       "featured": false
+    },
+    {
+      "client": "Quote me happy",
+      "title": "Connect",
+      "category": "Motion",
+      "vimeo": "https://vimeo.com/826646561/07d8f09719",
+      "featured": false
     }
   ]
 }
