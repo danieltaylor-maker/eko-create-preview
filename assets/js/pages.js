@@ -434,7 +434,8 @@
         parts.forEach(function (t) {
           if (!t) return;
           if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
-          var s = document.createElement('span'); s.className = 'lw'; s.textContent = t; frag.appendChild(s);
+          var s = document.createElement('span'); s.className = 'lw'; s.textContent = t;
+          var m = document.createElement('span'); m.className = 'lwm'; m.appendChild(s); frag.appendChild(m);  // mask for the rise (motion.css)
         });
         n.parentNode.replaceChild(frag, n);
       } else if (n.nodeType === 1) wrap(n);

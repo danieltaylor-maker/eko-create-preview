@@ -1,0 +1,182 @@
+/* eko create motion layer (Claude, 16 Oct 2026)
+   One shared set of movement rules for every page: the Services panel, stronger reveals, masked image and heading
+   reveals, hover states, button emphasis, page-to-page transitions and the phone menu.
+   assets/js/motion.js adds the classes these rules use. Without it, everything simply shows as before.
+   Everything here is switched off for people who have asked their device for reduced motion. */
+
+:root{
+  --mx-ease:cubic-bezier(.16,1,.3,1);      /* long, soft landing: reveals, panels */
+  --mx-ease-io:cubic-bezier(.65,0,.35,1);  /* even in-out: closing, sweeps */
+  --mx-orange:#FF754A;
+  --mx-cream:#F4F1E9;
+  --mx-navy:#101D31;
+}
+
+/* ---------- 1. Services panel (desktop) ----------
+   A full-width panel that slides down from under the header, over the hero. motion.js opens and closes it. */
+@media(min-width:981px){
+  .site-header .nav-drop{position:static;display:flex;align-items:center}
+  .nav-drop-top{display:inline-flex;align-items:center;gap:6px}
+  .nav-drop-chev{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.7;transition:transform .5s var(--mx-ease)}
+  .nav-drop.is-open .nav-drop-chev{transform:rotate(180deg)}
+
+  /* The header picks up the panel's tint while it is open, so the two read as one surface.
+     The blur sits on a layer behind the header so the panel can blur the hero too. */
+  .site-header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(11,20,35,.86);-webkit-backdrop-filter:blur(22px) saturate(1.15);backdrop-filter:blur(22px) saturate(1.15);opacity:0;transition:opacity .5s var(--mx-ease-io);pointer-events:none}
+  .site-header.nav-open{background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-bottom-color:rgba(244,241,233,.08)}
+  .site-header.nav-open::before{opacity:1;transition-duration:.35s}
+
+  .nav-drop-panel{position:absolute;left:0;right:0;top:100%;z-index:-1;background:rgba(11,20,35,.86);-webkit-backdrop-filter:blur(22px) saturate(1.15);backdrop-filter:blur(22px) saturate(1.15);border-bottom:1px solid rgba(244,241,233,.1);
+    clip-path:inset(0 0 100% 0);visibility:hidden;pointer-events:none;
+    transition:clip-path .5s var(--mx-ease-io),visibility 0s linear .5s}
+  .nav-drop.is-open .nav-drop-panel{clip-path:inset(0 0 0 0);visibility:visible;pointer-events:auto;transition:clip-path .75s var(--mx-ease),visibility 0s}
+
+  .nav-drop-inner{width:min(1340px,calc(100% - 96px));margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:26px 0 30px}
+  .main-nav .nav-svc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:18px;padding:22px 26px 26px;border-left:1px solid rgba(244,241,233,.09);
+    font-size:17px;font-weight:600;letter-spacing:-.015em;line-height:1.2;color:var(--mx-cream);text-decoration:none;
+    transform:translate3d(0,18px,0);opacity:0;transition:opacity .2s ease,transform .3s ease,background-color .35s ease}
+  .main-nav .nav-svc:first-child{border-left:0}
+  .nav-drop.is-open .nav-svc{opacity:1;transform:none;transition:opacity .6s var(--mx-ease) calc(.12s + var(--i,0)*.055s),transform .8s var(--mx-ease) calc(.12s + var(--i,0)*.055s),background-color .35s ease}
+  .nav-svc .ico{width:26px;height:26px;color:var(--mx-cream);opacity:.72;transition:color .35s ease,opacity .35s ease,transform .5s var(--mx-ease)}
+  .nav-svc-name{position:relative;padding-bottom:6px}
+  .nav-svc-name::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--mx-orange);transform:scaleX(0);transform-origin:right center;transition:transform .55s var(--mx-ease)}
+  .nav-svc-arrow{position:absolute;right:24px;bottom:30px;width:16px;height:16px;fill:none;stroke:var(--mx-orange);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:translateX(-8px);transition:opacity .35s ease,transform .5s var(--mx-ease)}
+  .main-nav .nav-svc:hover,.main-nav .nav-svc:focus-visible{background-color:rgba(244,241,233,.04);color:var(--mx-cream);opacity:1}
+  .nav-svc:hover .ico,.nav-svc:focus-visible .ico{color:var(--mx-orange);opacity:1;transform:translateY(-2px)}
+  .nav-svc:hover .nav-svc-name::after,.nav-svc:focus-visible .nav-svc-name::after{transform:scaleX(1);transform-origin:left center}
+  .nav-svc:hover .nav-svc-arrow,.nav-svc:focus-visible .nav-svc-arrow{opacity:1;transform:none}
+  .main-nav .nav-svc[aria-current="page"] .nav-svc-name{color:var(--mx-orange)}
+  .main-nav .nav-svc[aria-current="page"] .ico{color:var(--mx-orange);opacity:1}
+  .nav-svc:focus-visible{outline:2px solid var(--mx-orange);outline-offset:-2px}
+}
+@media(min-width:981px) and (max-width:1180px){.main-nav .nav-svc{padding:20px 18px 24px;font-size:15px}.nav-svc-arrow{right:16px}}
+
+/* Service-page headers fade in without a blur filter, so the panel's blur still works over the hero */
+html .site-header[data-animate]{filter:none!important;will-change:auto}
+
+/* ---------- 2. Top-level links: a line draws in underneath on hover ---------- */
+.main-nav > a,.nav-drop-top,.top-contact a,.home-links a,.svc-crumbs a,.direct-contact a,.svc-cta-links a,.address-card a,.footer-legal a{background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-size:0 1px;background-position:100% 100%;transition:background-size .55s var(--mx-ease),color .25s ease,opacity .25s ease;padding-bottom:2px}
+.main-nav > a:hover,.nav-drop-top:hover,.nav-drop.is-open .nav-drop-top,.top-contact a:hover,.home-links a:hover,.svc-crumbs a:hover,.direct-contact a:hover,.svc-cta-links a:hover,.address-card a:hover,.footer-legal a:hover{background-size:100% 1px;background-position:0 100%}
+.nav-drop.is-open .nav-drop-top{opacity:1}
+
+/* ---------- 3. Buttons: a colour sweep fills the button, and it presses in slightly ---------- */
+.btn{position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--mx-ease),border-color .45s var(--mx-ease),transform .35s var(--mx-ease)!important}
+.btn::before{content:"";position:absolute;inset:-1px;z-index:-1;background:var(--mx-cream);transform:translate3d(-101%,0,0);transition:transform .6s var(--mx-ease)}
+.btn:hover{transform:none}
+.btn:hover::before,.btn:focus-visible::before{transform:none}
+.btn:active{transform:scale(.97)}
+.btn-primary::before{background:var(--mx-navy)}
+.btn-primary:hover,.btn-primary:focus-visible{color:var(--mx-cream)!important;border-color:var(--mx-orange)}
+.btn-ghost:hover,.btn-ghost:focus-visible{color:var(--mx-navy)!important;border-color:var(--mx-cream)!important}
+.contact .btn-primary::before,.svc-btn-navy::before{background:var(--mx-cream)}
+.contact .btn-primary:hover,.svc-btn-navy:hover,.svc-btn-navy:focus-visible{color:var(--mx-navy)!important;border-color:var(--mx-cream)!important}
+.btn .b-ico{transition:transform .5s var(--mx-ease)}
+.btn:hover .b-ico{transform:translateX(3px)}
+/* Call-to-action emphasis: a single soft sheen crosses the button when it first comes into view */
+.btn.mx-sheen::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translate3d(-130%,0,0)}
+.btn.mx-sheen.is-in::after{animation:mxSheen 1.3s var(--mx-ease-io) .5s 1 both}
+@keyframes mxSheen{to{transform:translate3d(130%,0,0)}}
+
+/* ---------- 4. Cards and service links ---------- */
+/* Homepage service cards: an orange line draws across the top and the icon lifts */
+html .service-card{background-image:linear-gradient(var(--mx-orange),var(--mx-orange));background-repeat:no-repeat;background-size:0 2px;background-position:0 0;transition:background-size .8s var(--mx-ease),border-color .4s ease,box-shadow .4s ease}
+html .service-card:hover{background:linear-gradient(var(--mx-orange),var(--mx-orange)) 0 0/100% 2px no-repeat}
+.service-card .svc-ico,.service-card .service-icon{transition:transform .6s var(--mx-ease)}
+.service-card:hover .svc-ico,.service-card:hover .service-icon{transform:translateY(-4px)}
+.service-card h3 a{transition:color .3s ease}
+
+/* Work thumbnails: the picture eases forward inside its frame */
+.portfolio-video-thumb{overflow:hidden}
+.portfolio-video-thumb iframe{transition:scale 1.1s var(--mx-ease)}
+.portfolio-video-card:hover .portfolio-video-thumb iframe{scale:1.045}
+.portfolio-video-card h3{transition:color .3s ease}
+.portfolio-video-card:hover h3{color:var(--mx-orange)}
+.portfolio-video-card.is-active:hover .portfolio-video-thumb iframe{scale:1}
+
+/* Service page films: the still eases forward and the play button grows */
+.svc-player{overflow:hidden}
+.svc-player img{transition:scale 1.1s var(--mx-ease)}
+.svc-player:hover img,.svc-player:focus-visible img{scale:1.05}
+.svc-player .svc-play{transition:transform .6s var(--mx-ease),background-color .3s ease}
+.svc-player:hover .svc-play,.svc-player:focus-visible .svc-play{transform:scale(1.14)}
+.svc-film h3{transition:color .3s ease}
+.svc-film:hover h3{color:var(--mx-orange)}
+
+/* Photography gallery */
+.svc-photo-open{overflow:hidden}
+.svc-photo-open img{transition:scale 1.1s var(--mx-ease),filter .6s ease!important}
+.svc-photo-open:hover img,.svc-photo-open:focus-visible img{scale:1.04}
+
+/* "Other services" and footer service links: the arrow-less links get the icon nudge and a drawn underline */
+.svc-other-list a .ico{transition:transform .55s var(--mx-ease),color .3s ease}
+.svc-other-list a:hover .ico,.svc-other-list a:focus-visible .ico{transform:translateY(-3px);color:var(--mx-orange)}
+.svc-other-list a span{background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-size:0 1px;background-position:100% 100%;transition:background-size .55s var(--mx-ease)}
+.svc-other-list a:hover span,.svc-other-list a:focus-visible span{background-size:100% 1px;background-position:0 100%}
+
+/* Filter buttons and small controls press in */
+.filter{transition:background-color .35s ease,border-color .35s ease,color .35s ease,transform .3s var(--mx-ease)!important}
+.filter:active{transform:scale(.96)}
+.contact-form input,.contact-form textarea{transition:border-color .35s ease,box-shadow .45s var(--mx-ease),background-color .35s ease!important}
+
+/* ---------- 5. Headings: words rise out of a mask, a line at a time ---------- */
+.mx-split .mx-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.mx-split .mx-wi{display:inline-block;transform:translate3d(0,110%,0);transition:transform 1.15s var(--mx-ease) var(--d,0s)}
+.mx-split.is-in .mx-wi{transform:none}
+/* Page titles on the service pages and About use the same masked rise */
+.h1-build .lwm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+html.mx .h1-build.lb-ready .lw{opacity:1;transform:translate3d(0,110%,0);transition:transform 1.25s var(--mx-ease) var(--d,0s)}
+html.mx .h1-build.lb-ready.lb-in .lw{transform:none}
+/* Homepage hero headline: each line rises out of its own mask */
+html.mx .hero h1.hero-title > span{overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em;opacity:1!important;transform:none!important;transition:none!important}
+.hero-title .mx-hl{display:inline-block;font-style:inherit;transform:translate3d(0,108%,0);transition:transform 1.3s var(--mx-ease)}
+.hero-title.in-view .mx-hl{transform:none}
+.hero-title.in-view > span:nth-child(2) .mx-hl{transition-delay:.12s}
+.hero-title.in-view > span:nth-child(3) .mx-hl{transition-delay:.24s}
+.hero-title.in-view > span:nth-child(4) .mx-hl{transition-delay:.36s}
+
+/* ---------- 6. Images and video: revealed through a mask that opens upwards, settling from a slight zoom ---------- */
+.mx-media{clip-path:inset(100% 0 0 0)}
+.mx-media.is-in{clip-path:inset(0 0 0 0);transition:clip-path 1.3s var(--mx-ease) var(--md,0s)}
+.mx-media > img,.mx-media > iframe,.mx-media > video,.mx-media > .svc-photo-open > img,.mx-media > a > img{scale:1.16}
+.mx-media.is-in > img,.mx-media.is-in > iframe,.mx-media.is-in > video,.mx-media.is-in > .svc-photo-open > img,.mx-media.is-in > a > img{scale:1;transition:scale 1.8s var(--mx-ease) var(--md,0s)}
+.mx-media.mx-done{clip-path:none}
+
+/* Stronger rise for text and cards that come into view (uses the existing reveal classes) */
+html.mx .motion-ready{transition-duration:1.1s!important;transition-timing-function:var(--mx-ease)!important}
+html.mx .motion-ready:not(.in-view){transform:translate3d(0,44px,0)}
+
+/* Hero video and photo settle in from a slight zoom on arrival */
+.hero-bg-video.is-playing{animation:mxSettle 2.6s var(--mx-ease) both}
+.svc-hero-bg{animation:mxSettle 2.2s var(--mx-ease) both}
+@keyframes mxSettle{from{scale:1.1}to{scale:1}}
+
+/* ---------- 7. Phone menu: items arrive one after another; services sit in a vertical list ---------- */
+@media(max-width:980px){
+  .mobile-nav{justify-content:safe center;overflow-y:auto;padding-bottom:40px}
+  .mobile-nav > *{opacity:0;transform:translate3d(0,22px,0);transition:opacity .25s ease,transform .3s ease}
+  .mobile-nav.is-open > *{opacity:1;transform:none;transition:opacity .6s var(--mx-ease) calc(.08s + var(--i,0)*.05s),transform .8s var(--mx-ease) calc(.08s + var(--i,0)*.05s)}
+  .mobile-nav .mobile-nav a{opacity:.8}
+  .mobile-sub{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:-10px;max-width:none;padding:0}
+  .mobile-nav .mobile-sub a{display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:500;letter-spacing:0;opacity:.7}
+  .mobile-sub .ico{width:18px;height:18px;color:var(--mx-orange)}
+}
+
+/* ---------- 8. Page to page: a short cross-fade, the header stays put ---------- */
+@view-transition{navigation:auto}
+.site-header{view-transition-name:eko-header}
+::view-transition-group(eko-header){animation:none}
+::view-transition-old(root){animation:mxPageOut .25s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:mxPageIn .6s var(--mx-ease) both}
+@keyframes mxPageOut{to{opacity:0}}
+@keyframes mxPageIn{from{opacity:0;transform:translate3d(0,16px,0)}}
+
+/* ---------- Reduced motion: everything shows straight away ---------- */
+@media(prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+  .mx-media,.mx-media.is-in{clip-path:none!important;transition:none!important}
+  .mx-media img,.mx-media iframe,.mx-media video{scale:1!important;transition:none!important}
+  .mx-split .mx-wi,.hero-title .mx-hl,html.mx .h1-build .lw{transform:none!important;transition:none!important}
+  .hero-bg-video.is-playing,.svc-hero-bg{animation:none}
+  .btn::before,.btn.mx-sheen::after{transition:none;animation:none!important}
+  .nav-drop-panel,.nav-svc,.mobile-nav > *{transition-duration:.01ms!important;transition-delay:0s!important}
+}
