@@ -348,7 +348,7 @@
       if (!entry.isIntersecting) return;
       var el = entry.target;
       io.unobserve(el);
-      if (el.__group) el.__group.forEach(function (child, i) { show(child, i * STAGGER); });
+      if (el.__group) el.__group.forEach(function (child, i) { show(child, Math.min(i, 6) * STAGGER); });  // capped so long lists (e.g. the client logos) don't keep the last items waiting
       else show(el, 0);
     });
   }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
