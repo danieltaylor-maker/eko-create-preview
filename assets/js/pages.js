@@ -388,7 +388,18 @@
   var header = document.querySelector('.site-header');
   var heroBits = Array.prototype.slice.call(document.querySelectorAll('.svc-hero .container > *'));
   if (header) { header.setAttribute('data-animate', 'fade-down'); header.style.transitionDelay = '0ms'; setTimeout(function () { header.classList.add('in-view'); }, 120); }
-  heroBits.forEach(function (el, i) { prep(el); show(el, 180 + i * STAGGER); });
+  // The words under the headline wait until the headline has built in, then fade up (Dan, 17 Oct 2026).
+  var heroH1 = document.querySelector('.svc-hero h1');
+  var h1At = heroBits.indexOf(heroH1);
+  // Hide them without a fade-out first: the transition is switched off while the hidden state is applied.
+  heroBits.forEach(function (el) { el.style.transition = 'none'; prep(el); });
+  if (heroBits.length) void heroBits[0].offsetWidth;
+  heroBits.forEach(function (el, i) { el.style.transition = ''; if (h1At < 0 || i <= h1At) show(el, 180 + i * STAGGER); });
+  if (h1At > -1) requestAnimationFrame(function () {
+    var lines = parseInt(heroH1.dataset.lines, 10) || 2;
+    var after = (lines - 1) * 160 + 900;
+    heroBits.slice(h1At + 1).forEach(function (el, k) { show(el, after + k * 160); });
+  });
 
   // 2. Groups that reveal one item after another when they scroll into view.
   var groups = [
@@ -512,6 +523,7 @@
     if (lastTop === null || Math.abs(t - lastTop) > 4) { line++; lastTop = t; }
     w.style.setProperty('--d', (line * 0.16) + 's');
   });
+  h.dataset.lines = line + 1;  // read by the hero reveal so the text below waits for the last line
   h.classList.add('lb-ready');
   requestAnimationFrame(function () { requestAnimationFrame(function () { h.classList.add('lb-in'); }); });
 })();

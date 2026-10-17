@@ -129,3 +129,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .about-section h2,.about-section .section-kicker{color:var(--navy)!important}
 .about-section .section-intro{color:#4c5969}
 .about-section::before,.about-section::after{display:none}
+/* Homepage hero: the line under the headline stays hidden until its turn, then fades up to its usual strength (Claude, 17 Oct 2026). */
+.hero-copy[data-animate]:not(.in-view){opacity:0}.hero-copy[data-animate].in-view{opacity:.85}
