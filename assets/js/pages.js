@@ -22,20 +22,84 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
   }
 
-  document.querySelectorAll('.svc-player[data-vimeo]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var f = document.createElement('iframe');
-      f.src = 'https://player.vimeo.com/video/' + link.dataset.vimeo + '?h=' + link.dataset.h + '&autoplay=1&title=0&byline=0&portrait=0&dnt=1';
-      f.allow = 'autoplay; fullscreen; picture-in-picture';
-      f.allowFullscreen = true;
-      f.title = link.getAttribute('aria-label').replace(/^Play /, '');
-      var box = document.createElement('div');
-      box.className = 'svc-player';
-      box.appendChild(f);
-      link.replaceWith(box);
-    });
+  // Click-to-play. Listens on the page, so cards added from the portfolio list below work too.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a.svc-player[data-vimeo]');
+    if (!link) return;
+    e.preventDefault();
+    var f = document.createElement('iframe');
+    f.src = 'https://player.vimeo.com/video/' + link.dataset.vimeo + '?h=' + link.dataset.h + '&autoplay=1&title=0&byline=0&portrait=0&dnt=1';
+    f.allow = 'autoplay; fullscreen; picture-in-picture';
+    f.allowFullscreen = true;
+    f.title = link.getAttribute('aria-label').replace(/^Play /, '');
+    var box = document.createElement('div');
+    box.className = 'svc-player';
+    box.appendChild(f);
+    link.replaceWith(box);
   });
+
+  // Recent projects (Claude, 17 Oct 2026). Each service page shows the portfolio videos ticked for it in
+  // Pages CMS ("Also show on"), in the same order as the portfolio list, with the current thumbnail from Vimeo.
+  // The cards written into the page stay as they are if the list can't be read or nothing is ticked.
+  var filmGrid = document.querySelector('.svc-film-grid[data-page]');
+  if (filmGrid && window.fetch) {
+    var parseVimeo = function (url) {
+      var m = String(url || '').match(/vimeo\.com\/(?:video\/)?(\d{6,})(?:\/([0-9a-f]{6,}))?/i);
+      var h = m && (m[2] || (String(url).match(/[?&]h=([0-9a-f]+)/i) || [])[1]);
+      return m ? { id: m[1], h: h || '' } : null;
+    };
+    var blank = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 9%22/%3E';
+    var thumb = function (img, v) {
+      var share = 'https://vimeo.com/' + v.id + (v.h ? '/' + v.h : '');
+      fetch('https://vimeo.com/api/oembed.json?width=960&url=' + encodeURIComponent(share))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (o) { if (o && o.thumbnail_url) img.src = o.thumbnail_url.replace(/-d_\d+x\d+/, '-d_960x540'); })
+        .catch(function () {});
+    };
+    fetch('/assets/data/portfolio.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        var page = filmGrid.dataset.page;
+        var items = (data && data.videos || []).filter(function (v) {
+          return v && v.title && parseVimeo(v.vimeo) && [].concat(v.pages || []).indexOf(page) > -1;
+        });
+        if (!items.length) return;
+        var cards = Array.prototype.slice.call(filmGrid.querySelectorAll('.svc-film'));
+        var model = cards[0];
+        if (!model) return;
+        var fresh = [];
+        items.forEach(function (v, i) {
+          var vid = parseVimeo(v.vimeo), card = cards[i];
+          if (!card) {
+            card = model.cloneNode(true);
+            card.classList.remove('in-view');
+            Array.prototype.forEach.call(card.querySelectorAll('.mx-media'), function (m) { m.classList.remove('mx-media', 'is-in'); });
+            if (model.classList.contains('in-view')) card.classList.add('in-view'); else fresh.push(card);
+            filmGrid.appendChild(card);
+          }
+          var link = card.querySelector('.svc-player');
+          if (link && link.tagName !== 'A') { var a = model.querySelector('a.svc-player'); if (a) { var c = a.cloneNode(true); link.replaceWith(c); link = c; } }
+          var img = link && link.querySelector('img');
+          var name = (v.client ? v.client + ' \u2013 ' : '') + v.title;
+          if (link) {
+            var same = link.dataset.vimeo === vid.id;
+            link.href = 'https://vimeo.com/' + vid.id + (vid.h ? '/' + vid.h : '');
+            link.dataset.vimeo = vid.id; link.dataset.h = vid.h;
+            link.setAttribute('aria-label', 'Play ' + name);
+            if (img) { if (!same) img.src = blank; img.alt = 'Still from ' + name; thumb(img, vid); }
+          }
+          var client = card.querySelector('.svc-film-client'), h3 = card.querySelector('h3'), desc = card.querySelector('h3 + p');
+          if (client) client.textContent = v.client || '';
+          if (h3) h3.textContent = v.title;
+          if (desc) { desc.textContent = v.description || ''; desc.hidden = !v.description; }
+        });
+        cards.slice(items.length).forEach(function (c) { c.remove(); });
+        filmGrid.classList.toggle('svc-film-grid--one', items.length === 1);
+        if (fresh.length && filmGrid.__group) filmGrid.__group = filmGrid.__group.concat(fresh);
+      })
+      .catch(function () {});
+  }
+
   // Photography gallery (Claude, 11 Oct 2026). Photos live in assets/data/photography.json and are
   // added, changed and removed in Pages CMS. If the list is empty the placeholder tiles stay.
   var grid = document.querySelector('.svc-gallery-grid[data-photos]');

@@ -1,5 +1,5 @@
 # Pages CMS settings for the Eko Create site (https://pagescms.org). Added by Claude, 7 October 2026.
-# The portfolio videos are stored in assets/data/portfolio.json; assets/js/main.js reads that file.
+# The portfolio videos are stored in assets/data/portfolio.json; assets/js/main.js reads that file, and assets/js/pages.js reads it for the service pages' Recent projects (17 Oct 2026).
 # The photography gallery is stored in assets/data/photography.json; assets/js/pages.js reads that file (added 11 Oct 2026).
 # Saving in Pages CMS commits to GitHub, and Netlify republishes the site about a minute later.
 media:
@@ -49,6 +49,13 @@ content:
             label: Featured
             description: Adds the featured style when the video is one of the first three shown.
             type: boolean
+          - name: pages
+            label: Also show on
+            description: "Tick a service page to show this video in its Recent projects section, in the same order as this list. Thumbnails come straight from Vimeo."
+            type: select
+            options:
+              multiple: true
+              values: [Corporate video, Animation, Social media, Podcast]
   - name: photography
     label: Photography gallery
     type: file

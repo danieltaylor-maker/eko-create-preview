@@ -14,7 +14,10 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1233745777/f8b2a0c18b",
       "description": "The promotional film for the North Yorkshire Moors Railway’s Santa Express 2026, featuring Santa, his elves and the railway’s steam trains. Delivered with a set of portrait edits for social media.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Corporate video"
+      ]
     },
     {
       "client": "Aviva",
@@ -22,7 +25,11 @@
       "category": "Social",
       "vimeo": "https://vimeo.com/1233755435/c6f2247316",
       "description": "A teaser for the Aviva Health podcast. The project included a full-length podcast episode and a set of social edits.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Social media",
+        "Podcast"
+      ]
     },
     {
       "client": "UK Government",
@@ -30,7 +37,10 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1190711615/713fed7178",
       "description": "A short campaign film featuring Alnwick Garden, part of the UK Government series.",
-      "featured": true
+      "featured": true,
+      "pages": [
+        "Corporate video"
+      ]
     },
     {
       "client": "LNER",
@@ -38,7 +48,10 @@
       "category": "Social",
       "vimeo": "https://vimeo.com/1233756598/61a281c53e",
       "description": "A short social film for LNER featuring Flying Scotsman at King’s Cross.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Social media"
+      ]
     },
     {
       "client": "TSB",
@@ -54,7 +67,10 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1190711606/9f5bc2a80f",
       "description": "A film focused on wellbeing, bringing Aviva’s message into a clear video format.",
-      "featured": true
+      "featured": true,
+      "pages": [
+        "Corporate video"
+      ]
     },
     {
       "client": "Elsevier",
@@ -62,7 +78,10 @@
       "category": "Motion",
       "vimeo": "https://vimeo.com/1190719360/15acc92f7b",
       "description": "A company film introducing Elsevier and its work in research and information.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Animation"
+      ]
     },
     {
       "client": "UK Government",
@@ -70,7 +89,10 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1190711638/da0169c853",
       "description": "A short campaign film featuring SeaGrown, one of the organisations highlighted in this UK Government series.",
-      "featured": true
+      "featured": true,
+      "pages": [
+        "Social media"
+      ]
     },
     {
       "client": "Aviva",
@@ -78,7 +100,10 @@
       "category": "Film",
       "vimeo": "https://vimeo.com/1190717933/0193e2cf9c",
       "description": "Kirsty tells her story on camera in this film for Aviva.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Corporate video"
+      ]
     },
     {
       "client": "Stowe Family Law",
@@ -118,7 +143,10 @@
       "category": "Social",
       "vimeo": "https://vimeo.com/1190711570/b2c4f3ce42",
       "description": "A short film featuring composer Yoav Goren at AIR Studios.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Social media"
+      ]
     },
     {
       "client": "Stowe Family Law",
@@ -126,7 +154,10 @@
       "category": "Motion",
       "vimeo": "https://vimeo.com/1190718097/bdbfcf5a12",
       "description": "An animated introduction to Stowe Family Law, using motion to communicate the firm’s message.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Animation"
+      ]
     },
     {
       "client": "Heineken",
@@ -142,7 +173,10 @@
       "category": "Motion",
       "vimeo": "https://vimeo.com/1190718003/478d0a9882",
       "description": "A video introducing BT’s Workplace communication platform.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Animation"
+      ]
     },
     {
       "client": "Aviva",
@@ -158,7 +192,10 @@
       "category": "Motion",
       "vimeo": "https://vimeo.com/1190717821/5c5263f5c9",
       "description": "A video introducing AA’s MyHR service and its role in employee communications.",
-      "featured": false
+      "featured": false,
+      "pages": [
+        "Animation"
+      ]
     },
     {
       "client": "Quote me happy",
