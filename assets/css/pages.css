@@ -262,6 +262,8 @@
 .svc-client-grid img[src$="-cream.svg"]{filter:none;max-height:62px}
 .svc-client-grid img[src$="st-leonards.svg"]{max-height:62px}
 .svc-client-grid img[src$="costcutter.svg"]{max-width:170px}
+.svc-client-grid img[src$="york-museums-trust.svg"]{max-height:76px}.svc-client-grid img[src$="vpi.svg"]{max-height:36px}
+@media(max-width:680px){.svc-client-grid img[src$="york-museums-trust.svg"]{max-height:56px}.svc-client-grid img[src$="vpi.svg"]{max-height:28px}}
 @media(max-width:980px){.svc-client-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:680px){.svc-client-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.svc-client-grid li{height:84px;padding:14px 18px}.svc-client-grid img{max-width:118px;max-height:36px}.svc-client-grid img[src$="-cream.svg"],.svc-client-grid img[src$="st-leonards.svg"]{max-height:46px}}
 @media(prefers-reduced-motion:reduce){.svc-client-grid li{transition:none}.svc-client-grid li:hover{transform:none}}
