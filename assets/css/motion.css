@@ -79,8 +79,8 @@ html .site-header[data-animate]{filter:none!important;will-change:auto}
 
 /* ---------- 4. Cards and service links ---------- */
 /* Homepage service cards: an orange line draws across the top and the icon lifts */
-html .service-card{background-image:linear-gradient(var(--mx-orange),var(--mx-orange));background-repeat:no-repeat;background-size:0 2px;background-position:0 0;transition:background-size .8s var(--mx-ease),border-color .4s ease,box-shadow .4s ease}
-html .service-card:hover{background:linear-gradient(var(--mx-orange),var(--mx-orange)) 0 0/100% 2px no-repeat}
+html .service-card{background-image:linear-gradient(var(--mx-orange),var(--mx-orange));background-repeat:no-repeat;background-size:0 1.5px;background-position:0 0;transition:background-size .8s var(--mx-ease),border-color .4s ease,box-shadow .4s ease}
+html .service-card:hover{background:linear-gradient(var(--mx-orange),var(--mx-orange)) 0 0/100% 1.5px no-repeat}
 .service-card .svc-ico,.service-card .service-icon{transition:transform .6s var(--mx-ease)}
 .service-card:hover .svc-ico,.service-card:hover .service-icon{transform:translateY(-4px)}
 .service-card h3 a{transition:color .3s ease}

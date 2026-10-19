@@ -181,3 +181,6 @@ a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
   html.hero-video-pending .hero.video-fallback .hero-media{opacity:1;transition:opacity .8s ease}
 }
 /* Top nav Services panel: moved to assets/css/motion.css (Claude, 16 Oct 2026) */
+/* Services list, tightened (Dan, 19 Oct 2026): icon column as before, title-to-description gap about 22% smaller,
+   rows about 12% shorter, descriptions a little narrower so they wrap evenly, still centred on the title. */
+@media(min-width:981px){.service-card{grid-template-columns:123px 320px minmax(0,1fr);padding:28px 0}.service-card p{max-width:31em;margin:0}}
