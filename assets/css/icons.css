@@ -183,4 +183,6 @@ a.client-marquee:focus-visible{outline:2px solid #FF754A;outline-offset:4px}
 /* Top nav Services panel: moved to assets/css/motion.css (Claude, 16 Oct 2026) */
 /* Services list, tightened (Dan, 19 Oct 2026): icon column as before, title-to-description gap about 22% smaller,
    rows about 12% shorter, descriptions a little narrower so they wrap evenly, still centred on the title. */
-@media(min-width:981px){.service-card{grid-template-columns:123px 320px minmax(0,1fr);padding:28px 0}.service-card p{max-width:31em;margin:0}}
+@media(min-width:981px){.service-card{grid-template-columns:123px 320px minmax(0,1fr);padding:28px 0}.service-card p{max-width:44em;margin:0}}
+/* Lead phrase of each description in the heading navy, the rest stays in the softer grey-blue (Dan, 19 Oct 2026). */
+.service-card p strong{color:var(--navy,#101D31);font-weight:600}
