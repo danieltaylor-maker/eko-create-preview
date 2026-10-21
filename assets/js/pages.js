@@ -549,3 +549,20 @@
   if ('ResizeObserver' in window) { var col = deck.closest('.svc-story-grid > div'); if (col) new ResizeObserver(align).observe(col); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
 })();
+
+// Founder block entrance: once, on entering the viewport; skipped for reduced motion
+(function () {
+  var s = document.querySelector('.svc-founder');
+  if (!s || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var r = s.getBoundingClientRect();
+  if (r.top < window.innerHeight * 0.85 && r.bottom > 0) return; // already on screen at load: show as is
+  s.classList.add('fd-armed');
+  var io = new IntersectionObserver(function (en) {
+    en.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      s.classList.add('fd-in'); io.disconnect();
+    });
+  }, { rootMargin: '0px 0px -18% 0px', threshold: 0 });
+  io.observe(s.querySelector('.svc-founder-card') || s);
+})();
