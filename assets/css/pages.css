@@ -389,3 +389,4 @@
   .svc-founder.fd-armed .svc-founder-q{transform:none;transition-delay:.12s}
 }
 @media(prefers-reduced-motion:reduce){.svc-founder.fd-armed .svc-founder-photo,.svc-founder.fd-armed .svc-founder-txt,.svc-founder.fd-armed .svc-founder-q{opacity:1!important;transform:none!important;transition:none!important}}
+.svc-founder h2.mx-split .mx-wi{transform:none!important;transition:none!important}  /* name is a signature: no word-rise, it arrives with the panel */
