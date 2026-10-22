@@ -147,3 +147,26 @@
 /norwich-union  /#portfolio  301
 /eko-win-major-filming-project-with-ryedale-council  /#portfolio  301
 /portfolio-showreel-for-sense-internet  /#portfolio  301
+
+# Old-site addresses seen in Analytics as "Page not found" (22 Oct 2026)
+/work  /#portfolio  301
+/work/  /#portfolio  301
+/:post/feed  /#portfolio  301
+/:post/feed/  /#portfolio  301
+/thanks.html  /  301
+/about-us  /about/  301
+/meet-the-eko-team  /about/  301
+/team  /about/  301
+/our-team  /about/  301
+/the-team  /about/  301
+/people  /about/  301
+/our-people  /about/  301
+/founders  /about/  301
+/leadership  /about/  301
+/management  /about/  301
+# Bot probes for WordPress and old dev files: plain 404 that doesn't load Analytics
+/wp-json/*  /404-plain.html  404
+/wp-admin/*  /404-plain.html  404
+/wp-login.php  /404-plain.html  404
+/xmlrpc.php  /404-plain.html  404
+/dev/*  /404-plain.html  404
