@@ -16,7 +16,7 @@
 /works             /#portfolio    301
 /gallery           /#portfolio    301
 /case-studies      /#portfolio    301
-/our-clients       /#clients      301
+/our-clients       /clients/      301
 /contact           /#contact      301
 
 # Section folders: anything beneath them
