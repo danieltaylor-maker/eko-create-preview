@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Contact form setup | eko create</title>
+</head>
+<body>
+<!-- Added by Claude, 16 November 2026. Do not delete.
+     This page is never linked or shown. It tells Netlify that the "contact" form exists, which fields it has,
+     and that it is protected by Google reCAPTCHA. The real form is on the homepage; it loads reCAPTCHA only
+     when a visitor gets near it (assets/js/main.js), which keeps 1MB of Google code out of the first page load.
+     The field names here must match the homepage form. -->
+<form name="contact" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true" hidden>
+  <input name="bot-field">
+  <input type="text" name="name">
+  <input type="email" name="contact_email">
+  <textarea name="message"></textarea>
+  <div data-netlify-recaptcha="true"></div>
+</form>
+</body>
+</html>

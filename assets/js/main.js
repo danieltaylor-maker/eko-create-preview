@@ -359,3 +359,46 @@ function initScrollMotion() {
   preference.addEventListener('change', schedule);
   paint();
 }
+
+/* Contact form: load Google reCAPTCHA only when the visitor gets near the form (Claude, 16 Nov 2026).
+   Netlify used to add reCAPTCHA (over 1MB) to every page load. The form is now declared to Netlify in
+   /contact-form-setup.html, and the site key Netlify puts there is read from that page when needed. */
+(function () {
+  var form = document.querySelector('.contact-form');
+  var slot = form && form.querySelector('.captcha-widget');
+  if (!form || !slot) return;
+  var state = 0; // 0 not started, 1 loading, 2 ready
+  function load() {
+    if (state) return;
+    state = 1;
+    fetch('/contact-form-setup.html').then(function (r) { return r.text(); }).then(function (html) {
+      var key = html.match(/data-sitekey=["']([^"']+)["']/);
+      if (!key) throw new Error('no site key');
+      window.ekoCaptchaReady = function () {
+        window.grecaptcha.render(slot, { sitekey: key[1] });
+        state = 2;
+      };
+      var s = document.createElement('script');
+      s.src = 'https://www.google.com/recaptcha/api.js?onload=ekoCaptchaReady&render=explicit';
+      s.async = true;
+      s.onerror = function () { state = 0; };
+      document.head.appendChild(s);
+    }).catch(function () { state = 0; });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
+    }, { rootMargin: '900px 0px' });
+    io.observe(form);
+  } else {
+    load();
+  }
+  form.addEventListener('focusin', load);
+  form.addEventListener('submit', function (e) {
+    var answer = form.querySelector('[name="g-recaptcha-response"]');
+    if (answer && answer.value) return;
+    e.preventDefault();
+    load();
+    slot.parentElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  });
+})();

@@ -2,3 +2,13 @@
 # The font file never changes, so browsers may keep it for a year instead of re-checking on every visit.
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Added by Claude, 16 November 2026. Photos, logos and the hero video rarely change, so browsers may keep
+# them for a week instead of re-checking on every visit. If one is replaced, give it a new file name
+# (or add ?v=... where it is used) so visitors see the new one straight away.
+/assets/images/*
+  Cache-Control: public, max-age=604800
+/assets/logos/*
+  Cache-Control: public, max-age=604800
+/assets/video/*
+  Cache-Control: public, max-age=604800
