@@ -25,7 +25,8 @@
   <meta name="twitter:description" content="Video, social and motion content for brands and organisations.">
   <meta name="twitter:image" content="https://eko-create.com/assets/images/share.jpg">
   <link rel="preload" href="assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/images/hero.jpg" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/images/hero-slate-phone.jpg" as="image" fetchpriority="high" media="(max-width: 680px)">
+  <link rel="preload" href="assets/images/hero-slate.jpg" as="image" fetchpriority="high" media="(min-width: 681px)">
   <link rel="preconnect" href="https://player.vimeo.com">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
@@ -33,7 +34,7 @@
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <!-- Hero video on desktop: hide the photo from the very first paint so it doesn't flash before the video (Claude, 15 Oct 2026) -->
   <script>try{if(matchMedia('(min-width: 981px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!(navigator.connection&&navigator.connection.saveData))document.documentElement.classList.add('hero-video-pending')}catch(e){}</script>
-  <link rel="stylesheet" href="assets/css/home.bundle.css?v=52380693">
+  <link rel="stylesheet" href="assets/css/home.bundle.css?v=a70f09b4">
   <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('mx');if(matchMedia('(min-width: 981px)').matches)document.documentElement.classList.add('mx-full')}}catch(e){}</script>
   <script defer src="assets/js/motion.js?v=20261018-f1"></script>
   <!-- Business details for search engines. Every value is taken from this page or from Eko's Google listing. -->
